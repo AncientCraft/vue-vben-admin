@@ -68,7 +68,7 @@
     },
     setup() {
       const state = reactive({
-        server: 'ws://localhost:3300/test',
+        server: 'ws://localhost:9001',
         sendValue: '',
         recordList: [] as { id: number; time: number; res: string }[],
       });

@@ -32,6 +32,7 @@
   import { BasicTable, useTable, BasicColumn, TableImg } from '/@/components/Table';
   import { Tag, Avatar } from 'ant-design-vue';
   import { demoListApi } from '/@/api/demo/table';
+
   const columns: BasicColumn[] = [
     {
       title: 'ID',
@@ -49,7 +50,7 @@
       dataIndex: 'category',
       width: 80,
       align: 'center',
-      defaultHidden: true,
+      defaultHidden: false,
       // slots: { customRender: 'category' },
     },
     {
