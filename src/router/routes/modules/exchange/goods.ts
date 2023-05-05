@@ -10,6 +10,7 @@ const goods: AppRouteModule = {
   meta: {
     icon: 'simple-icons:hive-blockchain',
     title: t('routes.goods.root'),
+    orderNo: 20,
   },
   children: [
     {

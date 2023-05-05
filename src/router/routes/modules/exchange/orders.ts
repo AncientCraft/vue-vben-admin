@@ -1,7 +1,7 @@
 import type { AppRouteModule } from '/@/router/types';
 import { LAYOUT } from '/@/router/constant';
 
-const goods: AppRouteModule = {
+const order: AppRouteModule = {
   path: '/order',
   name: 'Orders',
   component: LAYOUT,
@@ -9,6 +9,7 @@ const goods: AppRouteModule = {
   meta: {
     icon: 'simple-icons:hive-blockchain',
     title: '订单',
+    orderNo: 30,
   },
   children: [
     {
@@ -50,4 +51,4 @@ const goods: AppRouteModule = {
   ],
 };
 
-export default goods;
+export default order;
