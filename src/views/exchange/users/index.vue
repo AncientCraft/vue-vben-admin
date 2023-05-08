@@ -1,29 +1,31 @@
 <template>
   <div class="p-4">
     <BasicTable @register="registerTable">
-      <template #action="{ record }">
-        <TableAction
-          :actions="[
-            {
-              label: '实名认证',
-              icon: 'ic:outline-delete-outline',
-              onClick: handleVerify.bind(null, record),
-              auth: 'super', // 根据权限控制是否显示: 有权限，会显示
-            },
-            {
-              label: '编辑',
-              icon: 'ic:outline-delete-outline',
-              onClick: handleDelete.bind(null, record),
-              auth: 'super', // 根据权限控制是否显示: 有权限，会显示
-            },
-            {
-              label: '冻结',
-              icon: 'ic:outline-delete-outline',
-              onClick: handleDelete.bind(null, record),
-              auth: 'super', // 根据权限控制是否显示: 有权限，会显示
-            },
-          ]"
-        />
+      <template #bodyCell="{ column, record }">
+        <template v-if="column.key === 'action'">
+          <TableAction
+            :actions="[
+              {
+                label: '实名认证',
+                icon: 'ic:outline-delete-outline',
+                onClick: handleVerify.bind(null, record),
+                auth: 'super', // 根据权限控制是否显示: 有权限，会显示
+              },
+              {
+                label: '编辑',
+                icon: 'ic:outline-delete-outline',
+                onClick: handleEdit.bind(null, record),
+                auth: 'super', // 根据权限控制是否显示: 有权限，会显示
+              },
+              // {
+              //   label: '冻结',
+              //   icon: 'ic:outline-delete-outline',
+              //   onClick: handleDelete.bind(null, record),
+              //   auth: 'super', // 根据权限控制是否显示: 有权限，会显示
+              // },
+            ]"
+          />
+        </template>
       </template>
     </BasicTable>
   </div>
@@ -48,7 +50,7 @@
     components: { BasicTable, TableAction, EditUser, VerifyUser },
     setup() {
       const [registerTable] = useTable({
-        title: 'TableAction组件及固定列示例',
+        title: '会员列表',
         api: getGoodsApi,
         useSearchForm: true,
         columns: getBasicColumns(),
@@ -56,9 +58,9 @@
         bordered: true,
         actionColumn: {
           width: 100,
-          title: 'Action',
+          title: '操作',
           dataIndex: 'action',
-          slots: { customRender: 'action' },
+          // slots: { customRender: 'action' },
         },
       });
 
@@ -66,10 +68,10 @@
       const [registerVerify, { openModal: openVerify }] = useModal();
 
       // eslint-disable-next-line no-undef
-      function handleDelete(record: Recordable) {
+      function handleEdit(record: Recordable) {
         console.log('点击了删除', record);
         openModal(true, {
-          name: 'content',
+          id: 123,
         });
         console.log('点击了编辑', record);
       }
@@ -77,14 +79,14 @@
       function handleVerify(record: Recordable) {
         console.log('点击了删除', record);
         openVerify(true, {
-          name: 'content',
+          id: 123,
         });
         console.log('点击了编辑', record);
       }
 
       return {
         registerTable,
-        handleDelete,
+        handleEdit,
         handleVerify,
         registerModal,
         openModal,

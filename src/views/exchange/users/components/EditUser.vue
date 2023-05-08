@@ -5,9 +5,12 @@
     title="编辑会员"
     @visible-change="handleVisibleChange"
     width="900px"
+    footer-hide
+    :showOkBtn="false"
+    :showCancelBtn="false"
   >
     <div class="pt-3px pr-3px">
-      <BasicForm @register="registerForm" :model="model" />
+      <BasicForm @register="registerForm" :model="model" @submit="handleSubmit" />
     </div>
   </BasicModal>
 </template>
@@ -15,9 +18,7 @@
   import { defineComponent, ref, nextTick } from 'vue';
   import { BasicModal, useModalInner } from '/@/components/Modal';
   import { BasicForm, FormSchema, useForm } from '/@/components/Form/index';
-  import { getGoodsApi } from '/@/api/exchange/goods';
-  // import { EditParams } from '/@/api/exchange/model/goodsModel';
-  // import { getEditGoodsColumns } from '../tableData';
+  import { getUserApi } from '/@/api/exchange/user';
 
   const schemas: FormSchema[] = [
     {
@@ -173,10 +174,10 @@
       //   // getGoodsApi(params);
       // });
       const modelRef = ref({});
-      const [registerForm] = useForm({
+      const [registerForm, { setFieldsValue }] = useForm({
         labelWidth: 120,
         schemas,
-        showActionButtonGroup: false,
+        showActionButtonGroup: true,
         actionColOptions: {
           span: 24,
         },
@@ -188,16 +189,13 @@
 
       async function onDataReceive(data) {
         console.log('Data Received', data);
-        const result = await getGoodsApi(data);
-        console.log(result.items[0]);
+        const result = await getUserApi(data);
+        console.log(result);
         // 方式1;
-        // setFieldsValue({
-        //   field2: data.data,
-        //   field1: data.info,
-        // });
+        setFieldsValue(result);
 
         // // 方式2
-        modelRef.value = { field2: data.data, field1: data.info };
+        // modelRef.value = { field2: data.data, field1: data.info };
 
         // setProps({
         //   model:{ field2: data.data, field1: data.info }
@@ -208,7 +206,22 @@
         v && props.userData && nextTick(() => onDataReceive(props.userData));
       }
 
-      return { register, schemas, registerForm, model: modelRef, handleVisibleChange };
+      function handleSubmit(values: any) {
+        console.log(values);
+        // getGoodsApi(values);
+        // let ccc = { ...values, id: 'John Doe' };
+        // console.log(ccc);
+        // createMessage.success('click search,values:' + JSON.stringify(values));
+      }
+
+      return {
+        register,
+        schemas,
+        registerForm,
+        model: modelRef,
+        handleVisibleChange,
+        handleSubmit,
+      };
     },
   });
 </script>

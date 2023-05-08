@@ -1,23 +1,25 @@
 <template>
   <div class="p-4">
     <BasicTable @register="registerTable">
-      <template #action="{ record }">
-        <TableAction
-          :actions="[
-            {
-              label: '同意',
-              icon: 'ic:outline-delete-outline',
-              onClick: handleDelete.bind(null, record),
-              auth: 'super', // 根据权限控制是否显示: 有权限，会显示
-            },
-            {
-              label: '拒绝',
-              icon: 'ic:outline-delete-outline',
-              onClick: handleDelete.bind(null, record),
-              auth: 'super', // 根据权限控制是否显示: 有权限，会显示
-            },
-          ]"
-        />
+      <template #bodyCell="{ column, record }">
+        <template v-if="column.key === 'action'">
+          <TableAction
+            :actions="[
+              {
+                label: '同意',
+                icon: 'ic:outline-delete-outline',
+                onClick: handleDelete.bind(null, record),
+                auth: 'super', // 根据权限控制是否显示: 有权限，会显示
+              },
+              {
+                label: '拒绝',
+                icon: 'ic:outline-delete-outline',
+                onClick: handleDelete.bind(null, record),
+                auth: 'super', // 根据权限控制是否显示: 有权限，会显示
+              },
+            ]"
+          />
+        </template>
       </template>
     </BasicTable>
   </div>
@@ -42,7 +44,7 @@
           width: 100,
           title: 'Action',
           dataIndex: 'action',
-          slots: { customRender: 'action' },
+          // slots: { customRender: 'action' },
         },
       });
 

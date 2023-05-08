@@ -2,14 +2,7 @@ import { BasicPageParams, BasicFetchResult } from '/@/api/model/baseModel';
 /**
  * @description: Request list interface parameters
  */
-export type GoodsParams = BasicPageParams;
-
-export interface EditParams {
-  close_day: string;
-  close_time: string;
-  open_day: string;
-  open_time: string;
-}
+export type NoticeParams = BasicPageParams;
 
 export interface ListItem {
   id: string;
@@ -37,4 +30,4 @@ export interface TabItem {
 /**
  * @description: Request list return value
  */
-export type GoodsResultModel = BasicFetchResult<ListItem>;
+export type NoticeResultModel = BasicFetchResult<TabItem>;

@@ -1,3 +1,6 @@
+// import { NoticeListApi } from '/@/api/exchange/notice';
+// import { NoticeParams } from '/@/api/exchange/model/noticeModel';
+
 export interface ListItem {
   id: string;
   avatar: string;
@@ -20,6 +23,13 @@ export interface TabItem {
   list: ListItem[];
   unreadlist?: ListItem[];
 }
+
+// function getList() {
+//   const result = NoticeListApi();
+//   return result;
+// }
+
+// export const tabListData = await getList();
 
 export const tabListData: TabItem[] = [
   {

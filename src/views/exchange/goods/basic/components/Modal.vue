@@ -7,7 +7,7 @@
     width="1600px"
   >
     <div class="pt-3px pr-3px">
-      <BasicForm @register="registerForm" :model="model" />
+      <BasicForm @register="registerForm" :model="model" @submit="handleSubmit" />
     </div>
   </BasicModal>
 </template>
@@ -402,7 +402,18 @@
         v && props.userData && nextTick(() => onDataReceive(props.userData));
       }
 
-      return { register, schemas, registerForm, model: modelRef, handleVisibleChange };
+      return {
+        register,
+        schemas,
+        registerForm,
+        model: modelRef,
+        handleVisibleChange,
+        handleSubmit: (values: any) => {
+          // getGoodsApi(values);
+          console.log(values);
+          // createMessage.success('click search,values:' + JSON.stringify(values));
+        },
+      };
     },
   });
 </script>

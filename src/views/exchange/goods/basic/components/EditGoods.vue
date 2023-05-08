@@ -397,9 +397,13 @@
       return {
         register,
         schemas,
-        handleSubmit: (values: EditParams) => {
-          getGoodsApi(values);
-          console.log(values);
+        // handleSubmit: (values: EditParams) => {
+        //   getGoodsApi(values);
+        //   console.log(values);
+        //   // createMessage.success('click search,values:' + JSON.stringify(values));
+        // },
+        handleSubmit: () => {
+          console.log(1111);
           // createMessage.success('click search,values:' + JSON.stringify(values));
         },
         formData: {
