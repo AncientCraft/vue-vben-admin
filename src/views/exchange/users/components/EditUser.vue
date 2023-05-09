@@ -18,7 +18,7 @@
   import { defineComponent, ref, nextTick } from 'vue';
   import { BasicModal, useModalInner } from '/@/components/Modal';
   import { BasicForm, FormSchema, useForm } from '/@/components/Form/index';
-  import { getUserApi } from '/@/api/exchange/user';
+  import { loginApi } from '/@/api/exchange/user';
 
   const schemas: FormSchema[] = [
     {
@@ -189,7 +189,13 @@
 
       async function onDataReceive(data) {
         console.log('Data Received', data);
-        const result = await getUserApi(data);
+        const params = {
+          username: 'admin',
+          password: '123',
+        };
+
+        const result = await loginApi(params);
+        // const result = await getUserApi(data);
         console.log(result);
         // 方式1;
         setFieldsValue(result);

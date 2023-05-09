@@ -73,7 +73,7 @@
         openModal(true, {
           id: 123,
         });
-        console.log('点击了编辑', record);
+        // console.log('点击了编辑', record);
       }
       // eslint-disable-next-line no-undef
       function handleVerify(record: Recordable) {

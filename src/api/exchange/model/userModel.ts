@@ -7,6 +7,11 @@ export interface GetUserParams {
   id: number | string;
 }
 
+export interface LoginParams {
+  username: string;
+  password: string;
+}
+
 export interface UserInfo {
   account: string;
   readl_name: string;
@@ -23,3 +28,7 @@ export interface UserInfo {
  * @description: Request list return value
  */
 export type UserResultModel = BasicFetchResult<UserInfo>;
+
+export interface LoginModel {
+  code: number;
+}

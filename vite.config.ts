@@ -16,13 +16,13 @@ export default defineApplicationConfig({
     },
     server: {
       proxy: {
-        '/basic-api': {
-          target: 'http://localhost:3000',
-          changeOrigin: true,
+        '/ex-api': {
+          target: 'https://v200.excservice.rosettawe.com',
+          changeOrigin: false,
           ws: true,
-          rewrite: (path) => path.replace(new RegExp(`^/basic-api`), ''),
+          rewrite: (path) => path.replace(new RegExp(`^/ex-api`), ''),
           // only https
-          // secure: false
+          secure: false,
         },
         '/upload': {
           target: 'http://localhost:3300/upload',

@@ -82,6 +82,24 @@ export const useUserStore = defineStore({
     /**
      * @description: login
      */
+    // async login(
+    //   params: LoginParams & {
+    //     goHome?: boolean;
+    //     mode?: ErrorMessageMode;
+    //   },
+    // ): Promise<GetUserInfoModel | null> {
+    //   try {
+    //     const { goHome = true, mode, ...loginParams } = params;
+    //     const data = await loginApi(loginParams, mode);
+    //     const { token } = data;
+
+    //     // save token
+    //     this.setToken(token);
+    //     return this.afterLoginAction(goHome);
+    //   } catch (error) {
+    //     return Promise.reject(error);
+    //   }
+    // },
     async login(
       params: LoginParams & {
         goHome?: boolean;
@@ -95,11 +113,14 @@ export const useUserStore = defineStore({
 
         // save token
         this.setToken(token);
-        return this.afterLoginAction(goHome);
+        const userInfo = await this.getUserInfoAction();
+        goHome && (await router.replace(PageEnum.BASE_HOME));
+        return userInfo;
       } catch (error) {
         return Promise.reject(error);
       }
     },
+
     async afterLoginAction(goHome?: boolean): Promise<GetUserInfoModel | null> {
       if (!this.getToken) return null;
       // get user info
@@ -118,7 +139,8 @@ export const useUserStore = defineStore({
           router.addRoute(PAGE_NOT_FOUND_ROUTE as unknown as RouteRecordRaw);
           permissionStore.setDynamicAddedRoute(true);
         }
-        goHome && (await router.replace(userInfo?.homePath || PageEnum.BASE_HOME));
+        // goHome && (await router.replace(userInfo?.homePath || PageEnum.BASE_HOME));
+        goHome && (await router.replace(PageEnum.BASE_HOME));
       }
       return userInfo;
     },

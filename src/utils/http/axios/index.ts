@@ -278,9 +278,12 @@ function createAxios(opt?: Partial<CreateAxiosOptions>) {
 export const defHttp = createAxios();
 
 // other api url
-// export const otherHttp = createAxios({
-//   requestOptions: {
-//     apiUrl: 'xxx',
-//     urlPrefix: 'xxx',
-//   },
-// });
+export const otherHttp = createAxios({
+  requestOptions: {
+    // apiUrl: 'https://v200.excservice.rosettawe.com/pub',
+    apiUrl: '/ex-api',
+    urlPrefix: '',
+    isTransformResponse: false,
+    isReturnNativeResponse: true,
+  },
+});
