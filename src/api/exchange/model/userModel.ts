@@ -12,7 +12,7 @@ export interface LoginParams {
   password: string;
 }
 
-export interface UserInfo {
+export interface CustomerInfo {
   account: string;
   readl_name: string;
   login_pass: string;
@@ -24,11 +24,30 @@ export interface UserInfo {
   group: string;
 }
 
+export interface RoleInfo {
+  roleName: string;
+  value: string;
+}
+
+export interface UserInfoModel {
+  roles: RoleInfo[];
+  // 用户id
+  userId: string | number;
+  // 用户名
+  username: string;
+  // 真实名字
+  realName: string;
+  // 头像
+  avatar: string;
+  // 介绍
+  desc?: string;
+}
+
+export interface LoginResult {
+  session_id: string;
+}
+
 /**
  * @description: Request list return value
  */
-export type UserResultModel = BasicFetchResult<UserInfo>;
-
-export interface LoginModel {
-  code: number;
-}
+export type UserResultModel = BasicFetchResult<CustomerInfo>;

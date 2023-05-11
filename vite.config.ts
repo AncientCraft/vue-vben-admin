@@ -18,7 +18,7 @@ export default defineApplicationConfig({
       proxy: {
         '/ex-api': {
           target: 'https://v200.excservice.rosettawe.com',
-          changeOrigin: false,
+          changeOrigin: true,
           ws: true,
           rewrite: (path) => path.replace(new RegExp(`^/ex-api`), ''),
           // only https

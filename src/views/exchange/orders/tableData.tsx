@@ -5,14 +5,14 @@ export function getBasicColumns(): BasicColumn[] {
   return [
     {
       title: '订单编号',
-      dataIndex: 'order_no',
+      dataIndex: 'order_id',
       fixed: 'left',
-      width: 50,
+      width: 100,
     },
     {
       title: '会员ID',
       dataIndex: 'user_id',
-      width: 50,
+      width: 40,
     },
     {
       title: '会员名',
@@ -21,7 +21,7 @@ export function getBasicColumns(): BasicColumn[] {
     },
     {
       title: '订单时间',
-      dataIndex: 'order_time',
+      dataIndex: 'create_time',
       width: 100,
       sorter: true,
     },
@@ -40,11 +40,7 @@ export function getBasicColumns(): BasicColumn[] {
       dataIndex: 'position',
       width: 30,
     },
-    {
-      title: '方向',
-      dataIndex: 'position',
-      width: 30,
-    },
+
     {
       title: '时间',
       dataIndex: 'interval',
@@ -53,7 +49,7 @@ export function getBasicColumns(): BasicColumn[] {
     {
       title: '平仓点位',
       dataIndex: 'close_point',
-      width: 30,
+      width: 40,
     },
     {
       title: '委托金额',
@@ -68,6 +64,11 @@ export function getBasicColumns(): BasicColumn[] {
     {
       title: '买后余额',
       dataIndex: 'balance',
+      width: 40,
+    },
+    {
+      title: '盈亏控制',
+      dataIndex: 'control',
       width: 40,
     },
   ];
@@ -255,7 +256,7 @@ export const getAdvanceSchema = (): FormSchema[] => {
     },
     colProps: {
       xl: 12,
-      xxl: 5,
+      xxl: 12,
     },
   });
   return arr;

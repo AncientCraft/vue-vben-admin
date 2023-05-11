@@ -40,6 +40,15 @@ export interface UserInfo {
   roles: RoleInfo[];
 }
 
+// export interface UserInfo {
+//   account: string;
+//   name: string;
+//   role: number;
+//   status: number;
+//   tid: number;
+//   type: number;
+// }
+
 export interface BeforeMiniState {
   menuCollapsed?: boolean;
   menuSplit?: boolean;

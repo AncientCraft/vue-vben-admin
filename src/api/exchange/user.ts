@@ -1,10 +1,12 @@
 import { defHttp, otherHttp } from '/@/utils/http/axios';
 // import { NoticeParams, NoticeResultModel } from './model/noticeModel';
-import { GetUserParams, LoginParams } from './model/userModel';
+import { GetUserParams, LoginParams, LoginResult } from './model/userModel';
 
 enum Api {
   User = '/user/edit',
   Login = '/pub/login',
+  Logout = '/usr/logout',
+  UserInfo = 'usr/adminUserInfo',
   Users = 'usr/searchUser',
 }
 
@@ -17,39 +19,26 @@ export function getUserApi(params: GetUserParams) {
 }
 
 export function loginApi(params: LoginParams) {
-  return otherHttp.get({
-    url: Api.Login,
-    params,
-  });
-  // .then((response) => {
-  //   console.log(1111111);
-  //   // console.log(response);
-  //   // 访问 headers 对象并获取 cookie 值
-  //   // const setCookieHeader = response.headers['set-cookie'];
-  //   // const sessionID = parseCookieValue(setCookieHeader);
-  //   // 返回响应数据和会话 ID
-  //   // return response;
-  //   // return {
-  //   //   data: response.data,
-  //   //   sessionId: sessionID,
-  //   // };
-  // });
+  return otherHttp
+    .request<LoginResult>({
+      method: 'GET',
+      url: Api.Login,
+      params,
+    })
+    .then((data) => {
+      return data.session_id;
+    });
 }
 
-// const parseCookieValue = (header: string | string[]) => {
-//   if (!Array.isArray(header)) {
-//     header = [header];
-//   }
+export function userInfoApi() {
+  return otherHttp.get({ url: Api.UserInfo }).then((data) => {
+    return data.result;
+  });
+}
 
-//   for (let i = 0; i < header.length; i++) {
-//     const cookie = header[i].split(';')[0];
-//     if (cookie.indexOf('session_id=') === 0) {
-//       return cookie.split('=')[1];
-//     }
-//   }
-
-//   return null;
-// };
+export function logoutApi() {
+  return otherHttp.get({ url: Api.Logout });
+}
 
 export function usersApi(params) {
   return otherHttp.get({

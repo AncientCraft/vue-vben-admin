@@ -284,6 +284,7 @@ export const otherHttp = createAxios({
     apiUrl: '/ex-api',
     urlPrefix: '',
     isTransformResponse: false,
-    isReturnNativeResponse: true,
+    // isReturnNativeResponse: true,
+    joinTime: false,
   },
 });

@@ -8,6 +8,7 @@
   import { ref } from 'vue';
   import { Card, Button } from 'ant-design-vue';
   import { usersApi, loginApi } from '/@/api/exchange/user';
+  import { mergeList } from '/@/utils/lists';
 
   const loading = ref(false);
 
@@ -23,13 +24,16 @@
   };
 
   const user = async () => {
-    console.log('user');
     const params = {
       offset: 1,
       limit: 3,
     };
 
     const result = await usersApi(params);
-    console.log(result);
+
+    const { users, balances } = result;
+
+    const rr = mergeList(users, balances);
+    console.log(rr);
   };
 </script>

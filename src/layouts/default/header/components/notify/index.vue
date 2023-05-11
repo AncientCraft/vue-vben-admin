@@ -23,14 +23,15 @@
   </div>
 </template>
 <script lang="ts">
-  import { computed, defineComponent, ref, watchEffect, reactive, onMounted } from 'vue';
+  // import { computed, defineComponent, ref, watchEffect, reactive } from 'vue';
+  import { computed, defineComponent, ref } from 'vue';
   import { Popover, Tabs, Badge } from 'ant-design-vue';
   import { BellOutlined } from '@ant-design/icons-vue';
   import { tabListData, ListItem } from './data';
   import NoticeList from './NoticeList.vue';
   import { useDesign } from '/@/hooks/web/useDesign';
   import { useMessage } from '/@/hooks/web/useMessage';
-  import { useWebSocket } from '@vueuse/core';
+  // import { useWebSocket } from '@vueuse/core';
   import { useGo } from '/@/hooks/web/usePage';
 
   export default defineComponent({
@@ -58,57 +59,44 @@
         record.titleDelete = !record.titleDelete;
       }
 
-      const state = reactive({
-        server: 'ws://localhost:9001',
-        sendValue: '',
-        recordList: [] as { id: number; time: number; res: string }[],
-      });
+      // const state = reactive({
+      //   server: 'ws://localhost:9001',
+      //   sendValue: '',
+      //   recordList: [] as { id: number; time: number; res: string }[],
+      // });
 
-      // const { status, data, send, close, open } = useWebSocket(state.server, {
+      // // const { status, data, send, close, open } = useWebSocket(state.server, {
+      // //   autoReconnect: true,
+      // //   heartbeat: true,
+      // // });
+
+      // // const { status, data } = useWebSocket(state.server, {
+      // //   autoReconnect: true,
+      // //   heartbeat: true,
+      // // });
+
+      // const { data } = useWebSocket(state.server, {
       //   autoReconnect: true,
       //   heartbeat: true,
       // });
 
-      // const { status, data } = useWebSocket(state.server, {
-      //   autoReconnect: true,
-      //   heartbeat: true,
+      // watchEffect(() => {
+      //   if (data.value) {
+      //     console.log(data.value);
+      //     try {
+      //       const res = JSON.parse(data.value);
+      //       state.recordList.push(res);
+      //     } catch (error) {
+      //       state.recordList.push({
+      //         res: data.value,
+      //         id: Math.ceil(Math.random() * 1000),
+      //         time: new Date().getTime(),
+      //       });
+      //     }
+      //   }
       // });
-
-      const { data } = useWebSocket(state.server, {
-        autoReconnect: true,
-        heartbeat: true,
-      });
-
-      watchEffect(() => {
-        if (data.value) {
-          console.log(data.value);
-          try {
-            const res = JSON.parse(data.value);
-            state.recordList.push(res);
-          } catch (error) {
-            state.recordList.push({
-              res: data.value,
-              id: Math.ceil(Math.random() * 1000),
-              time: new Date().getTime(),
-            });
-          }
-        }
-      });
 
       // const getIsOpen = computed(() => status.value === 'OPEN');
-
-      onMounted(() => {
-        // 在这里编写需要执行的逻辑代码
-        // console.log(getIsOpen.value);
-        // if (!getIsOpen.value) {
-        //   console.log('going here');
-        //   open();
-        //   console.log(getIsOpen.value);
-        // }
-        // if (getIsOpen.value) {
-        //   console.log('ws opened');
-        // }
-      });
 
       return {
         prefixCls,

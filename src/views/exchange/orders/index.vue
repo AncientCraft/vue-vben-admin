@@ -44,25 +44,54 @@
   import { defineComponent } from 'vue';
   import { BasicTable, useTable, TableAction } from '/@/components/Table';
   import { getBasicColumns, getFormConfig } from './tableData';
-  import { getGoodsApi } from '/@/api/exchange/goods';
+  import { orderApi } from '/@/api/exchange/orders';
+  import { stransformParams, timestamp_to_string } from '/@/utils/lists';
 
   export default defineComponent({
     components: { BasicTable, TableAction },
     setup() {
       const [registerTable] = useTable({
-        title: 'TableAction组件及固定列示例',
-        api: getGoodsApi,
+        title: '订单列表',
+        api: orderApi,
         useSearchForm: true,
         columns: getBasicColumns(),
         formConfig: getFormConfig(),
         bordered: true,
+        beforeFetch: stransformParams,
+        afterFetch: handleData,
         actionColumn: {
           width: 100,
-          title: 'Action',
+          title: '操作',
           dataIndex: 'action',
           // slots: { customRender: 'action' },
         },
       });
+
+      // function handleParams(params) {
+      //   console.log(params);
+      //   const { page, pageSize, start_time, end_time, ...rest } = params;
+      //   console.log(start_time);
+      //   console.log(end_time);
+      //   const newParams = {
+      //     skip: page - 1,
+      //     limit: pageSize,
+      //   };
+      //   return { start_time, end_time, ...newParams, ...rest };
+      // }
+
+      function handleData(data) {
+        console.log(data);
+        const result = data.map((item) => {
+          const { create_time, ...rest } = item;
+          const newTime = timestamp_to_string(create_time);
+          const newItem = {
+            create_time: newTime,
+          };
+          return { ...newItem, ...rest };
+        });
+        // console.log(result);
+        return result;
+      }
 
       // eslint-disable-next-line no-undef
       function handleDelete(record: Recordable) {
