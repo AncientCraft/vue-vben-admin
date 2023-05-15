@@ -5,6 +5,7 @@
     title="编辑会员"
     @visible-change="handleVisibleChange"
     width="900px"
+    footer-hide
     :showOkBtn="false"
     :showCancelBtn="false"
   >
@@ -17,7 +18,7 @@
   import { defineComponent, ref, nextTick } from 'vue';
   import { BasicModal, useModalInner } from '/@/components/Modal';
   import { BasicForm, FormSchema, useForm } from '/@/components/Form/index';
-  import { certifiedApi } from '/@/api/exchange/member';
+  import { changeBalnceApi } from '/@/api/exchange/member';
   import { okOrFail } from '/@/utils/lists';
 
   const schemas: FormSchema[] = [
@@ -30,47 +31,55 @@
       },
     },
     {
-      field: 'real_name',
+      field: 'user_id',
       component: 'Input',
-      label: '姓名',
+      label: '用户ID',
       required: true,
       colProps: {
-        span: 7,
+        span: 8,
       },
       componentProps: {
-        placeholder: '请输真实姓名',
-        // onChange: (e: any) => {
-        //   console.log(e);
-        // },
+        disabled: true,
       },
     },
     {
-      field: 'id_no',
+      field: 'readl_name',
       component: 'Input',
-      label: '身份证号码',
+      label: '姓名',
       colProps: {
-        span: 15,
+        span: 8,
       },
       componentProps: {
-        placeholder: '请输身份证号码',
+        disabled: true,
       },
     },
 
     {
-      field: 'veryfy',
+      field: 'balance',
+      component: 'Input',
+      label: '总余额',
+      colProps: {
+        span: 8,
+      },
+      componentProps: {
+        disabled: true,
+      },
+    },
+    {
+      field: 'type',
       component: 'Select',
-      label: '审核',
+      label: '金额变动方向',
       required: true,
-      defaultValue: '1',
+      defaultValue: 200,
       componentProps: {
         options: [
           {
-            label: '通过',
-            value: '1',
+            label: '增加',
+            value: 200,
           },
           {
-            label: '驳回',
-            value: '2',
+            label: '减少',
+            value: 100,
           },
         ],
       },
@@ -79,44 +88,14 @@
       },
     },
     {
-      field: 'd2',
-      component: 'Divider',
-      label: '银行卡信息',
-      colProps: {
-        span: 24,
-      },
-    },
-    {
-      field: 'bank_name',
+      field: 'changed',
       component: 'Input',
-      label: '所属银行',
+      label: '变化金额',
       colProps: {
-        span: 20,
+        span: 8,
       },
       componentProps: {
-        placeholder: '请输入银行名称',
-      },
-    },
-    {
-      field: 'bank_branch',
-      component: 'Input',
-      label: '支行名称',
-      colProps: {
-        span: 20,
-      },
-      componentProps: {
-        placeholder: '请输入银行支行',
-      },
-    },
-    {
-      field: 'bank_acount',
-      component: 'Input',
-      label: '银行卡号',
-      colProps: {
-        span: 20,
-      },
-      componentProps: {
-        placeholder: '请输入银行卡号',
+        placeholder: '请输小数精确到2位',
       },
     },
   ];
@@ -126,13 +105,30 @@
       userData: { type: Object },
     },
     setup(props) {
+      // onMounted(() => {
+      //   // 在这里编写需要执行的逻辑代码
+      //   console.log('editgoods组件已经挂载');
+      //   // const params: EditParams = {
+      //   //   open_day: '12374637647',
+      //   //   close_day: '123',
+      //   //   open_time: '123',
+      //   //   close_time: '123',
+      //   // };
+
+      //   // setFieldsValue(params);
+
+      //   // getGoodsApi(params);
+      // });
       const modelRef = ref({});
-      const [registerForm] = useForm({
+      const [registerForm, { setFieldsValue }] = useForm({
         labelWidth: 120,
         schemas,
         showActionButtonGroup: true,
         actionColOptions: {
           span: 24,
+        },
+        submitButtonOptions: {
+          text: '提交',
         },
       });
 
@@ -142,13 +138,10 @@
 
       async function onDataReceive(data) {
         // 方式1;
-        // setFieldsValue({
-        //   field2: data.data,
-        //   field1: data.info,
-        // });
+        setFieldsValue(data);
 
         // // 方式2
-        modelRef.value = { field2: data.data, field1: data.info };
+        // modelRef.value = { field2: data.data, field1: data.info };
 
         // setProps({
         //   model:{ field2: data.data, field1: data.info }
@@ -160,14 +153,14 @@
       }
 
       async function handleSubmit(values: any) {
-        console.log(values);
+        // console.log(values);
         const params = {
           user_id: values.user_id,
           changed: parseInt(values.changed),
           type: values.type,
         };
-        console.log(params);
-        const r = await certifiedApi(params);
+        // console.log(params);
+        const r = await changeBalnceApi(params);
         okOrFail(r);
       }
 

@@ -1,28 +1,36 @@
-import { defHttp } from '/@/utils/http/axios';
-import {
-  GoodsParams,
-  GoodsResultModel,
-  EditParams,
-  EditGoodsResultModel,
-} from './model/goodsModel';
+import { otherHttp } from '/@/utils/http/axios';
+// import {
+//   GoodsParams,
+//   GoodsResultModel,
+//   EditParams,
+//   EditGoodsResultModel,
+// } from './model/goodsModel';
 
 enum Api {
-  Goods = '/goods/list',
-  EditGoods = '/goods/edit',
+  Goods = '/usr/searchProduct',
+  UpdateGoods = '/admin/updateProduct',
 }
 
-export function goodsListApi(params: GoodsParams) {
-  return defHttp.request<GoodsResultModel>({
-    url: Api.Goods,
-    method: 'POST',
-    params,
-  });
+export function goodsListApi(params: any) {
+  return otherHttp
+    .request({
+      url: Api.Goods,
+      method: 'get',
+      params,
+    })
+    .then((respond) => {
+      const data = {
+        items: respond.products,
+        total: respond.total,
+      };
+      return data;
+    });
 }
 
-export function getGoodsApi(params: EditParams) {
-  return defHttp.request<EditGoodsResultModel>({
-    url: Api.EditGoods,
-    method: 'POST',
+export function updateGoodsApi(params: any) {
+  return otherHttp.request({
+    url: Api.UpdateGoods,
+    method: 'post',
     params,
   });
 }

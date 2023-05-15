@@ -45,7 +45,7 @@
   import { BasicTable, useTable, TableAction } from '/@/components/Table';
   import { getBasicColumns, getFormConfig } from './tableData';
   import { orderApi } from '/@/api/exchange/orders';
-  import { stransformParams, timestamp_to_string } from '/@/utils/lists';
+  import { orderParams, stransformData } from '/@/utils/lists';
 
   export default defineComponent({
     components: { BasicTable, TableAction },
@@ -57,8 +57,8 @@
         columns: getBasicColumns(),
         formConfig: getFormConfig(),
         bordered: true,
-        beforeFetch: stransformParams,
-        afterFetch: handleData,
+        beforeFetch: orderParams,
+        afterFetch: stransformData,
         actionColumn: {
           width: 100,
           title: '操作',
@@ -79,19 +79,19 @@
       //   return { start_time, end_time, ...newParams, ...rest };
       // }
 
-      function handleData(data) {
-        console.log(data);
-        const result = data.map((item) => {
-          const { create_time, ...rest } = item;
-          const newTime = timestamp_to_string(create_time);
-          const newItem = {
-            create_time: newTime,
-          };
-          return { ...newItem, ...rest };
-        });
-        // console.log(result);
-        return result;
-      }
+      // function handleData(data) {
+      //   console.log(data);
+      //   const result = data.map((item) => {
+      //     const { create_time, ...rest } = item;
+      //     const newTime = timestamp_to_string(create_time);
+      //     const newItem = {
+      //       create_time: newTime,
+      //     };
+      //     return { ...newItem, ...rest };
+      //   });
+      //   // console.log(result);
+      //   return result;
+      // }
 
       // eslint-disable-next-line no-undef
       function handleDelete(record: Recordable) {

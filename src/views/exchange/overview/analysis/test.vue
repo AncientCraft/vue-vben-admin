@@ -2,13 +2,16 @@
   <Card size="small" :loading="loading" title="test" class="md:w-1/4 w-full !md:mt-0">
     <Button @click="login">login</Button>
     <Button @click="user">user</Button>
+    <Button @click="flow">flow</Button>
   </Card>
 </template>
 <script lang="ts" setup>
   import { ref } from 'vue';
   import { Card, Button } from 'ant-design-vue';
-  import { usersApi, loginApi } from '/@/api/exchange/user';
-  import { mergeList } from '/@/utils/lists';
+  import { loginApi } from '/@/api/exchange/user';
+  import { membersApi } from '/@/api/exchange/member';
+  import { flowApi } from '/@/api/exchange/orders';
+  // import { mergeList } from '/@/utils/lists';
 
   const loading = ref(false);
 
@@ -29,11 +32,16 @@
       limit: 3,
     };
 
-    const result = await usersApi(params);
+    const result = await membersApi(params);
+    console.log(result);
+  };
+  const flow = async () => {
+    const params = {
+      offset: 1,
+      limit: 3,
+    };
 
-    const { users, balances } = result;
-
-    const rr = mergeList(users, balances);
-    console.log(rr);
+    const result = await flowApi(params);
+    console.log(result);
   };
 </script>

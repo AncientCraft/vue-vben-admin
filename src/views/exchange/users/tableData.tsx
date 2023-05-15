@@ -31,8 +31,8 @@ export function getBasicColumns(): BasicColumn[] {
     },
     {
       title: '账户余额',
-      dataIndex: 'balance',
-      width: 30,
+      dataIndex: 'free',
+      width: 50,
     },
     {
       title: '提现总额',

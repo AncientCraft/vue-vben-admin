@@ -27,8 +27,8 @@ export function getBasicColumns(): BasicColumn[] {
     },
     {
       title: '产品信息',
-      dataIndex: 'order_info',
-      width: 50,
+      dataIndex: 'symbol',
+      width: 70,
     },
     {
       title: '状态',
@@ -37,7 +37,7 @@ export function getBasicColumns(): BasicColumn[] {
     },
     {
       title: '方向',
-      dataIndex: 'position',
+      dataIndex: 'side',
       width: 30,
     },
 
@@ -48,17 +48,17 @@ export function getBasicColumns(): BasicColumn[] {
     },
     {
       title: '平仓点位',
-      dataIndex: 'close_point',
+      dataIndex: 'trigger_price',
       width: 40,
     },
     {
       title: '委托金额',
-      dataIndex: 'order_amount',
-      width: 40,
+      dataIndex: 'quantity',
+      width: 50,
     },
     {
       title: '实际盈亏',
-      dataIndex: 'profit_and_loss',
+      dataIndex: 'profit',
       width: 40,
     },
     {
@@ -120,9 +120,9 @@ export function getWithdrawColumns(): BasicColumn[] {
   return [
     {
       title: '订单编号',
-      dataIndex: 'order_no',
+      dataIndex: 'order_id',
       fixed: 'left',
-      width: 50,
+      width: 100,
     },
     {
       title: '会员名',
@@ -151,13 +151,13 @@ export function getWithdrawColumns(): BasicColumn[] {
     },
     {
       title: '提现金额',
-      dataIndex: 'amount',
+      dataIndex: 'quantity',
       width: 50,
     },
     {
       title: '手续费',
-      dataIndex: 'rate',
-      width: 20,
+      dataIndex: 'fee',
+      width: 50,
     },
     {
       title: '实际到账',
@@ -166,14 +166,14 @@ export function getWithdrawColumns(): BasicColumn[] {
     },
     {
       title: '提交时间',
-      dataIndex: 'order_time',
+      dataIndex: 'create_time',
       width: 100,
       sorter: true,
     },
     {
       title: '处理进度',
       dataIndex: 'status',
-      width: 30,
+      width: 50,
     },
   ];
 }
@@ -182,9 +182,9 @@ export function getDepositColumns(): BasicColumn[] {
   return [
     {
       title: '订单编号',
-      dataIndex: 'order_no',
+      dataIndex: 'order_id',
       fixed: 'left',
-      width: 50,
+      width: 100,
     },
     {
       title: '会员名',
@@ -212,13 +212,13 @@ export function getDepositColumns(): BasicColumn[] {
       width: 80,
     },
     {
-      title: '充足金额',
-      dataIndex: 'amount',
+      title: '充值金额',
+      dataIndex: 'quantity',
       width: 50,
     },
     {
       title: '提交时间',
-      dataIndex: 'order_time',
+      dataIndex: 'create_time',
       width: 100,
       sorter: true,
     },

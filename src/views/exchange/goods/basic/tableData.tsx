@@ -9,33 +9,34 @@ export function getBasicColumns(): BasicColumn[] {
       title: '产品标题',
       dataIndex: 'name',
       fixed: 'left',
-      width: 150,
+      width: 100,
     },
     {
       title: '产品代码',
-      dataIndex: 'no',
-      width: 100,
+      dataIndex: 'code',
+      width: 50,
     },
     {
       title: '状态',
       dataIndex: 'status',
-      width: 100,
+      width: 50,
       sorter: true,
     },
     {
-      title: '随机值',
-      dataIndex: 'rand',
+      // title: '随机值',
+      title: '开盘价',
+      dataIndex: 'open_price',
       width: 50,
     },
     {
       title: '风控最小值',
       width: 50,
-      dataIndex: 'min',
+      dataIndex: 'min_price',
     },
     {
       title: '风控最大值',
       width: 50,
-      dataIndex: 'max',
+      dataIndex: 'max_price',
     },
   ];
 }

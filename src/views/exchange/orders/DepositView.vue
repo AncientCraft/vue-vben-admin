@@ -7,17 +7,20 @@
   import { defineComponent } from 'vue';
   import { BasicTable, useTable } from '/@/components/Table';
   import { getDepositColumns, getFormConfig } from './tableData';
-  import { getGoodsApi } from '/@/api/exchange/goods';
+  import { flowApi } from '/@/api/exchange/orders';
+  import { stransformParams, stransformData } from '/@/utils/lists';
 
   export default defineComponent({
     components: { BasicTable },
     setup() {
       const [registerTable] = useTable({
         title: '充足记录',
-        api: getGoodsApi,
+        api: flowApi,
         useSearchForm: true,
         columns: getDepositColumns(),
         formConfig: getFormConfig(),
+        beforeFetch: stransformParams,
+        afterFetch: stransformData,
         bordered: true,
       });
 

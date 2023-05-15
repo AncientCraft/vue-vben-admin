@@ -5,6 +5,8 @@
     title="Modal Title"
     @visible-change="handleVisibleChange"
     width="1600px"
+    :showOkBtn="false"
+    :showCancelBtn="false"
   >
     <div class="pt-3px pr-3px">
       <BasicForm @register="registerForm" :model="model" @submit="handleSubmit" />
@@ -15,9 +17,8 @@
   import { defineComponent, ref, nextTick } from 'vue';
   import { BasicModal, useModalInner } from '/@/components/Modal';
   import { BasicForm, FormSchema, useForm } from '/@/components/Form/index';
-  import { getGoodsApi } from '/@/api/exchange/goods';
-  // import { EditParams } from '/@/api/exchange/model/goodsModel';
-  // import { getEditGoodsColumns } from '../tableData';
+  import { updateGoodsApi } from '/@/api/exchange/goods';
+  import { okOrFail } from '/@/utils/lists';
 
   const schemas: FormSchema[] = [
     {
@@ -44,7 +45,8 @@
       },
     },
     {
-      field: 'no',
+      field: 'code',
+      required: true,
       component: 'Input',
       label: '产品代码',
       // colProps: {
@@ -63,9 +65,10 @@
       },
     },
     {
-      field: 'rand',
+      field: 'open_price',
+      required: true,
       component: 'Input',
-      label: '随机波动',
+      label: '开盘价',
       // colProps: {
       //   span: 8,
       // },
@@ -74,7 +77,8 @@
       },
     },
     {
-      field: 'min',
+      field: 'min_price',
+      required: true,
       component: 'Input',
       label: '风控最小值',
       // colProps: {
@@ -85,7 +89,8 @@
       },
     },
     {
-      field: 'max',
+      field: 'max_price',
+      required: true,
       component: 'Input',
       label: '风控最大值',
       // colProps: {
@@ -104,7 +109,8 @@
       },
     },
     {
-      field: 't1',
+      field: 'config.rule[0].interval',
+      required: true,
       component: 'Input',
       label: '时间间隔1',
       colProps: {
@@ -115,7 +121,8 @@
       },
     },
     {
-      field: 't2',
+      field: 'config.rule[1].interval',
+      required: true,
       component: 'Input',
       label: '时间间隔2',
       colProps: {
@@ -126,7 +133,8 @@
       },
     },
     {
-      field: 't3',
+      field: 'config.rule[2].interval',
+      required: true,
       component: 'Input',
       label: '时间间隔3',
       colProps: {
@@ -137,7 +145,8 @@
       },
     },
     {
-      field: 't4',
+      field: 'config.rule[3].interval',
+      required: true,
       component: 'Input',
       label: '时间间隔4',
       colProps: {
@@ -148,7 +157,8 @@
       },
     },
     {
-      field: 't5',
+      field: 'config.rule[4].interval',
+      required: true,
       component: 'Input',
       label: '时间间隔5',
       colProps: {
@@ -167,7 +177,8 @@
       },
     },
     {
-      field: 'm1',
+      field: 'config.rule[0].min_price',
+      required: true,
       component: 'Input',
       label: '投注金额1',
       colProps: {
@@ -178,7 +189,8 @@
       },
     },
     {
-      field: 'm2',
+      field: 'config.rule[1].min_price',
+      required: true,
       component: 'Input',
       label: '投注金额2',
       colProps: {
@@ -189,7 +201,8 @@
       },
     },
     {
-      field: 'm3',
+      field: 'config.rule[2].min_price',
+      required: true,
       component: 'Input',
       label: '投注金额4',
       colProps: {
@@ -200,7 +213,8 @@
       },
     },
     {
-      field: 'm4',
+      field: 'config.rule[3].min_price',
+      required: true,
       component: 'Input',
       label: '投注金额4',
       colProps: {
@@ -211,7 +225,8 @@
       },
     },
     {
-      field: 'm5',
+      field: 'config.rule[4].min_price',
+      required: true,
       component: 'Input',
       label: '投注金额5',
       colProps: {
@@ -224,13 +239,82 @@
     {
       field: 'd5',
       component: 'Divider',
+      label: '玩法最大投注金额',
+      colProps: {
+        span: 24,
+      },
+    },
+    {
+      field: 'config.rule[0].max_price',
+      required: true,
+      component: 'Input',
+      label: '投注金额1',
+      colProps: {
+        span: 4,
+      },
+      componentProps: {
+        placeholder: '请输入最大投注金额',
+      },
+    },
+    {
+      field: 'config.rule[1].max_price',
+      required: true,
+      component: 'Input',
+      label: '投注金额2',
+      colProps: {
+        span: 4,
+      },
+      componentProps: {
+        placeholder: '请输入最大投注金额',
+      },
+    },
+    {
+      field: 'config.rule[2].max_price',
+      required: true,
+      component: 'Input',
+      label: '投注金额4',
+      colProps: {
+        span: 4,
+      },
+      componentProps: {
+        placeholder: '请输入最大投注金额',
+      },
+    },
+    {
+      field: 'config.rule[3].max_price',
+      required: true,
+      component: 'Input',
+      label: '投注金额4',
+      colProps: {
+        span: 4,
+      },
+      componentProps: {
+        placeholder: '请输入最大投注金额',
+      },
+    },
+    {
+      field: 'config.rule[4].max_price',
+      required: true,
+      component: 'Input',
+      label: '投注金额5',
+      colProps: {
+        span: 4,
+      },
+      componentProps: {
+        placeholder: '请输入最大投注金额',
+      },
+    },
+    {
+      field: 'd6',
+      component: 'Divider',
       label: '盈亏比例',
       colProps: {
         span: 24,
       },
     },
     {
-      field: 'r1',
+      field: 'config.rule[0].profit_rate',
+      required: true,
       component: 'Input',
       label: '盈亏比例1',
       colProps: {
@@ -241,7 +325,8 @@
       },
     },
     {
-      field: 'r2',
+      field: 'config.rule[1].profit_rate',
+      required: true,
       component: 'Input',
       label: '盈亏比例2',
       colProps: {
@@ -252,7 +337,8 @@
       },
     },
     {
-      field: 'r3',
+      field: 'config.rule[2].profit_rate',
+      required: true,
       component: 'Input',
       label: '盈亏比例3',
       colProps: {
@@ -263,7 +349,8 @@
       },
     },
     {
-      field: 'r4',
+      field: 'config.rule[3].profit_rate',
+      required: true,
       component: 'Input',
       label: '盈亏比例4',
       colProps: {
@@ -274,7 +361,8 @@
       },
     },
     {
-      field: 'r5',
+      field: 'config.rule[4].profit_rate',
+      required: true,
       component: 'Input',
       label: '盈亏比例5',
       colProps: {
@@ -285,7 +373,7 @@
       },
     },
     {
-      field: 'd5',
+      field: 'd7',
       component: 'Divider',
       label: '开市时间',
       colProps: {
@@ -293,57 +381,60 @@
       },
     },
     {
-      field: 'open_day',
+      field: 'weekly_start',
+      required: true,
       component: 'Input',
       label: '每周几开市',
       colProps: {
-        span: 8,
+        span: 4,
       },
       componentProps: {
         placeholder: '请输入1～7',
       },
     },
     {
-      field: 'open_time',
-      component: 'Input',
-      label: '当天几点开始',
-      colProps: {
-        span: 8,
-      },
-      componentProps: {
-        placeholder: '请输入时间例如：00:00:00',
-      },
-    },
-    {
-      field: 'd6',
-      component: 'Divider',
-      label: '休市时间',
-      colProps: {
-        span: 24,
-      },
-    },
-    {
-      field: 'close_day',
+      field: 'weekly_close',
+      required: true,
       component: 'Input',
       label: '每周几休市',
       colProps: {
-        span: 8,
+        span: 4,
       },
       componentProps: {
         placeholder: '请输入1～7',
       },
     },
-    {
-      field: 'close_time',
-      component: 'Input',
-      label: '当天几点关闭',
-      colProps: {
-        span: 8,
-      },
-      componentProps: {
-        placeholder: '请输入时间例如：00:00:00',
-      },
-    },
+    // {
+    //   field: 'open_time',
+    //   component: 'Input',
+    //   label: '当天几点开始',
+    //   colProps: {
+    //     span: 8,
+    //   },
+    //   componentProps: {
+    //     placeholder: '请输入时间例如：00:00:00',
+    //   },
+    // },
+    // {
+    //   field: 'd8',
+    //   component: 'Divider',
+    //   label: '休市时间',
+    //   colProps: {
+    //     span: 24,
+    //   },
+    // },
+
+    // {
+    //   field: 'close_time',
+    //   component: 'Input',
+    //   label: '当天几点关闭',
+    //   colProps: {
+    //     span: 8,
+    //   },
+    //   componentProps: {
+    //     placeholder: '请输入时间例如：00:00:00',
+    //   },
+    // },
   ];
   export default defineComponent({
     components: { BasicModal, BasicForm },
@@ -351,28 +442,17 @@
       userData: { type: Object },
     },
     setup(props) {
-      // onMounted(() => {
-      //   // 在这里编写需要执行的逻辑代码
-      //   console.log('editgoods组件已经挂载');
-      //   // const params: EditParams = {
-      //   //   open_day: '12374637647',
-      //   //   close_day: '123',
-      //   //   open_time: '123',
-      //   //   close_time: '123',
-      //   // };
-
-      //   // setFieldsValue(params);
-
-      //   // getGoodsApi(params);
-      // });
       const modelRef = ref({});
-      const [registerForm] = useForm({
+      const [registerForm, { setFieldsValue }] = useForm({
         // const [registerForm, { setFieldsValue, setProps }] = useForm({
         labelWidth: 120,
         schemas,
-        showActionButtonGroup: false,
+        showActionButtonGroup: true,
         actionColOptions: {
           span: 24,
+        },
+        submitButtonOptions: {
+          text: '提交',
         },
       });
 
@@ -381,17 +461,14 @@
       });
 
       async function onDataReceive(data) {
-        console.log('Data Received', data);
-        const result = await getGoodsApi(data);
-        console.log(result.items[0]);
+        // console.log('Data Received', data);
+        // const result = await getGoodsApi(data);
+        // console.log(result.items[0]);
         // 方式1;
-        // setFieldsValue({
-        //   field2: data.data,
-        //   field1: data.info,
-        // });
+        setFieldsValue(data);
 
         // // 方式2
-        modelRef.value = { field2: data.data, field1: data.info };
+        // modelRef.value = { field2: data.data, field1: data.info };
 
         // setProps({
         //   model:{ field2: data.data, field1: data.info }
@@ -408,10 +485,11 @@
         registerForm,
         model: modelRef,
         handleVisibleChange,
-        handleSubmit: (values: any) => {
+        handleSubmit: async (values: any) => {
           // getGoodsApi(values);
           console.log(values);
-          // createMessage.success('click search,values:' + JSON.stringify(values));
+          const r = await updateGoodsApi(values);
+          okOrFail(r);
         },
       };
     },

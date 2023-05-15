@@ -5,7 +5,7 @@ const user: AppRouteModule = {
   path: '/user',
   name: 'User',
   component: LAYOUT,
-  redirect: '/user/index',
+  redirect: '/user/info',
   meta: {
     icon: 'simple-icons:hive-blockchain',
     title: '用户中心',
@@ -13,9 +13,10 @@ const user: AppRouteModule = {
   },
   children: [
     {
-      path: 'index',
-      name: 'index',
-      component: () => import('/@/views/exchange/users/index.vue'),
+      path: 'info',
+      name: 'info',
+      // component: () => import('/@/views/exchange/users/index.vue'),
+      component: () => import('/@/views/exchange/users/InfoView.vue'),
       meta: {
         title: '会员列表',
         icon: 'simple-icons:hive-blockchain',

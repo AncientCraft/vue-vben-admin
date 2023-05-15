@@ -17,39 +17,6 @@
                 auth: 'super', // 根据权限控制是否显示: 有权限，会显示
               },
             ]"
-            :dropDownActions="[
-              {
-                label: '启用',
-                popConfirm: {
-                  title: '是否启用？',
-                  confirm: handleOpen.bind(null, record),
-                },
-                ifShow: (_action) => {
-                  return record.status !== 'enable'; // 根据业务控制是否显示: 非enable状态的不显示启用按钮
-                },
-              },
-              {
-                label: '禁用',
-                popConfirm: {
-                  title: '是否禁用？',
-                  confirm: handleOpen.bind(null, record),
-                },
-                ifShow: () => {
-                  return record.status === 'enable'; // 根据业务控制是否显示: enable状态的显示禁用按钮
-                },
-              },
-              {
-                label: '同时控制',
-                popConfirm: {
-                  title: '是否动态显示？',
-                  confirm: handleOpen.bind(null, record),
-                },
-                auth: 'super', // 同时根据权限和业务控制是否显示
-                ifShow: () => {
-                  return true; // 根据业务控制是否显示
-                },
-              },
-            ]"
           />
         </template>
       </template>
@@ -72,13 +39,13 @@
     components: { BasicTable, TableAction, Modal },
     setup() {
       const [registerTable] = useTable({
-        title: 'TableAction组件及固定列示例',
+        title: '产品列表',
         api: goodsListApi,
         columns: getBasicColumns(),
         bordered: true,
         actionColumn: {
-          width: 250,
-          title: 'Action',
+          width: 100,
+          title: '操作',
           dataIndex: 'action',
           // slots: { customRender: 'action' },
         },
@@ -86,9 +53,7 @@
       const [registerModal, { openModal: openModal }] = useModal();
       // eslint-disable-next-line no-undef
       function handleEdit(record: Recordable) {
-        openModal(true, {
-          name: 'content',
-        });
+        openModal(true, record);
         console.log('点击了编辑', record);
       }
       // eslint-disable-next-line no-undef

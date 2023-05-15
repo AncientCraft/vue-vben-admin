@@ -28,17 +28,20 @@
   import { defineComponent } from 'vue';
   import { BasicTable, useTable, TableAction } from '/@/components/Table';
   import { getWithdrawColumns, getFormConfig } from './tableData';
-  import { getGoodsApi } from '/@/api/exchange/goods';
+  import { flowApi } from '/@/api/exchange/orders';
+  import { stransformParams, stransformData } from '/@/utils/lists';
 
   export default defineComponent({
     components: { BasicTable, TableAction },
     setup() {
       const [registerTable] = useTable({
-        title: 'TableAction组件及固定列示例',
-        api: getGoodsApi,
+        title: '提现记录',
+        api: flowApi,
         useSearchForm: true,
         columns: getWithdrawColumns(),
         formConfig: getFormConfig(),
+        beforeFetch: stransformParams,
+        afterFetch: stransformData,
         bordered: true,
         actionColumn: {
           width: 100,
