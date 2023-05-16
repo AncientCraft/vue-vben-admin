@@ -5,13 +5,13 @@ export function getBasicColumns(): BasicColumn[] {
   return [
     {
       title: '用户ID',
-      dataIndex: 'user_id',
+      dataIndex: 'tid',
       fixed: 'left',
       width: 50,
     },
     {
       title: '用户名',
-      dataIndex: 'user_name',
+      dataIndex: 'account',
       width: 50,
     },
     {
@@ -19,44 +19,44 @@ export function getBasicColumns(): BasicColumn[] {
       dataIndex: 'real_name',
       width: 50,
     },
-    {
-      title: '会员等级',
-      dataIndex: 'level',
-      width: 50,
-    },
-    {
-      title: '推荐人',
-      dataIndex: 'parent',
-      width: 50,
-    },
+    // {
+    //   title: '会员等级',
+    //   dataIndex: 'level',
+    //   width: 50,
+    // },
+    // {
+    //   title: '推荐人',
+    //   dataIndex: 'parent',
+    //   width: 50,
+    // },
     {
       title: '账户余额',
-      dataIndex: 'free',
+      dataIndex: 'balance',
       width: 50,
     },
     {
       title: '提现总额',
-      dataIndex: 'deposite',
-      width: 30,
-    },
-    {
-      title: '充足总额',
       dataIndex: 'withdraw',
       width: 30,
     },
     {
-      title: '总投资额',
-      dataIndex: 'cost',
+      title: '充值总额',
+      dataIndex: 'deposit',
       width: 30,
     },
+    // {
+    //   title: '总投资额',
+    //   dataIndex: 'cost',
+    //   width: 30,
+    // },
     {
       title: '在线状态',
-      dataIndex: 'is_online',
+      dataIndex: 'isOnline',
       width: 30,
     },
     {
       title: '委托金额',
-      dataIndex: 'order_amount',
+      dataIndex: 'amount',
       width: 40,
     },
     {
@@ -66,7 +66,7 @@ export function getBasicColumns(): BasicColumn[] {
     },
     {
       title: '最近上线时间',
-      dataIndex: 'last_time',
+      dataIndex: 'update_time',
       width: 40,
     },
   ];
@@ -76,38 +76,38 @@ export function getTradingColumns(): BasicColumn[] {
   return [
     {
       title: '流水编号',
-      dataIndex: 'order_no',
+      dataIndex: 'order_id',
       fixed: 'left',
       width: 50,
     },
     {
       title: '交易对象',
-      dataIndex: 'user_name',
+      dataIndex: 'name',
       width: 50,
     },
     {
       title: '真实姓名',
-      dataIndex: 'real_name',
+      dataIndex: 'bank_real_name',
       width: 50,
     },
     {
       title: '交易金额',
-      dataIndex: 'trading_amount',
+      dataIndex: 'quantity',
       width: 40,
     },
     {
       title: '交易前余额',
-      dataIndex: 'balance',
+      dataIndex: 'before_changed',
       width: 40,
     },
     {
       title: '详情',
-      dataIndex: 'detail',
+      dataIndex: 'symbol',
       width: 40,
     },
     {
       title: '流水时间',
-      dataIndex: 'order_time',
+      dataIndex: 'create_time',
       width: 100,
       sorter: true,
     },
@@ -124,12 +124,12 @@ export function getBankColumns(): BasicColumn[] {
     },
     {
       title: '会员名',
-      dataIndex: 'user_name',
+      dataIndex: 'name',
       width: 50,
     },
     {
       title: '开户姓名',
-      dataIndex: 'real_name',
+      dataIndex: 'bank_real_name',
       width: 50,
     },
     {
@@ -139,7 +139,7 @@ export function getBankColumns(): BasicColumn[] {
     },
     {
       title: '支行名称',
-      dataIndex: 'branch',
+      dataIndex: 'bank_branch',
       width: 40,
     },
     {

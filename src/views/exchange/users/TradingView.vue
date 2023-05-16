@@ -7,17 +7,20 @@
   import { defineComponent } from 'vue';
   import { BasicTable, useTable } from '/@/components/Table';
   import { getTradingColumns, getFormConfig } from './tableData';
-  import { getGoodsApi } from '/@/api/exchange/goods';
+  import { orderApi } from '/@/api/exchange/orders';
+  import { closeParams, stransformData } from '/@/utils/lists';
 
   export default defineComponent({
     components: { BasicTable },
     setup() {
       const [registerTable] = useTable({
         title: '流水记录',
-        api: getGoodsApi,
+        api: orderApi,
         useSearchForm: true,
         columns: getTradingColumns(),
         formConfig: getFormConfig(),
+        beforeFetch: closeParams,
+        afterFetch: stransformData,
         bordered: true,
       });
 

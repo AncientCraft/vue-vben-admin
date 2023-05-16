@@ -1,10 +1,11 @@
 import { otherHttp } from '/@/utils/http/axios';
-import { mergeList } from '/@/utils/lists';
+import { mergeUser } from '/@/utils/lists';
 // import { NoticeParams, NoticeResultModel } from './model/noticeModel';
 enum Api {
   Members = 'usr/searchUser',
   ChangeBalance = 'admin/withdrawUserBalance',
   Certified = '/usr/updateUserIDCard',
+  Update = '/usr/updateUser',
 }
 
 export function membersApi(params) {
@@ -14,8 +15,8 @@ export function membersApi(params) {
       params,
     })
     .then((respond) => {
-      const { users, balances, total } = respond;
-      const r = mergeList(users, balances);
+      const { users, balances, orders, withdraws, online, total } = respond;
+      const r = mergeUser(users, balances, withdraws, orders, online);
 
       const data = {
         items: r,
@@ -23,6 +24,13 @@ export function membersApi(params) {
       };
       return data;
     });
+}
+
+export function updateApi(params) {
+  return otherHttp.post({
+    url: Api.Update,
+    params,
+  });
 }
 
 export function changeBalnceApi(params) {

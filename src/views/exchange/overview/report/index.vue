@@ -7,14 +7,14 @@
   import { defineComponent } from 'vue';
   import { BasicTable, useTable } from '/@/components/Table';
   import { getBasicColumns } from './tableData';
-  import { getGoodsApi } from '/@/api/exchange/goods';
+  import { homeApi } from '/@/api/exchange/overview';
 
   export default defineComponent({
     components: { BasicTable },
     setup() {
       const [registerTable] = useTable({
         title: '流水记录',
-        api: getGoodsApi,
+        api: homeApi,
         useSearchForm: true,
         columns: getBasicColumns(),
         // formConfig: getFormConfig(),

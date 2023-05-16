@@ -2,6 +2,9 @@
   <div class="p-4">
     <BasicTable @register="registerTable">
       <template #bodyCell="{ column, record }">
+        <template v-if="column.key == 'trigger_time'">
+          <StatisticCountdown :value="record.trigger_time" format="MM:SS" />
+        </template>
         <template v-if="column.key === 'action'">
           <TableAction
             :actions="[
@@ -17,20 +20,20 @@
                 label: '盈利',
                 popConfirm: {
                   title: '是否让用户盈利？',
-                  confirm: handleOpen.bind(null, record),
+                  confirm: handleWin.bind(null, record),
                 },
                 ifShow: (_action) => {
-                  return record.status !== 'enable'; // 根据业务控制是否显示: 非enable状态的不显示启用按钮
+                  return record.status !== 400; // 根据业务控制是否显示: 非enable状态的不显示启用按钮
                 },
               },
               {
                 label: '亏损',
                 popConfirm: {
                   title: '是否让用户亏损？',
-                  confirm: handleOpen.bind(null, record),
+                  confirm: handleLoss.bind(null, record),
                 },
                 ifShow: () => {
-                  return record.status !== 'enable'; // 根据业务控制是否显示: enable状态的显示禁用按钮
+                  return record.status !== 400; // 根据业务控制是否显示: enable状态的显示禁用按钮
                 },
               },
             ]"
@@ -44,13 +47,17 @@
   import { defineComponent } from 'vue';
   import { BasicTable, useTable, TableAction } from '/@/components/Table';
   import { getBasicColumns, getFormConfig } from './tableData';
-  import { orderApi } from '/@/api/exchange/orders';
+  import { orderApi, controllApi } from '/@/api/exchange/orders';
   import { orderParams, stransformData } from '/@/utils/lists';
+  import { useMessage } from '/@/hooks/web/useMessage';
+  import { StatisticCountdown } from 'ant-design-vue';
+
+  // import { RocketFilled } from '@ant-design/icons-vue';
 
   export default defineComponent({
-    components: { BasicTable, TableAction },
+    components: { BasicTable, TableAction, StatisticCountdown },
     setup() {
-      const [registerTable] = useTable({
+      const [registerTable, { updateTableDataRecord }] = useTable({
         title: '订单列表',
         api: orderApi,
         useSearchForm: true,
@@ -60,53 +67,62 @@
         beforeFetch: orderParams,
         afterFetch: stransformData,
         actionColumn: {
-          width: 100,
+          width: 70,
           title: '操作',
           dataIndex: 'action',
           // slots: { customRender: 'action' },
         },
       });
 
-      // function handleParams(params) {
-      //   console.log(params);
-      //   const { page, pageSize, start_time, end_time, ...rest } = params;
-      //   console.log(start_time);
-      //   console.log(end_time);
-      //   const newParams = {
-      //     skip: page - 1,
-      //     limit: pageSize,
-      //   };
-      //   return { start_time, end_time, ...newParams, ...rest };
-      // }
-
-      // function handleData(data) {
-      //   console.log(data);
-      //   const result = data.map((item) => {
-      //     const { create_time, ...rest } = item;
-      //     const newTime = timestamp_to_string(create_time);
-      //     const newItem = {
-      //       create_time: newTime,
-      //     };
-      //     return { ...newItem, ...rest };
-      //   });
-      //   // console.log(result);
-      //   return result;
-      // }
-
       // eslint-disable-next-line no-undef
       function handleDelete(record: Recordable) {
-        console.log('点击了删除', record);
+        // console.log('点击了删除', record);
+        // record.controll = '111';
+        console.log(record);
+        // updateTableDataRecord(record.key, record);
       }
       // eslint-disable-next-line no-undef
-      function handleOpen(record: Recordable) {
-        console.log('点击了启用', record);
+      async function handleWin(record: any) {
+        await sendTrigger(record, 400, '盈利');
       }
+
+      async function handleLoss(record: any) {
+        await sendTrigger(record, 500, '亏损');
+      }
+
+      const { createMessage } = useMessage();
+
+      async function sendTrigger(record: any, type, display) {
+        const r = await controllApi({
+          id: record.tid,
+          trigger_type: type,
+        });
+        if (r.code === 0) {
+          record.trigger_display = display;
+          updateTableDataRecord(record.key, record);
+        } else {
+          createMessage.error('操作失败');
+        }
+      }
+
+      // function countdownFormat(value) {
+      //   const seconds = Math.floor(value / 1000); // 将毫秒转换为秒，并向下取整
+      //   return `${seconds}s`; // 返回以秒为单位的倒计时字符串
+      // }
 
       return {
         registerTable,
         handleDelete,
-        handleOpen,
+        handleWin,
+        handleLoss,
+        // countdownFormat,
       };
     },
   });
 </script>
+
+<style scoped>
+  .StatisticCountdown {
+    font-size: 5px;
+  }
+</style>

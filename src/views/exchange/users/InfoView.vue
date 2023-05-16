@@ -54,7 +54,7 @@
     components: { BasicTable, TableAction, EditUser, VerifyUser, EditBalance },
     setup() {
       const [registerTable] = useTable({
-        title: '流水记录',
+        title: '会员列表',
         api: membersApi,
         useSearchForm: true,
         columns: getBasicColumns(),
@@ -73,24 +73,24 @@
       const [registerBalance, { openModal: openBalance }] = useModal();
 
       function handleEdit(record: any) {
-        console.log('点击了删除', record);
-        openModal(true, {
-          id: 123,
-        });
-        // console.log('点击了编辑', record);
+        const params = {
+          user_id: record.tid,
+          ...record.config,
+          balance: record.balance,
+        };
+        openModal(true, params);
       }
 
       function handleBalance(record: any) {
-        console.log('点击了删除', record);
         openBalance(true, {
           user_id: record.user_id,
         });
       }
 
       function handleVerify(record: any) {
-        console.log('点击了启用', record);
         openVerify(true, {
-          id: 123,
+          id_no: record.id_no,
+          real_name: record.real_name,
         });
       }
 

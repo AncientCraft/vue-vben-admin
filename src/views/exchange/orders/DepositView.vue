@@ -8,7 +8,7 @@
   import { BasicTable, useTable } from '/@/components/Table';
   import { getDepositColumns, getFormConfig } from './tableData';
   import { flowApi } from '/@/api/exchange/orders';
-  import { stransformParams, stransformData } from '/@/utils/lists';
+  import { depositParams, stransformData } from '/@/utils/lists';
 
   export default defineComponent({
     components: { BasicTable },
@@ -19,7 +19,7 @@
         useSearchForm: true,
         columns: getDepositColumns(),
         formConfig: getFormConfig(),
-        beforeFetch: stransformParams,
+        beforeFetch: depositParams,
         afterFetch: stransformData,
         bordered: true,
       });

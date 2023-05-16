@@ -7,17 +7,20 @@
   import { defineComponent } from 'vue';
   import { BasicTable, useTable } from '/@/components/Table';
   import { getCloseColumns, getFormConfig } from './tableData';
-  import { getGoodsApi } from '/@/api/exchange/goods';
+  import { orderApi } from '/@/api/exchange/orders';
+  import { closeParams, stransformData } from '/@/utils/lists';
 
   export default defineComponent({
     components: { BasicTable },
     setup() {
       const [registerTable] = useTable({
-        title: 'TableAction组件及固定列示例',
-        api: getGoodsApi,
+        title: '平仓日志',
+        api: orderApi,
         useSearchForm: true,
         columns: getCloseColumns(),
         formConfig: getFormConfig(),
+        beforeFetch: closeParams,
+        afterFetch: stransformData,
         bordered: true,
       });
 

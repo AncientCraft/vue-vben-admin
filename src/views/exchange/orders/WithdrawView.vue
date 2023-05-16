@@ -7,15 +7,19 @@
             :actions="[
               {
                 label: '同意',
-                icon: 'ic:outline-delete-outline',
-                onClick: handleDelete.bind(null, record),
-                auth: 'super', // 根据权限控制是否显示: 有权限，会显示
+                // icon: 'ic:outline-delete-outline',
+                onClick: handleAccept.bind(null, record),
+                ifShow: () => {
+                  return record.status === 100; // 根据业务控制是否显示: enable状态的显示禁用按钮
+                },
               },
               {
                 label: '拒绝',
-                icon: 'ic:outline-delete-outline',
-                onClick: handleDelete.bind(null, record),
-                auth: 'super', // 根据权限控制是否显示: 有权限，会显示
+                // icon: 'ic:outline-delete-outline',
+                onClick: handleReject.bind(null, record),
+                ifShow: () => {
+                  return record.status === 100; // 根据业务控制是否显示: enable状态的显示禁用按钮
+                },
               },
             ]"
           />
@@ -28,8 +32,8 @@
   import { defineComponent } from 'vue';
   import { BasicTable, useTable, TableAction } from '/@/components/Table';
   import { getWithdrawColumns, getFormConfig } from './tableData';
-  import { flowApi } from '/@/api/exchange/orders';
-  import { stransformParams, stransformData } from '/@/utils/lists';
+  import { flowApi, commitApi } from '/@/api/exchange/orders';
+  import { withdrawParams, stransformData, okOrFail } from '/@/utils/lists';
 
   export default defineComponent({
     components: { BasicTable, TableAction },
@@ -40,30 +44,37 @@
         useSearchForm: true,
         columns: getWithdrawColumns(),
         formConfig: getFormConfig(),
-        beforeFetch: stransformParams,
+        beforeFetch: withdrawParams,
         afterFetch: stransformData,
         bordered: true,
         actionColumn: {
           width: 100,
-          title: 'Action',
+          title: '操作',
           dataIndex: 'action',
           // slots: { customRender: 'action' },
         },
       });
 
       // eslint-disable-next-line no-undef
-      function handleDelete(record: Recordable) {
-        console.log('点击了删除', record);
+      function handleReject(record: Recordable) {
+        commitWithdraw({ order_id: record.order_id, status: 320 });
       }
       // eslint-disable-next-line no-undef
-      function handleOpen(record: Recordable) {
+      function handleAccept(record: Recordable) {
+        commitWithdraw({ order_id: record.order_id, status: 300 });
         console.log('点击了启用', record);
+      }
+
+      async function commitWithdraw(params) {
+        // console.log(params);
+        const r = await commitApi(params);
+        okOrFail(r);
       }
 
       return {
         registerTable,
-        handleDelete,
-        handleOpen,
+        handleReject,
+        handleAccept,
       };
     },
   });

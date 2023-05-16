@@ -1,51 +1,24 @@
 <template>
   <div class="p-4">
-    <BasicTable @register="registerTable">
-      <template #bodyCell="{ column, record }">
-        <template v-if="column.key === 'action'">
-          <TableAction
-            :actions="[
-              {
-                label: '同意',
-                icon: 'ic:outline-delete-outline',
-                onClick: handleDelete.bind(null, record),
-                auth: 'super', // 根据权限控制是否显示: 有权限，会显示
-              },
-              {
-                label: '拒绝',
-                icon: 'ic:outline-delete-outline',
-                onClick: handleDelete.bind(null, record),
-                auth: 'super', // 根据权限控制是否显示: 有权限，会显示
-              },
-            ]"
-          />
-        </template>
-      </template>
-    </BasicTable>
+    <BasicTable @register="registerTable" />
   </div>
 </template>
 <script lang="ts">
   import { defineComponent } from 'vue';
-  import { BasicTable, useTable, TableAction } from '/@/components/Table';
+  import { BasicTable, useTable } from '/@/components/Table';
   import { getBankColumns, getFormConfig } from './tableData';
-  import { getGoodsApi } from '/@/api/exchange/goods';
+  import { orderApi } from '/@/api/exchange/orders';
 
   export default defineComponent({
-    components: { BasicTable, TableAction },
+    components: { BasicTable },
     setup() {
       const [registerTable] = useTable({
         title: '银行卡列表',
-        api: getGoodsApi,
+        api: orderApi,
         useSearchForm: true,
         columns: getBankColumns(),
         formConfig: getFormConfig(),
         bordered: true,
-        actionColumn: {
-          width: 100,
-          title: 'Action',
-          dataIndex: 'action',
-          // slots: { customRender: 'action' },
-        },
       });
 
       // eslint-disable-next-line no-undef

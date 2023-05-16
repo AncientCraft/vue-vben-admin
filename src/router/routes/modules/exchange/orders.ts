@@ -44,7 +44,7 @@ const order: AppRouteModule = {
       name: 'Deposit',
       component: () => import('/@/views/exchange/orders/DepositView.vue'),
       meta: {
-        title: '充足记录',
+        title: '充值记录',
         icon: 'simple-icons:hive-blockchain',
       },
     },

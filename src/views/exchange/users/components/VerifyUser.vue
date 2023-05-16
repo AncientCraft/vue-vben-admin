@@ -78,47 +78,47 @@
         span: 8,
       },
     },
-    {
-      field: 'd2',
-      component: 'Divider',
-      label: '银行卡信息',
-      colProps: {
-        span: 24,
-      },
-    },
-    {
-      field: 'bank_name',
-      component: 'Input',
-      label: '所属银行',
-      colProps: {
-        span: 20,
-      },
-      componentProps: {
-        placeholder: '请输入银行名称',
-      },
-    },
-    {
-      field: 'bank_branch',
-      component: 'Input',
-      label: '支行名称',
-      colProps: {
-        span: 20,
-      },
-      componentProps: {
-        placeholder: '请输入银行支行',
-      },
-    },
-    {
-      field: 'bank_acount',
-      component: 'Input',
-      label: '银行卡号',
-      colProps: {
-        span: 20,
-      },
-      componentProps: {
-        placeholder: '请输入银行卡号',
-      },
-    },
+    // {
+    //   field: 'd2',
+    //   component: 'Divider',
+    //   label: '银行卡信息',
+    //   colProps: {
+    //     span: 24,
+    //   },
+    // },
+    // {
+    //   field: 'bank_name',
+    //   component: 'Input',
+    //   label: '所属银行',
+    //   colProps: {
+    //     span: 20,
+    //   },
+    //   componentProps: {
+    //     placeholder: '请输入银行名称',
+    //   },
+    // },
+    // {
+    //   field: 'bank_branch',
+    //   component: 'Input',
+    //   label: '支行名称',
+    //   colProps: {
+    //     span: 20,
+    //   },
+    //   componentProps: {
+    //     placeholder: '请输入银行支行',
+    //   },
+    // },
+    // {
+    //   field: 'bank_acount',
+    //   component: 'Input',
+    //   label: '银行卡号',
+    //   colProps: {
+    //     span: 20,
+    //   },
+    //   componentProps: {
+    //     placeholder: '请输入银行卡号',
+    //   },
+    // },
   ];
   export default defineComponent({
     components: { BasicModal, BasicForm },
@@ -127,12 +127,15 @@
     },
     setup(props) {
       const modelRef = ref({});
-      const [registerForm] = useForm({
+      const [registerForm, { setFieldsValue }] = useForm({
         labelWidth: 120,
         schemas,
         showActionButtonGroup: true,
         actionColOptions: {
           span: 24,
+        },
+        submitButtonOptions: {
+          text: '提交',
         },
       });
 
@@ -142,10 +145,7 @@
 
       async function onDataReceive(data) {
         // 方式1;
-        // setFieldsValue({
-        //   field2: data.data,
-        //   field1: data.info,
-        // });
+        setFieldsValue(data);
 
         // // 方式2
         modelRef.value = { field2: data.data, field1: data.info };

@@ -18,7 +18,8 @@
   import { defineComponent, ref, nextTick } from 'vue';
   import { BasicModal, useModalInner } from '/@/components/Modal';
   import { BasicForm, FormSchema, useForm } from '/@/components/Form/index';
-  import { loginApi } from '/@/api/exchange/user';
+  import { updateApi } from '/@/api/exchange/member';
+  import { okOrFail } from '/@/utils/lists';
 
   const schemas: FormSchema[] = [
     {
@@ -30,22 +31,21 @@
       },
     },
     {
-      field: 'account',
+      field: 'user_id',
       component: 'Input',
       label: '用户账号',
-      required: true,
       colProps: {
         span: 8,
       },
       componentProps: {
-        placeholder: '请输用户账号',
+        disabled: true,
         // onChange: (e: any) => {
         //   console.log(e);
         // },
       },
     },
     {
-      field: 'readl_name',
+      field: 'bank_real_name',
       component: 'Input',
       label: '姓名',
       colProps: {
@@ -57,7 +57,7 @@
     },
 
     {
-      field: 'login_pass',
+      field: 'password',
       component: 'Input',
       label: '登入密码',
       colProps: {
@@ -68,7 +68,7 @@
       },
     },
     {
-      field: 'trading_pass',
+      field: 'trade_pass',
       component: 'Input',
       label: '交易密码',
       colProps: {
@@ -86,14 +86,13 @@
         span: 8,
       },
       componentProps: {
-        placeholder: '请输小数精确到2位',
+        disabled: true,
       },
     },
     {
       field: 'group',
       component: 'Select',
       label: '会员组',
-      required: true,
       defaultValue: '1',
       componentProps: {
         options: [
@@ -142,7 +141,7 @@
       },
     },
     {
-      field: 'bank_acount',
+      field: 'bank_account',
       component: 'Input',
       label: '银行卡号',
       colProps: {
@@ -159,20 +158,6 @@
       userData: { type: Object },
     },
     setup(props) {
-      // onMounted(() => {
-      //   // 在这里编写需要执行的逻辑代码
-      //   console.log('editgoods组件已经挂载');
-      //   // const params: EditParams = {
-      //   //   open_day: '12374637647',
-      //   //   close_day: '123',
-      //   //   open_time: '123',
-      //   //   close_time: '123',
-      //   // };
-
-      //   // setFieldsValue(params);
-
-      //   // getGoodsApi(params);
-      // });
       const modelRef = ref({});
       const [registerForm, { setFieldsValue }] = useForm({
         labelWidth: 120,
@@ -180,6 +165,9 @@
         showActionButtonGroup: true,
         actionColOptions: {
           span: 24,
+        },
+        submitButtonOptions: {
+          text: '提交',
         },
       });
 
@@ -189,16 +177,7 @@
 
       async function onDataReceive(data) {
         console.log('Data Received', data);
-        const params = {
-          username: 'admin',
-          password: '123',
-        };
-
-        const result = await loginApi(params);
-        // const result = await getUserApi(data);
-        console.log(result);
-        // 方式1;
-        setFieldsValue(result);
+        setFieldsValue(data);
 
         // // 方式2
         // modelRef.value = { field2: data.data, field1: data.info };
@@ -212,12 +191,22 @@
         v && props.userData && nextTick(() => onDataReceive(props.userData));
       }
 
-      function handleSubmit(values: any) {
+      async function handleSubmit(values: any) {
         console.log(values);
-        // getGoodsApi(values);
-        // let ccc = { ...values, id: 'John Doe' };
-        // console.log(ccc);
-        // createMessage.success('click search,values:' + JSON.stringify(values));
+        const config = {
+          bank_account: values.bank_account,
+          bank_branch: values.bank_branch,
+          bank_name: values.bank_name,
+          bank_real_name: values.bank_real_name,
+        };
+
+        const params = {
+          user_id: values.user_id,
+          config: config,
+        };
+        // console.log(params);
+        const r = await updateApi(params);
+        okOrFail(r);
       }
 
       return {

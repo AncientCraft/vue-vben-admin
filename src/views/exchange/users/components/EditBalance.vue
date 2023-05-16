@@ -105,20 +105,6 @@
       userData: { type: Object },
     },
     setup(props) {
-      // onMounted(() => {
-      //   // 在这里编写需要执行的逻辑代码
-      //   console.log('editgoods组件已经挂载');
-      //   // const params: EditParams = {
-      //   //   open_day: '12374637647',
-      //   //   close_day: '123',
-      //   //   open_time: '123',
-      //   //   close_time: '123',
-      //   // };
-
-      //   // setFieldsValue(params);
-
-      //   // getGoodsApi(params);
-      // });
       const modelRef = ref({});
       const [registerForm, { setFieldsValue }] = useForm({
         labelWidth: 120,

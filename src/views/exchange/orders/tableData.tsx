@@ -16,7 +16,7 @@ export function getBasicColumns(): BasicColumn[] {
     },
     {
       title: '会员名',
-      dataIndex: 'user_name',
+      dataIndex: 'name',
       width: 50,
     },
     {
@@ -32,7 +32,7 @@ export function getBasicColumns(): BasicColumn[] {
     },
     {
       title: '状态',
-      dataIndex: 'status',
+      dataIndex: 'status_display',
       width: 30,
     },
     {
@@ -42,9 +42,9 @@ export function getBasicColumns(): BasicColumn[] {
     },
 
     {
-      title: '时间',
-      dataIndex: 'interval',
-      width: 30,
+      title: '触发倒记时',
+      dataIndex: 'trigger_time',
+      width: 50,
     },
     {
       title: '平仓点位',
@@ -63,12 +63,12 @@ export function getBasicColumns(): BasicColumn[] {
     },
     {
       title: '买后余额',
-      dataIndex: 'balance',
+      dataIndex: 'after_changed',
       width: 40,
     },
     {
       title: '盈亏控制',
-      dataIndex: 'control',
+      dataIndex: 'trigger_display',
       width: 40,
     },
   ];
@@ -78,7 +78,7 @@ export function getCloseColumns(): BasicColumn[] {
   return [
     {
       title: '订单编号',
-      dataIndex: 'order_no',
+      dataIndex: 'order_id',
       fixed: 'left',
       width: 50,
     },
@@ -89,27 +89,27 @@ export function getCloseColumns(): BasicColumn[] {
     },
     {
       title: '会员名',
-      dataIndex: 'user_name',
+      dataIndex: 'name',
       width: 50,
     },
     {
       title: '增加金额',
-      dataIndex: 'increase_amount',
+      dataIndex: 'profit',
       width: 40,
     },
-    {
-      title: '增加积分',
-      dataIndex: 'increase_point',
-      width: 40,
-    },
+    // {
+    //   title: '增加积分',
+    //   dataIndex: 'increase_point',
+    //   width: 40,
+    // },
     {
       title: '平仓后余额',
-      dataIndex: 'balance',
+      dataIndex: 'after_changed',
       width: 40,
     },
     {
       title: '平仓时间',
-      dataIndex: 'order_time',
+      dataIndex: 'create_time',
       width: 100,
       sorter: true,
     },
@@ -126,12 +126,12 @@ export function getWithdrawColumns(): BasicColumn[] {
     },
     {
       title: '会员名',
-      dataIndex: 'user_name',
+      dataIndex: 'name',
       width: 50,
     },
     {
       title: '姓名',
-      dataIndex: 'real_name',
+      dataIndex: 'bank_real_name',
       width: 50,
     },
     {
@@ -141,7 +141,7 @@ export function getWithdrawColumns(): BasicColumn[] {
     },
     {
       title: '支行名称',
-      dataIndex: 'branch',
+      dataIndex: 'bank_branch',
       width: 40,
     },
     {
@@ -161,7 +161,7 @@ export function getWithdrawColumns(): BasicColumn[] {
     },
     {
       title: '实际到账',
-      dataIndex: 'real_amount',
+      dataIndex: 'recieve_amount',
       width: 50,
     },
     {
@@ -172,7 +172,7 @@ export function getWithdrawColumns(): BasicColumn[] {
     },
     {
       title: '处理进度',
-      dataIndex: 'status',
+      dataIndex: 'status_display',
       width: 50,
     },
   ];
@@ -188,12 +188,12 @@ export function getDepositColumns(): BasicColumn[] {
     },
     {
       title: '会员名',
-      dataIndex: 'user_name',
+      dataIndex: 'name',
       width: 50,
     },
     {
       title: '姓名',
-      dataIndex: 'real_name',
+      dataIndex: 'bank_real_name',
       width: 50,
     },
     {
@@ -203,7 +203,7 @@ export function getDepositColumns(): BasicColumn[] {
     },
     {
       title: '支行名称',
-      dataIndex: 'branch',
+      dataIndex: 'bank_branch',
       width: 40,
     },
     {
