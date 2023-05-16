@@ -76,14 +76,14 @@
 
       const { data, send } = useWebSocket(state.server, {
         autoReconnect: true,
-        heartbeat: true,
+        heartbeat: false,
       });
 
       const audio = new Audio(mySound);
 
       watchEffect(() => {
         if (data.value) {
-          console.log(data.value);
+          // console.log(data.value);
           try {
             const res = JSON.parse(data.value);
             // console.log(res);
@@ -98,13 +98,9 @@
               title: msg.title,
             });
 
-            state.recordList.push(res);
+            // state.recordList.push(res);
           } catch (error) {
-            state.recordList.push({
-              res: data.value,
-              id: Math.ceil(Math.random() * 1000),
-              time: new Date().getTime(),
-            });
+            console.error(error);
           }
         }
       });
@@ -153,8 +149,6 @@
         const d = { action: 'sub.sound' };
         send(JSON.stringify(d));
       }
-
-      // const getIsOpen = computed(() => status.value === 'OPEN');
 
       return {
         prefixCls,

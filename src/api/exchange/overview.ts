@@ -5,9 +5,8 @@ enum Api {
   Dashbord = '/usr/homeData',
 }
 
-export function homeApi(params) {
+export function homeApi() {
   return otherHttp.get({
     url: Api.Dashbord,
-    params,
   });
 }

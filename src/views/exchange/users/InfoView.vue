@@ -83,7 +83,7 @@
 
       function handleBalance(record: any) {
         openBalance(true, {
-          user_id: record.user_id,
+          user_id: record.tid,
         });
       }
 

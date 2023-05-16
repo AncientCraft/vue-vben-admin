@@ -39,15 +39,15 @@ const overview: AppRouteModule = {
         icon: 'simple-icons:hive-blockchain',
       },
     },
-    // {
-    //   path: 'test',
-    //   name: 'Test',
-    //   component: () => import('/@/views/exchange/overview/analysis/test.vue'),
-    //   meta: {
-    //     title: '测试',
-    //     icon: 'simple-icons:hive-blockchain',
-    //   },
-    // },
+    {
+      path: 'test',
+      name: 'Test',
+      component: () => import('/@/views/exchange/overview/analysis/test.vue'),
+      meta: {
+        title: '测试',
+        icon: 'simple-icons:hive-blockchain',
+      },
+    },
   ],
 };
 

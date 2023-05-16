@@ -201,7 +201,7 @@
         };
 
         const params = {
-          user_id: values.user_id,
+          tid: parseInt(values.user_id),
           config: config,
         };
         // console.log(params);

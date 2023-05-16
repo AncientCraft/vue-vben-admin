@@ -25,12 +25,12 @@ export const growCardList: GrowCardItem[] = [
     action: '月',
   },
   {
-    title: '充足总额',
+    title: '充值总额',
     icon: 'download-count|svg',
     value: 8000,
     total: 120000,
     color: 'orange',
-    action: '周',
+    action: '月',
   },
   {
     title: '提现总额',
@@ -38,6 +38,6 @@ export const growCardList: GrowCardItem[] = [
     value: 5000,
     total: 50000,
     color: 'purple',
-    action: '年',
+    action: '月',
   },
 ];
