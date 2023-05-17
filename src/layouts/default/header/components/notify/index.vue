@@ -14,7 +14,12 @@
               </template>
               <!-- 绑定title-click事件的通知列表中标题是“可点击”的-->
               <NoticeList :list="item.list" v-if="item.key === 1" @title-click="onNoticeClick" />
-              <NoticeList :list="item.list" v-else @title-click="onNoticeClick" />
+              <NoticeList
+                :list="item.list"
+                v-else-if="item.key === 2"
+                @title-click="onWithdrawClick"
+              />
+              <NoticeList :list="item.list" v-else />
             </TabPane>
           </template>
         </Tabs>
@@ -23,7 +28,7 @@
   </div>
 </template>
 <script lang="ts">
-  import { computed, defineComponent, ref, watchEffect, reactive, onMounted } from 'vue';
+  import { computed, defineComponent, ref, watchEffect, reactive } from 'vue';
   // import { computed, defineComponent, ref } from 'vue';
   import { Popover, Tabs, Badge } from 'ant-design-vue';
   import { BellOutlined } from '@ant-design/icons-vue';
@@ -63,10 +68,17 @@
         // record.titleDelete = !record.titleDelete;
       }
 
+      function onWithdrawClick(_record) {
+        deleteRecord(2);
+        go('/order/withdraw');
+        // createMessage.success('你点击了通知，ID=' + record.id);
+        // 可以直接将其标记为已读（为标题添加删除线）,此处演示的代码会切换删除线状态
+        // record.titleDelete = !record.titleDelete;
+      }
+
       const state = reactive({
         server: 'wss://v200.excservice.rosettawe.com/ws/push',
-        sendValue: '',
-        recordList: [] as { id: number; time: number; res: string }[],
+        // server: 'ws://localhost:9001',
       });
 
       // const { status, data, send, close, open } = useWebSocket(state.server, {
@@ -74,16 +86,23 @@
       //   heartbeat: true,
       // });
 
-      const { data, send } = useWebSocket(state.server, {
+      const { data, status, send } = useWebSocket(state.server, {
         autoReconnect: true,
         heartbeat: false,
+        onConnected: handleReconnect,
       });
+
+      function handleReconnect(ws: WebSocket) {
+        soketInit();
+        console.log('WebSocket reconnected!', ws);
+        return;
+      }
 
       const audio = new Audio(mySound);
 
       watchEffect(() => {
         if (data.value) {
-          // console.log(data.value);
+          console.log(data.value);
           try {
             const res = JSON.parse(data.value);
             // console.log(res);
@@ -102,6 +121,7 @@
           } catch (error) {
             console.error(error);
           }
+          data.value = null;
         }
       });
 
@@ -139,13 +159,16 @@
         });
       }
 
-      onMounted(() => {
-        setTimeout(() => {
-          soketInit();
-        }, 3000);
-      });
+      // onMounted(() => {
+      //   setTimeout(() => {
+      //     soketInit();
+      //   }, 3000);
+      // });
+
+      const getIsOpen = computed(() => status.value === 'OPEN');
 
       function soketInit() {
+        console.log(getIsOpen.value);
         const d = { action: 'sub.sound' };
         send(JSON.stringify(d));
       }
@@ -155,6 +178,7 @@
         listData,
         count,
         onNoticeClick,
+        onWithdrawClick,
         numberStyle: {},
       };
     },

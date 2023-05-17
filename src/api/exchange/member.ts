@@ -2,8 +2,8 @@ import { otherHttp } from '/@/utils/http/axios';
 import { mergeUser } from '/@/utils/lists';
 // import { NoticeParams, NoticeResultModel } from './model/noticeModel';
 enum Api {
-  Members = 'usr/searchUser',
-  ChangeBalance = 'admin/withdrawUserBalance',
+  Members = '/usr/searchUser',
+  ChangeBalance = '/admin/withdrawUserBalance',
   Certified = '/usr/updateUserIDCard',
   Update = '/usr/updateUser',
 }

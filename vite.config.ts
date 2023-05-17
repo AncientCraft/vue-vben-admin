@@ -16,11 +16,11 @@ export default defineApplicationConfig({
     },
     server: {
       proxy: {
-        '/ex-api': {
+        '/basic-api': {
           target: 'https://v200.excservice.rosettawe.com',
           changeOrigin: true,
           ws: true,
-          rewrite: (path) => path.replace(new RegExp(`^/ex-api`), ''),
+          rewrite: (path) => path.replace(new RegExp(`^/basic-api`), ''),
           // only https
           secure: false,
         },

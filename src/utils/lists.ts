@@ -132,7 +132,7 @@ export function stransformParams(params: any) {
   const new_start_time = string_to_timestamp(startTime);
   const new_end_time = string_to_timestamp(endTime);
   const newParams = {
-    skip: page - 1,
+    skip: (page - 1) * pageSize,
     limit: pageSize,
     start_time: new_start_time,
     end_time: new_end_time,

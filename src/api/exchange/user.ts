@@ -6,8 +6,8 @@ enum Api {
   User = '/user/edit',
   Login = '/pub/login',
   Logout = '/usr/logout',
-  UserInfo = 'usr/adminUserInfo',
-  Users = 'usr/searchUser',
+  UserInfo = '/usr/adminUserInfo',
+  Users = '/usr/searchUser',
 }
 
 export function getUserApi(params: GetUserParams) {

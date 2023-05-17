@@ -3,9 +3,9 @@ import { mergeOrder, mergeWithdraw } from '/@/utils/lists';
 
 enum Api {
   Order = '/usr/searchOrder',
-  Flow = 'usr/searchWithdraw',
+  Flow = '/usr/searchWithdraw',
   Controll = '/admin/updateOrderTriggerType',
-  Commit = 'admin/doneWithdraw',
+  Commit = '/admin/doneWithdraw',
 }
 
 export function orderApi(params) {
