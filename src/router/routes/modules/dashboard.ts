@@ -11,7 +11,7 @@ const dashboard: AppRouteModule = {
   meta: {
     orderNo: 10,
     icon: 'ion:grid-outline',
-    title: t('routes.dashboard.dashboard'),
+    title: t('routes.dashboard'),
   },
   children: [
     {
@@ -20,7 +20,7 @@ const dashboard: AppRouteModule = {
       component: () => import('/@/views/dashboard/analysis/index.vue'),
       meta: {
         // affix: true,
-        title: t('routes.dashboard.analysis'),
+        title: t('routes.analysis'),
       },
     },
     {
@@ -28,7 +28,7 @@ const dashboard: AppRouteModule = {
       name: 'Workbench',
       component: () => import('/@/views/dashboard/workbench/index.vue'),
       meta: {
-        title: t('routes.dashboard.workbench'),
+        title: t('routes.workbench'),
       },
     },
   ],
