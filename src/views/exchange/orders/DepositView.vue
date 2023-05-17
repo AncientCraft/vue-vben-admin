@@ -14,7 +14,7 @@
     components: { BasicTable },
     setup() {
       const [registerTable] = useTable({
-        title: '充足记录',
+        title: '充值记录',
         api: flowApi,
         useSearchForm: true,
         columns: getDepositColumns(),

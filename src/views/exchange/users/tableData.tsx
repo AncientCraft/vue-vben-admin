@@ -153,7 +153,7 @@ export function getBankColumns(): BasicColumn[] {
 export const getAdvanceSchema = (): FormSchema[] => {
   const arr: any = [];
   arr.push({
-    field: 'user_id',
+    field: 'key',
     label: '会员ID',
     component: 'Input',
     colProps: {
