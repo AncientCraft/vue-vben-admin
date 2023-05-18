@@ -36,7 +36,7 @@ const demoList = (() => {
       date: `@date('yyyy-MM-dd')`,
       time: `@time('HH:mm')`,
       'no|100000-10000000': 100000,
-      'status|1': ['normal', 'enable', 'disable'],
+      'status|1': [true, false],
     });
   }
   return result;

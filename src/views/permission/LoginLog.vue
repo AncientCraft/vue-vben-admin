@@ -1,5 +1,29 @@
 <template>
-  <div>
-    <h1>登入日志</h1>
+  <div class="p-4">
+    <BasicTable @register="registerTable" />
   </div>
 </template>
+<script lang="ts">
+  import { defineComponent } from 'vue';
+  import { BasicTable, useTable, BasicColumn } from '/@/components/Table';
+  import { demoListApi } from '/@/api/demo/table';
+  import { getLoginColumns } from './tableData';
+
+  const columns: BasicColumn[] = getLoginColumns();
+  export default defineComponent({
+    components: { BasicTable },
+    setup() {
+      const [registerTable] = useTable({
+        title: '管理员登入日志',
+        api: demoListApi,
+        columns: columns,
+        bordered: true,
+        showTableSetting: true,
+      });
+
+      return {
+        registerTable,
+      };
+    },
+  });
+</script>

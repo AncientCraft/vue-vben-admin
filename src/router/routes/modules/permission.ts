@@ -29,7 +29,7 @@ const dashboard: AppRouteModule = {
       component: () => import('/@/views/permission/PermissionAdmin.vue'),
       meta: {
         // affix: true,
-        title: t('routes.permission.group'),
+        title: t('routes.permission.admin'),
       },
     },
     {

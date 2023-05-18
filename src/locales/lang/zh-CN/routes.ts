@@ -14,7 +14,7 @@ export default {
   },
   user: {
     user: '用户',
-    list: '用户列表详情',
+    list: '用户列表',
     realName: '实名管理',
     trader: '交易员管理',
     loginLog: '登入日志',
@@ -23,8 +23,8 @@ export default {
     wallet: '钱包',
     manage: '钱包管理',
     assets: '资产变更记录',
-    deposit: '充币审核',
-    withdraw: '提币审核',
+    deposit: '充币申请',
+    withdraw: '提币申请',
   },
   symbol: {
     manage: '币种管理',
