@@ -69,14 +69,35 @@ export function mergeUser(users: any[], map1: any, map2: any, map3: any, online:
       real_name: item.id_card.real_name,
       isOnline: isOnline,
       balance: item1.free,
-      deposit: item2[200].quantity,
-      withdraw: item2[100].quantity,
-      amount: item3[400].quantity,
+      deposit: make_deposit(item2),
+      withdraw: make_withdraw(item2),
+      amount: make_amount(item3),
     };
 
     return { ...item, ...balance };
   });
   return result;
+}
+
+function make_deposit(data) {
+  if (data) {
+    return data[200]?.quantity ?? 0;
+  }
+  return 0;
+}
+
+function make_withdraw(data) {
+  if (data) {
+    return data[100]?.quantity ?? 0;
+  }
+  return 0;
+}
+
+function make_amount(data) {
+  if (data) {
+    return data[400]?.quantity ?? 0;
+  }
+  return 0;
 }
 
 function makeIsOnline(online: any, tid) {
