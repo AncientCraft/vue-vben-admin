@@ -10,7 +10,7 @@
   import { Card, Button } from 'ant-design-vue';
   import { loginApi } from '/@/api/exchange/user';
   import { membersApi } from '/@/api/exchange/member';
-  import { orderApi } from '/@/api/exchange/orders';
+  import { tradingApi } from '/@/api/exchange/orders';
   // import { mergeList } from '/@/utils/lists';
 
   const loading = ref(false);
@@ -35,13 +35,14 @@
     const result = await membersApi(params);
     console.log(result);
   };
+
   const flow = async () => {
     const params = {
       offset: 1,
       limit: 3,
     };
 
-    const result = await orderApi(params);
+    const result = await tradingApi(params);
     console.log(result);
   };
 </script>

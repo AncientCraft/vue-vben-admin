@@ -170,6 +170,23 @@ export function stransformParams(params: any) {
   return { ...newParams, ...rest };
 }
 
+export function mergeTrading(list1: any[], orders: any, users: any, withdraws: any) {
+  const result = list1.map((item) => {
+    const user = users[item.user_id];
+    const order = orders[item.order_id];
+    const withdraw = withdraws[item.user_id];
+
+    // const { trigger_time, ...rest } = item;
+
+    const obj = {
+      name: user.name,
+    };
+
+    return { ...item, ...obj, ...order, ...withdraw };
+  });
+  return result;
+}
+
 export function stransformData(data) {
   const result = data.map((item) => {
     const { create_time, ...rest } = item;

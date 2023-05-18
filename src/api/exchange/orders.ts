@@ -1,11 +1,12 @@
 import { otherHttp } from '/@/utils/http/axios';
-import { mergeOrder, mergeWithdraw } from '/@/utils/lists';
+import { mergeOrder, mergeWithdraw, mergeTrading } from '/@/utils/lists';
 
 enum Api {
   Order = '/usr/searchOrder',
   Flow = '/usr/searchWithdraw',
   Controll = '/admin/updateOrderTriggerType',
   Commit = '/admin/doneWithdraw',
+  Trading = '/usr/searchBalanceRecord',
 }
 
 export function orderApi(params) {
@@ -34,6 +35,23 @@ export function flowApi(params) {
     .then((respond) => {
       const { withdraws, users, total } = respond;
       const r = mergeWithdraw(withdraws, users);
+      const data = {
+        items: r,
+        total: total,
+      };
+      return data;
+    });
+}
+
+export function tradingApi(params) {
+  return otherHttp
+    .get({
+      url: Api.Trading,
+      params,
+    })
+    .then((respond) => {
+      const { records, orders, users, withdraws, total } = respond;
+      const r = mergeTrading(records, orders, users, withdraws);
       const data = {
         items: r,
         total: total,

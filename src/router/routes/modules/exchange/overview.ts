@@ -21,24 +21,24 @@ const overview: AppRouteModule = {
         icon: 'simple-icons:hive-blockchain',
       },
     },
-    {
-      path: 'total',
-      name: 'Total',
-      component: () => import('/@/views/exchange/overview/report/index.vue'),
-      meta: {
-        title: '总报表',
-        icon: 'simple-icons:hive-blockchain',
-      },
-    },
-    {
-      path: 'monthly',
-      name: 'Monthly',
-      component: () => import('/@/views/exchange/overview/report/monthly.vue'),
-      meta: {
-        title: '本月日报表',
-        icon: 'simple-icons:hive-blockchain',
-      },
-    },
+    // {
+    //   path: 'total',
+    //   name: 'Total',
+    //   component: () => import('/@/views/exchange/overview/report/index.vue'),
+    //   meta: {
+    //     title: '总报表',
+    //     icon: 'simple-icons:hive-blockchain',
+    //   },
+    // },
+    // {
+    //   path: 'monthly',
+    //   name: 'Monthly',
+    //   component: () => import('/@/views/exchange/overview/report/monthly.vue'),
+    //   meta: {
+    //     title: '本月日报表',
+    //     icon: 'simple-icons:hive-blockchain',
+    //   },
+    // },
     // {
     //   path: 'test',
     //   name: 'Test',

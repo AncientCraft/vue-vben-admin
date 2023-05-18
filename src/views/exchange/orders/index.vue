@@ -7,14 +7,6 @@
         </template>
         <template v-if="column.key === 'action'">
           <TableAction
-            :actions="[
-              {
-                label: '删除',
-                icon: 'ic:outline-delete-outline',
-                onClick: handleDelete.bind(null, record),
-                auth: 'super', // 根据权限控制是否显示: 有权限，会显示
-              },
-            ]"
             :dropDownActions="[
               {
                 label: '盈利',
