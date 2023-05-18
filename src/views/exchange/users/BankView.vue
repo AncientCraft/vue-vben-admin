@@ -7,17 +7,19 @@
   import { defineComponent } from 'vue';
   import { BasicTable, useTable } from '/@/components/Table';
   import { getBankColumns, getFormConfig } from './tableData';
-  import { orderApi } from '/@/api/exchange/orders';
+  import { membersApi } from '/@/api/exchange/member';
+  import { stransformParams } from '/@/utils/lists';
 
   export default defineComponent({
     components: { BasicTable },
     setup() {
       const [registerTable] = useTable({
         title: '银行卡列表',
-        api: orderApi,
+        api: membersApi,
         useSearchForm: true,
         columns: getBankColumns(),
         formConfig: getFormConfig(),
+        beforeFetch: stransformParams,
         bordered: true,
       });
 

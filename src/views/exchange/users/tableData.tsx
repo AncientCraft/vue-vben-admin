@@ -118,7 +118,7 @@ export function getBankColumns(): BasicColumn[] {
   return [
     {
       title: '会员ID',
-      dataIndex: 'user_id',
+      dataIndex: 'tid',
       fixed: 'left',
       width: 50,
     },

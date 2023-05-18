@@ -76,7 +76,7 @@ export function mergeUser(users: any[], map1: any, map2: any, map3: any, online:
       verifyStatus: make_verify_status(item.id_card.status),
     };
 
-    return { ...item, ...balance };
+    return { ...item, ...balance, ...item.config };
   });
   return result;
 }

@@ -38,7 +38,7 @@
   export default defineComponent({
     components: { BasicTable, TableAction },
     setup() {
-      const [registerTable] = useTable({
+      const [registerTable, { reload }] = useTable({
         title: '提现记录',
         api: flowApi,
         useSearchForm: true,
@@ -69,6 +69,7 @@
         // console.log(params);
         const r = await commitApi(params);
         okOrFail(r);
+        reload();
       }
 
       return {
