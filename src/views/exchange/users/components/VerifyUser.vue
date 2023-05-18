@@ -57,25 +57,36 @@
     },
 
     {
-      field: 'veryfy',
+      field: 'status',
       component: 'Select',
       label: '审核',
       required: true,
-      defaultValue: '1',
+      defaultValue: 200,
       componentProps: {
         options: [
           {
             label: '通过',
-            value: '1',
+            value: 200,
           },
           {
             label: '驳回',
-            value: '2',
+            value: 300,
           },
         ],
       },
       colProps: {
         span: 8,
+      },
+    },
+    {
+      field: 'tid',
+      component: 'Input',
+      label: '会员id',
+      colProps: {
+        span: 7,
+      },
+      componentProps: {
+        disabled: true,
       },
     },
     // {
@@ -160,13 +171,12 @@
       }
 
       async function handleSubmit(values: any) {
-        console.log(values);
+        // console.log(values);
         const params = {
-          user_id: values.user_id,
-          changed: parseInt(values.changed),
-          type: values.type,
+          id: values.tid,
+          status: values.status,
         };
-        console.log(params);
+        // console.log(params);
         const r = await certifiedApi(params);
         okOrFail(r);
       }

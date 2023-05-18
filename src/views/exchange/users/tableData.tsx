@@ -60,14 +60,14 @@ export function getBasicColumns(): BasicColumn[] {
       width: 40,
     },
     {
-      title: '注册地址',
-      dataIndex: 'address',
+      title: '是否实名',
+      dataIndex: 'verifyStatus',
       width: 40,
     },
     {
       title: '最近上线时间',
-      dataIndex: 'update_time',
-      width: 40,
+      dataIndex: 'last_time',
+      width: 70,
     },
   ];
 }

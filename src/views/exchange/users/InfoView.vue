@@ -84,11 +84,14 @@
       function handleBalance(record: any) {
         openBalance(true, {
           user_id: record.tid,
+          real_name: record.real_name,
+          balance: record.balance,
         });
       }
 
       function handleVerify(record: any) {
         openVerify(true, {
+          tid: record.tid,
           id_no: record.id_no,
           real_name: record.real_name,
         });

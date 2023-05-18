@@ -43,7 +43,7 @@
       },
     },
     {
-      field: 'readl_name',
+      field: 'real_name',
       component: 'Input',
       label: '姓名',
       colProps: {

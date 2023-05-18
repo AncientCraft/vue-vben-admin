@@ -72,11 +72,20 @@ export function mergeUser(users: any[], map1: any, map2: any, map3: any, online:
       deposit: make_deposit(item2),
       withdraw: make_withdraw(item2),
       amount: make_amount(item3),
+      last_time: timestamp_to_string(item.last_login_time),
+      verifyStatus: make_verify_status(item.id_card.status),
     };
 
     return { ...item, ...balance };
   });
   return result;
+}
+
+function make_verify_status(r) {
+  if (r === 200) {
+    return '已实名';
+  }
+  return '未审核';
 }
 
 function make_deposit(data) {
