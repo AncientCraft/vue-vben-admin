@@ -7,23 +7,19 @@
         </template>
         <template v-if="column.key === 'action'">
           <TableAction
-            :dropDownActions="[
+            :actions="[
               {
                 label: '盈利',
-                popConfirm: {
-                  title: '是否让用户盈利？',
-                  confirm: handleWin.bind(null, record),
-                },
-                ifShow: (_action) => {
-                  return record.status !== 400; // 根据业务控制是否显示: 非enable状态的不显示启用按钮
+                // icon: 'ic:outline-delete-outline',
+                onClick: handleWin.bind(null, record),
+                ifShow: () => {
+                  return record.status !== 400; // 根据业务控制是否显示: enable状态的显示禁用按钮
                 },
               },
               {
                 label: '亏损',
-                popConfirm: {
-                  title: '是否让用户亏损？',
-                  confirm: handleLoss.bind(null, record),
-                },
+                // icon: 'ic:outline-delete-outline',
+                onClick: handleLoss.bind(null, record),
                 ifShow: () => {
                   return record.status !== 400; // 根据业务控制是否显示: enable状态的显示禁用按钮
                 },

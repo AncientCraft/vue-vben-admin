@@ -125,8 +125,8 @@ export function getWithdrawColumns(): BasicColumn[] {
       width: 100,
     },
     {
-      title: '会员名',
-      dataIndex: 'name',
+      title: '会员ID',
+      dataIndex: 'user_id',
       width: 50,
     },
     {
@@ -187,8 +187,8 @@ export function getDepositColumns(): BasicColumn[] {
       width: 100,
     },
     {
-      title: '会员名',
-      dataIndex: 'name',
+      title: '会员ID',
+      dataIndex: 'user_id',
       width: 50,
     },
     {

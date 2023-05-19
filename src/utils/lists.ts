@@ -220,9 +220,21 @@ export function string_to_timestamp(dateString) {
 }
 
 export function timestamp_to_string(timestamp) {
-  const date = new Date(timestamp);
-  const dateString = date.toISOString().slice(0, 19).replace('T', ' ');
-  return dateString;
+  const dateTime = new Date(timestamp);
+  const options = {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    hour12: false,
+    hour: 'numeric',
+    minute: 'numeric',
+    second: 'numeric',
+  }; // 格式选项
+
+  const formattedDateTime = dateTime.toLocaleString('zh-CN', options); // 将日期时间格式化为中国风格
+  // const dateString = date.toLocaleString().slice(0, 19).replace(',', ' ');
+  // return dateString;
+  return formattedDateTime;
 }
 
 export function timestamp_to_time_string(timestamp) {
