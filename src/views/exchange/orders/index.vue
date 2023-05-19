@@ -45,7 +45,7 @@
   export default defineComponent({
     components: { BasicTable, TableAction, StatisticCountdown },
     setup() {
-      const [registerTable, { updateTableDataRecord }] = useTable({
+      const [registerTable, { reload }] = useTable({
         title: '订单列表',
         api: orderApi,
         useSearchForm: true,
@@ -71,23 +71,22 @@
       }
       // eslint-disable-next-line no-undef
       async function handleWin(record: any) {
-        await sendTrigger(record, 400, '盈利');
+        await sendTrigger(record, 400);
       }
 
       async function handleLoss(record: any) {
-        await sendTrigger(record, 500, '亏损');
+        await sendTrigger(record, 500);
       }
 
       const { createMessage } = useMessage();
 
-      async function sendTrigger(record: any, type, display) {
+      async function sendTrigger(record: any, type) {
         const r = await controllApi({
           id: record.tid,
           trigger_type: type,
         });
         if (r.code === 0) {
-          record.trigger_display = display;
-          updateTableDataRecord(record.key, record);
+          reload();
         } else {
           createMessage.error('操作失败');
         }
