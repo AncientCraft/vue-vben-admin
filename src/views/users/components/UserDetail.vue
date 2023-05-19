@@ -11,20 +11,31 @@
   >
     <Card title="基础信息" :bordered="true">
       <Row>
-        <Col :span="12">12</Col>
+        <Col :span="2"> 用户ID: </Col>
+        <Col :span="4"> 18261762861 </Col>
       </Row>
-      <CardGrid style="width: 10%; text-align: right">12211</CardGrid>
-      <CardGrid style="width: 20%; text-align: center">12211</CardGrid>
+      <Row>
+        <Col :span="2"> 用户账号: </Col>
+        <Col :span="4"> 18261762861 </Col>
+        <Col :span="2"> 用户密码: </Col>
+        <Col :span="4"> 18261762861 </Col>
+      </Row>
+      <Row>
+        <Col :span="2"> 邮箱: </Col>
+        <Col :span="4"> 18261762861 </Col>
+        <Col :span="2"> 手机号码: </Col>
+        <Col :span="4"> 18261762861 </Col>
+      </Row>
     </Card>
   </BasicModal>
 </template>
 <script lang="ts">
   import { defineComponent, nextTick } from 'vue';
   import { BasicModal, useModalInner } from '/@/components/Modal';
-  import { Card, CardGrid, Row, Col } from 'ant-design-vue';
+  import { Card, Row, Col } from 'ant-design-vue';
 
   export default defineComponent({
-    components: { BasicModal, Card, CardGrid, Row, Col },
+    components: { BasicModal, Card, Row, Col },
     props: {
       userData: { type: Object },
     },
