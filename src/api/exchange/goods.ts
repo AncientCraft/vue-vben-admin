@@ -9,6 +9,8 @@ import { otherHttp } from '/@/utils/http/axios';
 enum Api {
   Goods = '/usr/searchProduct',
   UpdateGoods = '/admin/updateProduct',
+  GetSettings = '/usr/loadSysConfig',
+  UpdateSettings = '/usr/updateSysConfig',
 }
 
 export function goodsListApi(params: any) {
@@ -30,6 +32,21 @@ export function goodsListApi(params: any) {
 export function updateGoodsApi(params: any) {
   return otherHttp.request({
     url: Api.UpdateGoods,
+    method: 'post',
+    params,
+  });
+}
+
+export function getSettingsApi() {
+  return otherHttp.request({
+    url: Api.GetSettings,
+    method: 'get',
+  });
+}
+
+export function updateSettingsApi(params: any) {
+  return otherHttp.request({
+    url: Api.UpdateSettings,
     method: 'post',
     params,
   });

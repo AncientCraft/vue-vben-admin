@@ -12,17 +12,17 @@
                 label: '盈利',
                 // icon: 'ic:outline-delete-outline',
                 onClick: handleWin.bind(null, record),
-                ifShow: () => {
-                  return record.status !== 400; // 根据业务控制是否显示: enable状态的显示禁用按钮
-                },
+                // ifShow: () => {
+                //   return record.status !== 400; // 根据业务控制是否显示: enable状态的显示禁用按钮
+                // },
               },
               {
                 label: '亏损',
                 // icon: 'ic:outline-delete-outline',
                 onClick: handleLoss.bind(null, record),
-                ifShow: () => {
-                  return record.status !== 400; // 根据业务控制是否显示: enable状态的显示禁用按钮
-                },
+                // ifShow: () => {
+                //   return record.status !== 400; // 根据业务控制是否显示: enable状态的显示禁用按钮
+                // },
               },
             ]"
           />

@@ -7,22 +7,22 @@ const system: AppRouteModule = {
   path: '/system',
   name: 'System',
   component: LAYOUT,
-  redirect: '/system/account',
+  redirect: '/system/settings',
   meta: {
     orderNo: 2000,
     icon: 'ion:settings-outline',
     title: t('routes.demo.system.moduleName'),
   },
   children: [
-    // {
-    //   path: 'account',
-    //   name: 'AccountManagement',
-    //   meta: {
-    //     title: t('routes.demo.system.account'),
-    //     ignoreKeepAlive: false,
-    //   },
-    //   component: () => import('/@/views/demo/system/account/index.vue'),
-    // },
+    {
+      path: 'settings',
+      name: 'SystemSettings',
+      meta: {
+        title: '系统设置',
+        ignoreKeepAlive: false,
+      },
+      component: () => import('/@/views/sys/settings/index.vue'),
+    },
     // {
     //   path: 'account_detail/:id',
     //   name: 'AccountDetail',

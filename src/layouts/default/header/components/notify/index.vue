@@ -28,7 +28,7 @@
   </div>
 </template>
 <script lang="ts">
-  import { computed, defineComponent, ref, watchEffect, reactive } from 'vue';
+  import { computed, defineComponent, ref, watchEffect, reactive, onMounted } from 'vue';
   // import { computed, defineComponent, ref } from 'vue';
   import { Popover, Tabs, Badge } from 'ant-design-vue';
   import { BellOutlined } from '@ant-design/icons-vue';
@@ -150,6 +150,12 @@
         }
       }
 
+      function circleAudio() {
+        if (count.value > 0) {
+          playAudio();
+        }
+      }
+
       function deleteRecord(key) {
         listData.value.map((i) => {
           if (i.key === key) {
@@ -159,11 +165,11 @@
         });
       }
 
-      // onMounted(() => {
-      //   setTimeout(() => {
-      //     soketInit();
-      //   }, 3000);
-      // });
+      onMounted(() => {
+        setInterval(() => {
+          circleAudio();
+        }, 5000);
+      });
 
       const getIsOpen = computed(() => status.value === 'OPEN');
 

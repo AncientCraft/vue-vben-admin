@@ -68,7 +68,7 @@ export function mergeUser(users: any[], map1: any, map2: any, map3: any, online:
       id_no: item.id_card.id_no,
       real_name: item.id_card.real_name,
       isOnline: isOnline,
-      balance: item1.free,
+      balance: item1?.free ?? 0,
       deposit: make_deposit(item2),
       withdraw: make_withdraw(item2),
       amount: make_amount(item3),

@@ -95,11 +95,11 @@ export function getTradingColumns(): BasicColumn[] {
       dataIndex: 'quantity',
       width: 40,
     },
-    {
-      title: '交易前余额',
-      dataIndex: 'before_changed',
-      width: 40,
-    },
+    // {
+    //   title: '交易前余额',
+    //   dataIndex: 'before_changed',
+    //   width: 40,
+    // },
     {
       title: '交易后余额',
       dataIndex: 'after_changed',
