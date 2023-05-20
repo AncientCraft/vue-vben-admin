@@ -23,6 +23,9 @@
         </template>
       </template>
     </BasicTable>
+    <div>
+      <UserModal @register="registerDetail" />
+    </div>
   </div>
 </template>
 <script lang="ts">
@@ -31,10 +34,12 @@
   import { demoListApi } from '/@/api/demo/table';
   import { getNamesColumns, getFormConfig } from './tableData';
   import { Switch } from 'ant-design-vue';
+  import { useModal } from '/@/components/Modal';
+  import UserModal from './components/IdDetail.vue';
 
   const columns: BasicColumn[] = getNamesColumns();
   export default defineComponent({
-    components: { BasicTable, TableAction, Switch },
+    components: { BasicTable, TableAction, Switch, UserModal },
     setup() {
       const [registerTable] = useTable({
         title: '实名管理',
@@ -51,8 +56,14 @@
         },
       });
 
+      const [registerDetail, { openModal: openModal1 }] = useModal();
+
       function handleEdit(record) {
         console.log(record);
+        openModal1(true, {
+          data: 'content',
+          info: 'Info',
+        });
       }
 
       function handleDelete(record) {
@@ -71,6 +82,7 @@
         handleDelete,
         createGroup,
         changeStatus,
+        registerDetail,
       };
     },
   });

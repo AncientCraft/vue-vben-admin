@@ -4,38 +4,61 @@
     @register="register"
     title="用户详情"
     @visible-change="handleVisibleChange"
-    width="1600px"
+    width="800px"
     :showOkBtn="false"
     :showCancelBtn="false"
     :footer="null"
   >
-    <Card title="基础信息" :bordered="true">
-      <Row>
-        <Col :span="2"> 用户ID: </Col>
-        <Col :span="4"> 18261762861 </Col>
+    <div>
+      <Descriptions title="基础信息" bordered :column="2">
+        <DescriptionsItem label="用户ID:" :span="2"> 20000 </DescriptionsItem>
+        <DescriptionsItem label="用户账号:"> 20000 </DescriptionsItem>
+        <DescriptionsItem label="用户密码:"> 20000 </DescriptionsItem>
+        <DescriptionsItem label="邮箱:"> 20000 </DescriptionsItem>
+        <DescriptionsItem label="手机号码:"> 20000 </DescriptionsItem>
+      </Descriptions>
+      <br />
+      <Descriptions title="证件信息" bordered :column="2">
+        <template #extra>
+          <a-button type="primary">解绑</a-button>
+        </template>
+        <DescriptionsItem label="姓名:"> 20000 </DescriptionsItem>
+        <DescriptionsItem label="证件号码:"> 20000 </DescriptionsItem>
+        <DescriptionsItem label="证件照片:" :span="2"> 20000 </DescriptionsItem>
+      </Descriptions>
+      <br />
+      <Descriptions title="资产信息" bordered :column="2">
+        <template #extra>
+          <a-button type="primary">钱包详情</a-button>
+          <a-button type="primary">充提记录</a-button>
+          <a-button type="primary">期权详情</a-button>
+          <a-button type="primary">台面分变更</a-button>
+        </template>
+        <DescriptionsItem label="现货余额:"> 20000 </DescriptionsItem>
+        <DescriptionsItem label="期权余额:"> 20000 </DescriptionsItem>
+        <DescriptionsItem label="法币余额:"> 20000 </DescriptionsItem>
+      </Descriptions>
+      <br />
+      <Descriptions title="收款信息" bordered :column="2">
+        <DescriptionsItem label="姓名:" :span="2"> 20000 </DescriptionsItem>
+        <DescriptionsItem label="银行卡账号:"> 20000 </DescriptionsItem>
+        <DescriptionsItem label="支行信息:"> 20000 </DescriptionsItem>
+        <DescriptionsItem label="USDT地址:"> 20000 </DescriptionsItem>
+      </Descriptions>
+      <br />
+      <Row justify="center">
+        <a-button type="primary">保存设置</a-button>
       </Row>
-      <Row>
-        <Col :span="2"> 用户账号: </Col>
-        <Col :span="4"> 18261762861 </Col>
-        <Col :span="2"> 用户密码: </Col>
-        <Col :span="4"> 18261762861 </Col>
-      </Row>
-      <Row>
-        <Col :span="2"> 邮箱: </Col>
-        <Col :span="4"> 18261762861 </Col>
-        <Col :span="2"> 手机号码: </Col>
-        <Col :span="4"> 18261762861 </Col>
-      </Row>
-    </Card>
+    </div>
   </BasicModal>
 </template>
 <script lang="ts">
   import { defineComponent, nextTick } from 'vue';
   import { BasicModal, useModalInner } from '/@/components/Modal';
-  import { Card, Row, Col } from 'ant-design-vue';
+  import { Descriptions, DescriptionsItem, Row } from 'ant-design-vue';
 
   export default defineComponent({
-    components: { BasicModal, Card, Row, Col },
+    components: { BasicModal, Descriptions, DescriptionsItem, Row },
     props: {
       userData: { type: Object },
     },

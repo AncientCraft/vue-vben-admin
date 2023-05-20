@@ -1,5 +1,6 @@
 <template>
   <div class="p-4">
+    <a-button type="primary" @click="createGroup">新增</a-button>
     <BasicTable @register="registerTable">
       <template #bodyCell="{ column, record }">
         <template v-if="column.key === 'action'">
@@ -23,6 +24,9 @@
         </template>
       </template>
     </BasicTable>
+    <div>
+      <TraderModal @register="registerDetail" />
+    </div>
   </div>
 </template>
 <script lang="ts">
@@ -31,10 +35,12 @@
   import { demoListApi } from '/@/api/demo/table';
   import { getTraderColumns, getFormConfig } from './tableData';
   import { Switch } from 'ant-design-vue';
+  import { useModal } from '/@/components/Modal';
+  import TraderModal from './components/Trader.vue';
 
   const columns: BasicColumn[] = getTraderColumns();
   export default defineComponent({
-    components: { BasicTable, TableAction, Switch },
+    components: { BasicTable, TableAction, Switch, TraderModal },
     setup() {
       const [registerTable] = useTable({
         title: '交易员管理',
@@ -51,6 +57,8 @@
         },
       });
 
+      const [registerDetail, { openModal: openModal1 }] = useModal();
+
       function handleEdit(record) {
         console.log(record);
       }
@@ -59,7 +67,12 @@
         console.log(record);
       }
 
-      function createGroup() {}
+      function createGroup() {
+        openModal1(true, {
+          data: 'content',
+          info: 'Info',
+        });
+      }
 
       function changeStatus(record) {
         console.log(record);
@@ -71,6 +84,7 @@
         handleDelete,
         createGroup,
         changeStatus,
+        registerDetail,
       };
     },
   });
