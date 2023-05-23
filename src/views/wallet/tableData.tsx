@@ -20,11 +20,11 @@ export function getWalletColumns(): BasicColumn[] {
       dataIndex: 'symbol',
       width: 60,
     },
-    {
-      title: '地址',
-      dataIndex: 'addr',
-      width: 150,
-    },
+    // {
+    //   title: '地址',
+    //   dataIndex: 'addr',
+    //   width: 150,
+    // },
     {
       title: '法币',
       children: [

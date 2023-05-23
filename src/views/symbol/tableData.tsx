@@ -4,42 +4,42 @@ export function getSymbolColumns(): BasicColumn[] {
   return [
     {
       title: '名称',
-      dataIndex: 'id',
+      dataIndex: 'name',
       width: 60,
     },
     {
       title: '提币量',
-      dataIndex: 'id',
+      dataIndex: 'amount',
       width: 60,
     },
     {
       title: '提币量手续费(USDT)',
-      dataIndex: 'symbol',
+      dataIndex: 'withdraw_fee',
       width: 60,
     },
     {
       title: '账户资产',
       children: [
         {
-          title: '币币',
-          dataIndex: 'bb',
+          title: '现货',
+          dataIndex: 'spot',
           width: 30,
         },
         {
           title: '法币',
-          dataIndex: 'fb',
+          dataIndex: 'fiat',
           width: 30,
         },
         {
           title: '期权',
-          dataIndex: 'options',
+          dataIndex: 'option',
           width: 30,
         },
       ],
     },
     {
       title: '市场显示',
-      dataIndex: 'symbol',
+      dataIndex: 'market',
       width: 60,
     },
   ];
@@ -49,12 +49,12 @@ export function getRateColumns(): BasicColumn[] {
   return [
     {
       title: '法币',
-      dataIndex: 'id',
+      dataIndex: 'name',
       width: 60,
     },
     {
       title: '比例',
-      dataIndex: 'id',
+      dataIndex: 'rate',
       width: 60,
     },
   ];

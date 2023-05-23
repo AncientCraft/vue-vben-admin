@@ -7,8 +7,7 @@ import { PageEnum } from '/@/enums/pageEnum';
 import { ROLES_KEY, TOKEN_KEY, USER_INFO_KEY } from '/@/enums/cacheEnum';
 import { getAuthCache, setAuthCache } from '/@/utils/auth';
 import { GetUserInfoModel, LoginParams } from '/@/api/sys/model/userModel';
-import { doLogout } from '/@/api/sys/user';
-import { loginApi, userInfoApi } from '/@/api/auth';
+import { loginApi, userInfoApi, logoutApi } from '/@/api/auth';
 import { useI18n } from '/@/hooks/web/useI18n';
 import { useMessage } from '/@/hooks/web/useMessage';
 import { router } from '/@/router';
@@ -125,18 +124,23 @@ export const useUserStore = defineStore({
       return userInfo;
     },
     async getUserInfoAction(): Promise<UserInfo | null> {
-      if (!this.getToken) return null;
-      const userInfo = await userInfoApi();
-      const { roles = [] } = userInfo;
-      if (isArray(roles)) {
-        const roleList = roles.map((item) => item.value) as RoleEnum[];
-        this.setRoleList(roleList);
-      } else {
-        userInfo.roles = [];
-        this.setRoleList([]);
+      try {
+        if (!this.getToken) return null;
+        const userInfo = await userInfoApi();
+        const { roles = [] } = userInfo;
+        if (isArray(roles)) {
+          const roleList = roles.map((item) => item.value) as RoleEnum[];
+          this.setRoleList(roleList);
+        } else {
+          userInfo.roles = [];
+          this.setRoleList([]);
+        }
+        this.setUserInfo(userInfo);
+        return userInfo;
+      } catch (error) {
+        router.push(PageEnum.BASE_LOGIN);
+        return Promise.reject(error);
       }
-      this.setUserInfo(userInfo);
-      return userInfo;
     },
     /**
      * @description: logout
@@ -144,7 +148,7 @@ export const useUserStore = defineStore({
     async logout(goLogin = false) {
       if (this.getToken) {
         try {
-          await doLogout();
+          await logoutApi();
         } catch {
           console.log('注销Token失败');
         }

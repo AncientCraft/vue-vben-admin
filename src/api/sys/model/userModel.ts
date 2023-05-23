@@ -46,5 +46,6 @@ export interface GetUserInfoModel {
   username: string;
   // 真实名字
   name: string;
-  // 头像
+  homePath?: string;
+  roles: RoleInfo[];
 }

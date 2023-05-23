@@ -7,8 +7,9 @@
 <script lang="ts">
   import { defineComponent } from 'vue';
   import { BasicTable, useTable, BasicColumn } from '/@/components/Table';
-  import { demoListApi } from '/@/api/demo/table';
+  import { symbolsApi } from '/@/api/symbol';
   import { getRateColumns } from './tableData';
+  import { stransformParams } from '/@/utils/formatValue';
 
   const columns: BasicColumn[] = getRateColumns();
   export default defineComponent({
@@ -16,12 +17,21 @@
     setup() {
       const [registerTable] = useTable({
         title: '法币比例',
-        api: demoListApi,
+        api: symbolsApi,
         columns: columns,
         bordered: true,
         showTableSetting: true,
         useSearchForm: false,
+        beforeFetch: formatParams,
       });
+
+      function formatParams(p) {
+        const extra = {
+          type: 200,
+        };
+        const params = { ...p, ...extra };
+        return stransformParams(params);
+      }
 
       function handleEdit(record) {
         console.log(record);

@@ -5,13 +5,13 @@ export function getUserColumns(): BasicColumn[] {
   return [
     {
       title: '用户账号',
-      dataIndex: 'id',
+      dataIndex: 'account',
       fixed: 'left',
       width: 60,
     },
     {
       title: '用户ID',
-      dataIndex: 'id',
+      dataIndex: 'tid',
       width: 60,
     },
     {
@@ -21,12 +21,12 @@ export function getUserColumns(): BasicColumn[] {
     },
     {
       title: '总资产(USDT)',
-      dataIndex: 'total_assets',
+      dataIndex: 'balance',
       width: 60,
     },
     {
       title: '总冻结(USDT)',
-      dataIndex: 'total_frozen',
+      dataIndex: 'locked',
       width: 60,
     },
     {
@@ -41,7 +41,7 @@ export function getUserColumns(): BasicColumn[] {
     },
     {
       title: '最后一次登入时间',
-      dataIndex: 'last_times',
+      dataIndex: 'last_login_time',
       width: 80,
     },
   ];
@@ -51,13 +51,13 @@ export function getNamesColumns(): BasicColumn[] {
   return [
     {
       title: '用户账号',
-      dataIndex: 'id',
+      dataIndex: 'account',
       fixed: 'left',
       width: 60,
     },
     {
       title: '用户ID',
-      dataIndex: 'id',
+      dataIndex: 'tid',
       width: 60,
     },
     {
@@ -83,7 +83,7 @@ export function getNamesColumns(): BasicColumn[] {
     },
     {
       title: '申请时间',
-      dataIndex: 'last_times',
+      dataIndex: 'id_card_apply_time',
       width: 80,
     },
   ];

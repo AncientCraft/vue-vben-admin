@@ -30,12 +30,25 @@ export interface ErrorLogInfo {
   time?: string;
 }
 
+// export interface UserInfo {
+//   userId: string | number;
+//   username: string;
+//   realName: string;
+//   avatar: string;
+//   desc?: string;
+//   homePath?: string;
+//   roles: RoleInfo[];
+// }
+
 export interface UserInfo {
+  tid: number;
+  rols: number;
+  // 用户id
   userId: string | number;
+  // 用户名
   username: string;
-  realName: string;
-  avatar: string;
-  desc?: string;
+  // 真实名字
+  name: string;
   homePath?: string;
   roles: RoleInfo[];
 }

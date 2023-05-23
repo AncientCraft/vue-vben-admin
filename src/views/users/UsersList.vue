@@ -26,6 +26,9 @@
         <template v-if="column.key === 'options_controll'">
           <Switch v-model:checked="record.options_controll" @change="changeStatus(record)" />
         </template>
+        <template v-if="column.key === 'last_login_time'">
+          <div>{{ timestampToString(record.last_login_time) }}</div>
+        </template>
       </template>
     </BasicTable>
     <div>
@@ -36,11 +39,12 @@
 <script lang="ts">
   import { defineComponent } from 'vue';
   import { BasicTable, useTable, BasicColumn, TableAction } from '/@/components/Table';
-  import { demoListApi } from '/@/api/demo/table';
+  import { usersApi } from '/@/api/users';
   import { getUserColumns, getFormConfig } from './tableData';
   import { Switch } from 'ant-design-vue';
   import { useModal } from '/@/components/Modal';
   import UserModal from './components/UserDetail.vue';
+  import { timestampToString, stransformParams } from '/@/utils/formatValue';
 
   const columns: BasicColumn[] = getUserColumns();
   export default defineComponent({
@@ -48,12 +52,13 @@
     setup() {
       const [registerTable] = useTable({
         title: '用户列表',
-        api: demoListApi,
+        api: usersApi,
         columns: columns,
         bordered: true,
         showTableSetting: true,
         useSearchForm: true,
         formConfig: getFormConfig(),
+        beforeFetch: formatParams,
         actionColumn: {
           width: 70,
           title: '操作',
@@ -69,6 +74,16 @@
           data: 'content',
           info: 'Info',
         });
+      }
+
+      function formatParams(p) {
+        const extra = {
+          type: 100,
+          role: 100,
+          status: 100,
+        };
+        const params = { ...p, ...extra };
+        return stransformParams(params);
       }
 
       function handleDelete(record) {
@@ -88,6 +103,7 @@
         createGroup,
         changeStatus,
         registerDetail,
+        timestampToString,
       };
     },
   });

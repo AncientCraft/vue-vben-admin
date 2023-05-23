@@ -4,7 +4,7 @@ export function getAssetsColumns(): BasicColumn[] {
   return [
     {
       title: '币种',
-      dataIndex: 'symbol',
+      dataIndex: 'asset',
       width: 60,
     },
     {
