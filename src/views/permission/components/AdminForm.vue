@@ -1,6 +1,6 @@
 <template>
   <BasicModal
-    title="编辑币种"
+    title="编辑管理员"
     v-bind="$attrs"
     @register="register"
     @visible-change="handleVisibleChange"

@@ -1,6 +1,6 @@
 <template>
   <div class="p-4">
-    <a-button type="primary" @click="createGroup">新增</a-button>
+    <Button type="primary" @click="createItem">新增</Button>
     <BasicTable @register="registerTable">
       <template #bodyCell="{ column, record }">
         <template v-if="column.key === 'action'">
@@ -24,6 +24,9 @@
         </template>
       </template>
     </BasicTable>
+    <div>
+      <AdminModal @register="registerModel" />
+    </div>
   </div>
 </template>
 <script lang="ts">
@@ -31,11 +34,13 @@
   import { BasicTable, useTable, BasicColumn, TableAction } from '/@/components/Table';
   import { demoListApi } from '/@/api/demo/table';
   import { getAdminColumns } from './tableData';
-  import { Switch } from 'ant-design-vue';
+  import { Switch, Button } from 'ant-design-vue';
+  import AdminModal from './components/AdminForm.vue';
+  import { useModal } from '/@/components/Modal';
 
   const columns: BasicColumn[] = getAdminColumns();
   export default defineComponent({
-    components: { BasicTable, TableAction, Switch },
+    components: { BasicTable, TableAction, Switch, Button, AdminModal },
     setup() {
       const [registerTable] = useTable({
         title: '管理员',
@@ -50,15 +55,26 @@
         },
       });
 
+      const [registerModel, { openModal: openModal1 }] = useModal();
+
       function handleEdit(record) {
         console.log(record);
+        openModal1(true, {
+          type: 'update',
+          info: record,
+        });
       }
 
       function handleDelete(record) {
         console.log(record);
       }
 
-      function createGroup() {}
+      function createItem() {
+        openModal1(true, {
+          type: 'new',
+          info: null,
+        });
+      }
 
       function changeStatus(record) {
         console.log(record);
@@ -68,8 +84,9 @@
         registerTable,
         handleEdit,
         handleDelete,
-        createGroup,
         changeStatus,
+        registerModel,
+        createItem,
       };
     },
   });

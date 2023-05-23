@@ -1,6 +1,6 @@
 <template>
   <div class="p-4">
-    <a-button type="primary" @click="createGroup">新增</a-button>
+    <a-button type="primary" @click="createItem">新增</a-button>
     <BasicTable @register="registerTable">
       <template #bodyCell="{ column, record }">
         <template v-if="column.key === 'action'">
@@ -21,6 +21,9 @@
         </template>
       </template>
     </BasicTable>
+    <div>
+      <GroupModal @register="registerModel" />
+    </div>
   </div>
 </template>
 <script lang="ts">
@@ -28,10 +31,12 @@
   import { BasicTable, useTable, BasicColumn, TableAction } from '/@/components/Table';
   import { demoListApi } from '/@/api/demo/table';
   import { getGroupColumns } from './tableData';
+  import GroupModal from './components/GroupForm.vue';
+  import { useModal } from '/@/components/Modal';
 
   const columns: BasicColumn[] = getGroupColumns();
   export default defineComponent({
-    components: { BasicTable, TableAction },
+    components: { BasicTable, TableAction, GroupModal },
     setup() {
       const [registerTable] = useTable({
         title: '管理组',
@@ -46,15 +51,24 @@
         },
       });
 
+      const [registerModel, { openModal: openModal1 }] = useModal();
+
       function handleEdit(record) {
         console.log(record);
+        openModal1(true, {
+          type: 'update',
+          info: record,
+        });
+      }
+
+      function createItem() {
+        openModal1(true, {
+          type: 'new',
+          info: null,
+        });
       }
 
       function handleDelete(record) {
-        console.log(record);
-      }
-
-      function createGroup(record) {
         console.log(record);
       }
 
@@ -62,7 +76,8 @@
         registerTable,
         handleEdit,
         handleDelete,
-        createGroup,
+        registerModel,
+        createItem,
       };
     },
   });

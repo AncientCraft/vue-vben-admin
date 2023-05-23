@@ -1,6 +1,6 @@
 <template>
   <BasicModal
-    title="编辑币种"
+    title="编辑期权档位"
     v-bind="$attrs"
     @register="register"
     @visible-change="handleVisibleChange"

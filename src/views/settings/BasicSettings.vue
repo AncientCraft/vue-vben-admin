@@ -1,24 +1,42 @@
 <template>
-  <Card>
-    <Tabs v-model:activeKey="activeKey">
-      <TabPane key="1" tab="Tab 1">
-        <Platform />
-      </TabPane>
-      <TabPane key="2" tab="Tab 2" force-render>Content of Tab Pane 2</TabPane>
-      <TabPane key="3" tab="Tab 3">Content of Tab Pane 3</TabPane>
-    </Tabs>
-  </Card>
+  <PageWrapper title="基础设置" contentFullHeight>
+    <div class="pt-3px pr-3px">
+      <BasicForm @register="registerForm" @submit="handleSubmit" />
+    </div>
+  </PageWrapper>
 </template>
 <script lang="ts">
-  import { defineComponent, ref } from 'vue';
-  import { Card, Tabs, TabPane } from 'ant-design-vue';
-  import Platform from './components/Platform.vue';
+  import { defineComponent, onMounted } from 'vue';
+  import { BasicForm, useForm } from '/@/components/Form/index';
+  import { schemas } from './formData';
+  import { PageWrapper } from '/@/components/Page';
 
   export default defineComponent({
-    components: { Card, Tabs, TabPane, Platform },
+    components: { BasicForm, PageWrapper },
     setup() {
+      const [registerForm, { setFieldsValue }] = useForm({
+        labelWidth: 120,
+        schemas,
+        showActionButtonGroup: true,
+        actionColOptions: {
+          span: 24,
+        },
+        submitButtonOptions: {
+          text: '提交',
+        },
+      });
+
+      onMounted(() => {
+        setFieldsValue({ id: 1 });
+      });
+
+      async function handleSubmit(values: any) {
+        console.log(values);
+      }
+
       return {
-        activeKey: ref('1'),
+        registerForm,
+        handleSubmit,
       };
     },
   });
