@@ -1,10 +1,15 @@
 import { otherHttp } from '/@/utils/http/axios';
 
 enum Api {
-  Wallet = '/usr/loadBalanceOverview',
+  Wallet = '/usr/searchBalance',
+  Change = '/admin/changeUserBalance',
+  Assets = '/usr/searchBalanceRecord',
+  Flow = '/usr/searchWithdraw',
+  DepositAuth = '/admin/doneTopup',
+  WithdrawAuth = '/admin/doneWithdraw',
 }
 
-export function usersApi(params: any) {
+export function walletApi(params: any) {
   return otherHttp
     .request({
       method: 'GET',
@@ -12,7 +17,7 @@ export function usersApi(params: any) {
       params,
     })
     .then((res) => {
-      const r = mergeUser(res);
+      const r = mergeWallet(res);
       const data = {
         items: r,
         total: res.total,
@@ -21,18 +26,115 @@ export function usersApi(params: any) {
     });
 }
 
-function mergeUser(data) {
+function mergeWallet(data) {
   const users = data.users;
-  const balances = data.balances;
-  const online = data.online;
-  const result = users.map((item) => {
-    const item1 = balances[item.tid];
+  const list = data.balances;
+  const result = list.map((item) => {
+    const item1 = users[item.user_id];
+    const balances = item.balance;
     const balance = {
-      balance: item1?.[200]?.free ?? 0,
-      locked: item1?.[200]?.locked ?? 0,
+      fundsFree: balances?.[100]?.free ?? 0,
+      fundsLocked: balances?.[100]?.locked ?? 0,
+      spotFree: balances?.[200]?.free ?? 0,
+      spotLocked: balances?.[200]?.locked ?? 0,
+      optionFree: balances?.[300]?.free ?? 0,
+      optionLocked: balances?.[300]?.locked ?? 0,
     };
-    const isOnline = online[item.tid] ? '在线' : '不在线';
-    return { ...item, ...balance, isOnline };
+    const others = {
+      symbol: item.asset,
+      user_id: item.user_id,
+      account: item1.account,
+    };
+
+    return { ...others, ...balance };
   });
   return result;
+}
+
+export function changeApi(params: any) {
+  return otherHttp.request({
+    method: 'POST',
+    url: Api.Change,
+    params,
+  });
+}
+
+export function assetsChangdRecordApi(params: any) {
+  return otherHttp
+    .request({
+      method: 'GET',
+      url: Api.Assets,
+      params,
+    })
+    .then((res) => {
+      const r = mergeAssets(res);
+      const data = {
+        items: r,
+        total: res.total,
+      };
+      return data;
+    });
+}
+
+function mergeAssets(data) {
+  const users = data.users;
+  const list = data.records;
+  const result = list.map((item) => {
+    const item1 = users[item.user_id];
+    const others = {
+      user_id: item.user_id,
+      account: item1.account,
+    };
+
+    return { ...others, ...item };
+  });
+  return result;
+}
+
+export function flowApi(params: any) {
+  return otherHttp
+    .request({
+      method: 'GET',
+      url: Api.Flow,
+      params,
+    })
+    .then((res) => {
+      const r = mergeFlow(res);
+      const data = {
+        items: r,
+        total: res.total,
+      };
+      return data;
+    });
+}
+
+function mergeFlow(data) {
+  const users = data.users;
+  const list = data.withdraws;
+  const result = list.map((item) => {
+    const item1 = users[item.user_id];
+    const others = {
+      user_id: item.user_id,
+      account: item1.account,
+    };
+
+    return { ...others, ...item };
+  });
+  return result;
+}
+
+export function depositAuthApi(params: any) {
+  return otherHttp.request({
+    method: 'POST',
+    url: Api.DepositAuth,
+    params,
+  });
+}
+
+export function withdrawAuthApi(params: any) {
+  return otherHttp.request({
+    method: 'POST',
+    url: Api.WithdrawAuth,
+    params,
+  });
 }

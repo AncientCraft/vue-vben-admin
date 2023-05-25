@@ -6,8 +6,9 @@
 <script lang="ts">
   import { defineComponent } from 'vue';
   import { BasicTable, useTable, BasicColumn } from '/@/components/Table';
-  import { demoListApi } from '/@/api/demo/table';
+  import { assetsChangdRecordApi } from '/@/api/wallet';
   import { getAssetColumns } from './tableData';
+  import { stransformParams } from '/@/utils/formatValue';
 
   const columns: BasicColumn[] = getAssetColumns();
   export default defineComponent({
@@ -15,11 +16,20 @@
     setup() {
       const [registerTable] = useTable({
         title: '用户资产变更记录',
-        api: demoListApi,
+        api: assetsChangdRecordApi,
         columns: columns,
         bordered: true,
         showTableSetting: true,
+        beforeFetch: formatParams,
       });
+
+      function formatParams(p) {
+        const extra = {
+          type: [500, 600],
+        };
+        const params = { ...p, ...extra };
+        return stransformParams(params);
+      }
 
       return {
         registerTable,

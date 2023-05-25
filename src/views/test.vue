@@ -4,6 +4,7 @@
     <Button @click="userInfo">UserInfo</Button>
     <Button @click="symbol">symbol</Button>
     <Button @click="assets">assets</Button>
+    <Button @click="wallet">wallet</Button>
   </Card>
 </template>
 <script lang="ts" setup>
@@ -13,7 +14,7 @@
   import { usersApi } from '/@/api/users';
   import { symbolsApi } from '/@/api/symbol';
   import { assetsApi } from '/@/api/assets';
-  // import { tradingApi } from '/@/api/exchange/orders';
+  import { flowApi } from '/@/api/wallet';
   // import { mergeList } from '/@/utils/lists';
 
   const loading = ref(false);
@@ -32,7 +33,7 @@
   const userInfo = async () => {
     const params = {
       offset: 0,
-      // limit: 3,
+      limit: 3,
     };
     const result = await usersApi(params);
     console.log(result);
@@ -55,8 +56,15 @@
   const assets = async () => {
     const result = await assetsApi();
     console.log(result);
-    // const rr = timestampToString(1684576749016);
-    // console.log(rr);
   };
-  assetsApi;
+
+  const wallet = async () => {
+    const params = {
+      // offset: 0,
+      skip: 0,
+      limit: 3,
+    };
+    const result = await flowApi(params);
+    console.log(result);
+  };
 </script>

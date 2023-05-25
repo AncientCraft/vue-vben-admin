@@ -21,12 +21,12 @@ export function getUserColumns(): BasicColumn[] {
     },
     {
       title: '总资产(USDT)',
-      dataIndex: 'balance',
+      dataIndex: 'totalFree',
       width: 60,
     },
     {
       title: '总冻结(USDT)',
-      dataIndex: 'locked',
+      dataIndex: 'totalLocked',
       width: 60,
     },
     {
@@ -109,12 +109,12 @@ export function getTraderColumns(): BasicColumn[] {
     },
     {
       title: '总资产(USDT)',
-      dataIndex: 'total_assets',
+      dataIndex: 'totalFree',
       width: 60,
     },
     {
       title: '总冻结(USDT)',
-      dataIndex: 'total_frozen',
+      dataIndex: 'totalLocked',
       width: 60,
     },
     {

@@ -1,7 +1,7 @@
 <template>
   <div class="p-4">
     <BasicTable @register="registerTable">
-      <template #bodyCell="{ column, record, text }">
+      <template #bodyCell="{ column, record }">
         <template v-if="column.key === 'action'">
           <TableAction
             :actions="[
@@ -13,36 +13,35 @@
             ]"
           />
         </template>
-        <template v-if="column.key === 'addr'">
-          1234567890
-          <Button type="text" shape="circle" @click="handleEdit(text)">
-            <template #icon><CopyOutlined /></template>
-          </Button>
-        </template>
       </template>
     </BasicTable>
+    <div>
+      <WalletModal @register="registerDetail" />
+    </div>
   </div>
 </template>
 <script lang="ts">
   import { defineComponent } from 'vue';
   import { BasicTable, useTable, BasicColumn, TableAction } from '/@/components/Table';
-  import { demoListApi } from '/@/api/demo/table';
+  import { walletApi } from '/@/api/wallet';
   import { getWalletColumns, getFormConfig } from './tableData';
-  import { Button } from 'ant-design-vue';
-  import { CopyOutlined } from '@ant-design/icons-vue';
+  import { stransformParams } from '/@/utils/formatValue';
+  import { useModal } from '/@/components/Modal';
+  import WalletModal from './components/WalletForm.vue';
 
   const columns: BasicColumn[] = getWalletColumns();
   export default defineComponent({
-    components: { BasicTable, TableAction, Button, CopyOutlined },
+    components: { BasicTable, TableAction, WalletModal },
     setup() {
       const [registerTable] = useTable({
         title: '钱包管理',
-        api: demoListApi,
+        api: walletApi,
         columns: columns,
         bordered: true,
         showTableSetting: true,
         useSearchForm: true,
         formConfig: getFormConfig(),
+        beforeFetch: formatParams,
         actionColumn: {
           width: 30,
           title: '操作',
@@ -50,8 +49,15 @@
         },
       });
 
+      const [registerDetail, { openModal: openModal1 }] = useModal();
+
+      function formatParams(params) {
+        return stransformParams(params);
+      }
+
       function handleEdit(record) {
         console.log(record);
+        openModal1(true, record);
       }
 
       function handleDelete(record) {
@@ -70,6 +76,7 @@
         handleDelete,
         createGroup,
         changeStatus,
+        registerDetail,
       };
     },
   });

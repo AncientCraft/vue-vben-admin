@@ -9,12 +9,12 @@
               {
                 label: '同意',
                 icon: 'material-symbols:edit-outline',
-                onClick: handleEdit.bind(null, record),
+                onClick: handleAuth.bind(null, record, 300),
               },
               {
                 label: '拒绝',
                 icon: 'ic:outline-delete-outline',
-                onClick: handleDelete.bind(null, record),
+                onClick: handleAuth.bind(null, record, 320),
               },
             ]"
           />
@@ -29,9 +29,11 @@
 <script lang="ts">
   import { defineComponent } from 'vue';
   import { BasicTable, useTable, BasicColumn, TableAction } from '/@/components/Table';
-  import { demoListApi } from '/@/api/demo/table';
+  import { flowApi, depositAuthApi } from '/@/api/wallet';
   import { getDepositColumns } from './tableData';
   import { Switch } from 'ant-design-vue';
+  import { stransformParams } from '/@/utils/formatValue';
+  import { okOrFail } from '/@/utils/actions';
 
   const columns: BasicColumn[] = getDepositColumns();
   export default defineComponent({
@@ -39,10 +41,11 @@
     setup() {
       const [registerTable] = useTable({
         title: '充币申请',
-        api: demoListApi,
+        api: flowApi,
         columns: columns,
         bordered: true,
         showTableSetting: true,
+        beforeFetch: formatParams,
         actionColumn: {
           width: 60,
           title: '操作',
@@ -50,8 +53,21 @@
         },
       });
 
-      function handleEdit(record) {
-        console.log(record);
+      function formatParams(p) {
+        const extra = {
+          type: 200,
+        };
+        const params = { ...p, ...extra };
+        return stransformParams(params);
+      }
+
+      async function handleAuth(record, type) {
+        const params = {
+          order_id: record.order_id,
+          status: type,
+        };
+        const r = await depositAuthApi(params);
+        okOrFail(r);
       }
 
       function handleDelete(record) {
@@ -66,7 +82,7 @@
 
       return {
         registerTable,
-        handleEdit,
+        handleAuth,
         handleDelete,
         createGroup,
         changeStatus,

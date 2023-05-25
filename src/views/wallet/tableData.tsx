@@ -6,13 +6,13 @@ export function getWalletColumns(): BasicColumn[] {
   return [
     {
       title: '用户账号',
-      dataIndex: 'id',
+      dataIndex: 'account',
       fixed: 'left',
       width: 60,
     },
     {
       title: '用户ID',
-      dataIndex: 'id',
+      dataIndex: 'user_id',
       width: 60,
     },
     {
@@ -20,22 +20,17 @@ export function getWalletColumns(): BasicColumn[] {
       dataIndex: 'symbol',
       width: 60,
     },
-    // {
-    //   title: '地址',
-    //   dataIndex: 'addr',
-    //   width: 150,
-    // },
     {
       title: '法币',
       children: [
         {
           title: '余额',
-          dataIndex: 'fbye',
+          dataIndex: 'fundsFree',
           width: 30,
         },
         {
           title: '冻结',
-          dataIndex: 'fbdj',
+          dataIndex: 'fundsLocked',
           width: 30,
         },
       ],
@@ -45,12 +40,12 @@ export function getWalletColumns(): BasicColumn[] {
       children: [
         {
           title: '余额',
-          dataIndex: 'bbye',
+          dataIndex: 'spotFree',
           width: 30,
         },
         {
           title: '冻结',
-          dataIndex: 'bbdj',
+          dataIndex: 'spotLocked',
           width: 30,
         },
       ],
@@ -60,12 +55,12 @@ export function getWalletColumns(): BasicColumn[] {
       children: [
         {
           title: '余额',
-          dataIndex: 'option_b',
+          dataIndex: 'optionFree',
           width: 30,
         },
         {
           title: '冻结',
-          dataIndex: 'option_f',
+          dataIndex: 'optionLocked',
           width: 30,
         },
       ],
@@ -77,18 +72,18 @@ export function getAssetColumns(): BasicColumn[] {
   return [
     {
       title: '用户账号',
-      dataIndex: 'id',
+      dataIndex: 'account',
       fixed: 'left',
       width: 60,
     },
     {
       title: '用户ID',
-      dataIndex: 'id',
+      dataIndex: 'user_id',
       width: 60,
     },
     {
       title: '币种',
-      dataIndex: 'symbol',
+      dataIndex: 'asset',
       width: 60,
     },
     {
@@ -103,7 +98,7 @@ export function getAssetColumns(): BasicColumn[] {
     },
     {
       title: '变更数量',
-      dataIndex: 'quantity',
+      dataIndex: 'changed',
       width: 60,
     },
     {
@@ -118,7 +113,7 @@ export function getAssetColumns(): BasicColumn[] {
     },
     {
       title: '变更时间',
-      dataIndex: 'last_times',
+      dataIndex: 'update_time',
       width: 80,
     },
     {
@@ -133,18 +128,18 @@ export function getDepositColumns(): BasicColumn[] {
   return [
     {
       title: '用户账号',
-      dataIndex: 'id',
+      dataIndex: 'account',
       fixed: 'left',
       width: 60,
     },
     {
       title: '用户ID',
-      dataIndex: 'id',
+      dataIndex: 'user_id',
       width: 60,
     },
     {
       title: '币种',
-      dataIndex: 'symbol',
+      dataIndex: 'asset',
       width: 60,
     },
     {
@@ -154,7 +149,7 @@ export function getDepositColumns(): BasicColumn[] {
     },
     {
       title: '支付凭证',
-      dataIndex: 'account',
+      dataIndex: 'transfoer_image',
       width: 60,
     },
     {
@@ -164,17 +159,17 @@ export function getDepositColumns(): BasicColumn[] {
     },
     {
       title: '金额(USDT)',
-      dataIndex: 'total_assets',
+      dataIndex: 'price',
       width: 60,
     },
     {
       title: '交易状态',
-      dataIndex: 'after_changed',
+      dataIndex: 'status',
       width: 60,
     },
     {
       title: '时间',
-      dataIndex: 'last_times',
+      dataIndex: 'update_time',
       width: 80,
     },
   ];
@@ -184,18 +179,18 @@ export function getWithdrawColumns(): BasicColumn[] {
   return [
     {
       title: '用户账号',
-      dataIndex: 'id',
+      dataIndex: 'account',
       fixed: 'left',
       width: 60,
     },
     {
       title: '用户ID',
-      dataIndex: 'id',
+      dataIndex: 'user_id',
       width: 60,
     },
     {
       title: '币种',
-      dataIndex: 'symbol',
+      dataIndex: 'asset',
       width: 60,
     },
     {
@@ -204,28 +199,23 @@ export function getWithdrawColumns(): BasicColumn[] {
       width: 60,
     },
     {
-      title: '手续费',
-      dataIndex: 'account',
-      width: 60,
-    },
-    {
-      title: '提币数量',
+      title: '数量',
       dataIndex: 'quantity',
       width: 60,
     },
     {
       title: '金额(USDT)',
-      dataIndex: 'total_assets',
+      dataIndex: 'price',
       width: 60,
     },
     {
-      title: '状态',
-      dataIndex: 'after_changed',
+      title: '交易状态',
+      dataIndex: 'status',
       width: 60,
     },
     {
-      title: '提币时间',
-      dataIndex: 'last_times',
+      title: '时间',
+      dataIndex: 'update_time',
       width: 80,
     },
   ];

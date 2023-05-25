@@ -19,25 +19,32 @@
         </template>
       </template>
     </BasicTable>
+    <div>
+      <Modal @register="registerDetail" />
+    </div>
   </div>
 </template>
 <script lang="ts">
   import { defineComponent } from 'vue';
   import { BasicTable, useTable, BasicColumn, TableAction } from '/@/components/Table';
-  import { demoListApi } from '/@/api/demo/table';
-  import { getDepositColumns } from './tableData';
+  import { flowApi } from '/@/api/wallet';
+  import { getWithdrawColumns } from './tableData';
   import { Switch } from 'ant-design-vue';
+  import { stransformParams } from '/@/utils/formatValue';
+  import { useModal } from '/@/components/Modal';
+  import Modal from './components/WithDrawDetail.vue';
 
-  const columns: BasicColumn[] = getDepositColumns();
+  const columns: BasicColumn[] = getWithdrawColumns();
   export default defineComponent({
-    components: { BasicTable, TableAction, Switch },
+    components: { BasicTable, TableAction, Switch, Modal },
     setup() {
       const [registerTable] = useTable({
         title: '提币申请',
-        api: demoListApi,
+        api: flowApi,
         columns: columns,
         bordered: true,
         showTableSetting: true,
+        beforeFetch: formatParams,
         actionColumn: {
           width: 60,
           title: '操作',
@@ -45,8 +52,19 @@
         },
       });
 
+      const [registerDetail, { openModal: openModal1 }] = useModal();
+
+      function formatParams(p) {
+        const extra = {
+          type: 200,
+        };
+        const params = { ...p, ...extra };
+        return stransformParams(params);
+      }
+
       function handleEdit(record) {
         console.log(record);
+        openModal1(true, record);
       }
 
       function handleDelete(record) {
@@ -65,6 +83,7 @@
         handleDelete,
         createGroup,
         changeStatus,
+        registerDetail,
       };
     },
   });

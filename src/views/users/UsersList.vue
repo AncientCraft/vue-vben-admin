@@ -70,10 +70,7 @@
 
       function handleEdit(record) {
         console.log(record);
-        openModal1(true, {
-          data: 'content',
-          info: 'Info',
-        });
+        openModal1(true, record);
       }
 
       function formatParams(p) {
