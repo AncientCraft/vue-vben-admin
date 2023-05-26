@@ -27,8 +27,8 @@
       </Descriptions>
       <br />
       <Row justify="center">
-        <a-button type="primary">确认提币</a-button>
-        <a-button type="error">返回申请</a-button>
+        <a-button type="primary" @click="handleSubmit(300)">确认提币</a-button>
+        <a-button type="error" @click="handleSubmit(320)">返回申请</a-button>
       </Row>
     </div>
   </BasicModal>
@@ -37,6 +37,8 @@
   import { defineComponent, nextTick, ref } from 'vue';
   import { BasicModal, useModalInner } from '/@/components/Modal';
   import { Descriptions, DescriptionsItem, Row } from 'ant-design-vue';
+  import { withdrawAuthApi } from '/@/api/wallet';
+  import { okOrFail } from '/@/utils/actions';
 
   export default defineComponent({
     components: { BasicModal, Descriptions, DescriptionsItem, Row },
@@ -59,13 +61,19 @@
         v && props.userData && nextTick(() => onDataReceive(props.userData));
       }
 
+      async function handleSubmit(type) {
+        const params = {
+          order_id: userInfo.value.order_id,
+          status: type,
+        };
+        const r = await withdrawAuthApi(params);
+        okOrFail(r);
+      }
+
       return {
         register,
         handleVisibleChange,
-        handleSubmit: async (values: any) => {
-          // getGoodsApi(values);
-          console.log(values);
-        },
+        handleSubmit,
         userInfo,
       };
     },

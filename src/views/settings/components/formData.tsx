@@ -2,7 +2,7 @@ import { FormSchema } from '/@/components/Form/index';
 
 export const schemas: FormSchema[] = [
   {
-    field: 'sec',
+    field: 'interval',
     component: 'Input',
     label: '秒数',
     colProps: {
@@ -11,7 +11,7 @@ export const schemas: FormSchema[] = [
     componentProps: {
       placeholder: '请输入秒数',
     },
-    rules: [{ required: true, pattern: /^[1-9]\d*$/, message: '请输入无符号整数' }],
+    rules: [{ pattern: /^[1-9]\d*$/, message: '请输入无符号整数' }],
   },
   {
     field: 'rate',
@@ -25,7 +25,7 @@ export const schemas: FormSchema[] = [
       // type: 'number',
       // parser: (value: string) => parseInt(value, 10),
     },
-    rules: [{ pattern: /^[1-9]\d*\.?\d*$/, message: '请输入数字' }],
+    rules: [{ pattern: /^[0-9]\d*\.?\d*$/, message: '请输入数字' }],
   },
   {
     field: 'min',

@@ -2,6 +2,7 @@ import type { AppRouteModule } from '/@/router/types';
 
 import { LAYOUT } from '/@/router/constant';
 import { t } from '/@/hooks/web/useI18n';
+// import { RoleEnum } from '/@/enums/roleEnum';
 
 const dashboard: AppRouteModule = {
   path: '/permission',
@@ -12,6 +13,7 @@ const dashboard: AppRouteModule = {
     orderNo: 20,
     icon: 'ion:key-outline',
     title: t('routes.permission.permission'),
+    // roles: [RoleEnum.SUPER],
   },
   children: [
     {

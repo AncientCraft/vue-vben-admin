@@ -4,42 +4,42 @@ export function getOptionsColumns(): BasicColumn[] {
   return [
     {
       title: 'ID',
-      dataIndex: 'id',
-      width: 60,
+      dataIndex: 'order_id',
+      width: 100,
     },
     {
       title: '用户账号',
-      dataIndex: 'id',
+      dataIndex: 'account',
       width: 60,
     },
     {
       title: '真实姓名',
-      dataIndex: 'id',
+      dataIndex: 'name',
       width: 60,
     },
     {
       title: '期权',
-      dataIndex: 'id',
+      dataIndex: 'symbol',
       width: 60,
     },
     {
       title: '类型',
-      dataIndex: 'id',
+      dataIndex: 'type',
       width: 60,
     },
     {
       title: '状态',
-      dataIndex: 'id',
+      dataIndex: 'status',
       width: 60,
     },
     {
       title: '金额(USDT)',
-      dataIndex: 'symbol',
+      dataIndex: 'price',
       width: 60,
     },
     {
       title: '手续费(USDT)',
-      dataIndex: 'symbol',
+      dataIndex: 'fee_filled',
       width: 60,
     },
     {
@@ -69,7 +69,7 @@ export function getOptionsColumns(): BasicColumn[] {
     },
     {
       title: '下单时间',
-      dataIndex: 'symbol',
+      dataIndex: 'create_time',
       width: 60,
     },
     {

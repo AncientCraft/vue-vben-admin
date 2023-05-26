@@ -251,10 +251,11 @@ export function getFormConfig(): Partial<FormProps> {
             { label: '欧元', value: 'EUR' },
             { label: '人民币', value: 'CNY' },
           ],
+          // defaultValue: 'USD',
         },
         colProps: {
-          xl: 2,
-          xxl: 2,
+          xl: 4,
+          xxl: 4,
         },
       },
       {

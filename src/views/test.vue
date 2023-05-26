@@ -12,10 +12,11 @@
   import { Card, Button } from 'ant-design-vue';
   import { loginApi } from '/@/api/auth';
   import { usersApi } from '/@/api/users';
-  import { symbolsApi } from '/@/api/symbol';
+  // import { symbolsApi } from '/@/api/symbol';
   import { assetsApi } from '/@/api/assets';
-  import { flowApi } from '/@/api/wallet';
-  // import { mergeList } from '/@/utils/lists';
+  // import { flowApi, flowApi } from '/@/api/wallet';
+  // import { optionsApi } from '/@/api/option';
+  import { optionSettingApi, currencyApi } from '/@/api/setting';
 
   const loading = ref(false);
 
@@ -42,12 +43,12 @@
   };
 
   const symbol = async () => {
-    const params = {
-      // offset: 0,
-      type: 100,
-      limit: 3,
-    };
-    const result = await symbolsApi(params);
+    // const params = {
+    //   // offset: 0,
+    //   type: 100,
+    //   limit: 3,
+    // };
+    const result = await currencyApi();
     console.log(result);
     // const rr = timestampToString(1684576749016);
     // console.log(rr);
@@ -59,12 +60,13 @@
   };
 
   const wallet = async () => {
-    const params = {
-      // offset: 0,
-      skip: 0,
-      limit: 3,
-    };
-    const result = await flowApi(params);
+    // const params = {
+    //   area: 400,
+    //   type: 200,
+    //   skip: 0,
+    //   limit: 3,
+    // };
+    const result = await optionSettingApi();
     console.log(result);
   };
 </script>

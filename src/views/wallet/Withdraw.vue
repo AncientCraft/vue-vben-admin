@@ -32,7 +32,7 @@
   import { Switch } from 'ant-design-vue';
   import { stransformParams } from '/@/utils/formatValue';
   import { useModal } from '/@/components/Modal';
-  import Modal from './components/WithDrawDetail.vue';
+  import Modal from './components/WithdrawDetail.vue';
 
   const columns: BasicColumn[] = getWithdrawColumns();
   export default defineComponent({

@@ -6,8 +6,8 @@
 <script lang="ts">
   import { defineComponent } from 'vue';
   import { BasicTable, useTable, BasicColumn } from '/@/components/Table';
-  import { demoListApi } from '/@/api/demo/table';
   import { getOptionsColumns } from './tableData';
+  import { optionsApi } from '/@/api/option';
 
   const columns: BasicColumn[] = getOptionsColumns();
   export default defineComponent({
@@ -15,7 +15,7 @@
     setup() {
       const [registerTable] = useTable({
         title: '期权交易',
-        api: demoListApi,
+        api: optionsApi,
         columns: columns,
         bordered: true,
         showTableSetting: true,

@@ -2,6 +2,7 @@ import type { AppRouteModule } from '/@/router/types';
 
 import { LAYOUT } from '/@/router/constant';
 import { t } from '/@/hooks/web/useI18n';
+// import { RoleEnum } from '/@/enums/roleEnum';
 
 const dashboard: AppRouteModule = {
   path: '/user',
@@ -12,6 +13,7 @@ const dashboard: AppRouteModule = {
     orderNo: 30,
     icon: 'mdi:account',
     title: t('routes.user.user'),
+    // roles: [RoleEnum.TEST],
   },
   children: [
     {
