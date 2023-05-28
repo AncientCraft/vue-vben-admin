@@ -23,7 +23,7 @@
           <div>{{ orderStatus(record.status) }}</div>
         </template>
         <template v-if="column.key === 'transfer_image'">
-          <TableImg :size="60" :simpleShow="true" :imgList="getImg()" />
+          <TableImg :size="60" :simpleShow="true" :imgList="getImg(record.transfer_image)" />
         </template>
         <template v-if="column.key === 'update_time'">
           <div>{{ timestampToString(record.update_time) }}</div>
@@ -40,9 +40,11 @@
   // import { Switch } from 'ant-design-vue';
   import { stransformParams, timestampToString, orderStatus } from '/@/utils/formatValue';
   import { okOrFail } from '/@/utils/actions';
+  import { useGlobSetting } from '/@/hooks/setting';
   // import { demoListApi } from '/@/api/demo/table';
 
   const columns: BasicColumn[] = getDepositColumns();
+  const globSetting = useGlobSetting();
   export default defineComponent({
     components: { BasicTable, TableAction, TableImg },
     setup() {
@@ -87,10 +89,9 @@
         console.log(record);
       }
 
-      function getImg() {
-        return [
-          'https://gw.alipayobjects.com/zos/antfincdn/LlvErxo8H9/photo-1503185912284-5271ff81b9a8.webp',
-        ];
+      function getImg(addr: string) {
+        globSetting.uploadUrl;
+        return [globSetting.urlPrefix + addr];
       }
       return {
         registerTable,
