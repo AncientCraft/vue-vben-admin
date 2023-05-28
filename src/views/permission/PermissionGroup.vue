@@ -29,7 +29,8 @@
 <script lang="ts">
   import { defineComponent } from 'vue';
   import { BasicTable, useTable, BasicColumn, TableAction } from '/@/components/Table';
-  import { demoListApi } from '/@/api/demo/table';
+  import { permissionGroupsApi } from '/@/api/permission';
+  // import { demoListApi } from '/@/api/demo/table';
   import { getGroupColumns } from './tableData';
   import GroupModal from './components/GroupForm.vue';
   import { useModal } from '/@/components/Modal';
@@ -40,7 +41,7 @@
     setup() {
       const [registerTable] = useTable({
         title: '管理组',
-        api: demoListApi,
+        api: permissionGroupsApi,
         columns: columns,
         bordered: true,
         showTableSetting: true,

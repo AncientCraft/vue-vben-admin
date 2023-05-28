@@ -34,12 +34,13 @@
 <script lang="ts">
   import { defineComponent } from 'vue';
   import { BasicTable, useTable, BasicColumn, TableAction } from '/@/components/Table';
-  import { usersApi } from '/@/api/users';
+  import { usersApi, updateUsersApi } from '/@/api/users';
   import { getNamesColumns, getFormConfig } from './tableData';
   import { Switch } from 'ant-design-vue';
   import { useModal } from '/@/components/Modal';
   import UserModal from './components/IdDetail.vue';
   import { timestampToString, stransformParams } from '/@/utils/formatValue';
+  import { okOrFail } from '/@/utils/actions';
 
   const columns: BasicColumn[] = getNamesColumns();
   export default defineComponent({
@@ -86,8 +87,14 @@
 
       function createGroup() {}
 
-      function changeStatus(record) {
+      async function changeStatus(record) {
         console.log(record);
+        const params = {
+          tid: record.tid,
+          id_card_status: record.checked ?? false ? 200 : -1,
+        };
+        const r = await updateUsersApi(params);
+        okOrFail(r);
       }
 
       return {

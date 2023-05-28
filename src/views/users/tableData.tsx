@@ -72,7 +72,7 @@ export function getNamesColumns(): BasicColumn[] {
     },
     {
       title: '证件号码',
-      dataIndex: 'id_no',
+      dataIndex: 'id_card_no',
       width: 60,
     },
 
@@ -139,7 +139,7 @@ export function getLoginColumns(): BasicColumn[] {
   return [
     {
       title: 'ID',
-      dataIndex: 'id',
+      dataIndex: 'user_id',
       fixed: 'left',
       width: 60,
     },
@@ -150,17 +150,17 @@ export function getLoginColumns(): BasicColumn[] {
     },
     {
       title: '真实姓名',
-      dataIndex: 'real_name',
+      dataIndex: 'name',
       width: 60,
     },
     {
       title: '登入IP地址',
-      dataIndex: 'addr',
+      dataIndex: 'from_addr',
       width: 100,
     },
     {
       title: '登入时间',
-      dataIndex: 'times',
+      dataIndex: 'last_login_time',
       width: 100,
     },
   ];

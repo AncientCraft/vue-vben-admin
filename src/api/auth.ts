@@ -24,6 +24,13 @@ export function loginApi(params: LoginParams) {
 
 export function userInfoApi() {
   return otherHttp.get({ url: Api.UserInfo }).then((res) => {
+    // const user = res.user;
+    // user.roles = [
+    //   {
+    //     // roleName: 'Super Admin',
+    //     value: 'super',
+    //   },
+    // ];
     return res.user;
   });
 }

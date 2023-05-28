@@ -112,19 +112,19 @@ export const schemasGroup: FormSchema[] = [
 export const treeData: TreeProps['treeData'] = [
   {
     title: '用户',
-    key: '0',
+    key: '20',
     children: [
       {
         title: '用户列表',
-        key: '0-1',
+        key: '2001',
       },
       {
         title: '实名管理',
-        key: '0-2',
+        key: '2002',
       },
       {
         title: '交易员管理',
-        key: '0-3',
+        key: '2003',
       },
       {
         title: '登入日志',
@@ -134,71 +134,71 @@ export const treeData: TreeProps['treeData'] = [
   },
   {
     title: '钱包',
-    key: '1',
+    key: '30',
     children: [
       {
         title: '钱包管理',
-        key: '1-1',
+        key: '3001',
       },
       {
         title: '资产变更记录',
-        key: '1-2',
+        key: '3002',
       },
       {
         title: '充币申请',
-        key: '1-3',
+        key: '3003',
       },
       {
         title: '提币申请',
-        key: '1-4',
+        key: '3004',
       },
     ],
   },
   {
     title: '币种',
-    key: '2',
+    key: '40',
     children: [
       {
         title: '币种管理',
-        key: '2-1',
+        key: '4001',
       },
       {
         title: '法币比例',
-        key: '2-2',
+        key: '4002',
       },
     ],
   },
   {
     title: '期权',
-    key: '3',
-    children: [
-      {
-        title: '期权交易',
-        key: '3-1',
-      },
-    ],
+    key: '50',
+    // children: [
+    //   {
+    //     title: '期权交易',
+    //     key: '5001',
+    //   },
+    // ],
   },
   {
     title: '资产',
-    key: '4',
-    children: [
-      {
-        title: '资产详情',
-        key: '4-1',
-      },
-    ],
+    key: '60',
+    // children: [
+    //   {
+    //     title: '资产详情',
+    //     key: '4-1',
+    //   },
+    // ],
   },
   {
     title: '设置',
-    key: '5',
+    key: '70',
     children: [
       {
         title: '基础设置',
-        key: '5-1',
+        key: '7001',
       },
       {
         title: '期权设置',
-        key: '5-2',
+        key: '7002',
       },
     ],
   },

@@ -2,6 +2,9 @@ import { otherHttp } from '/@/utils/http/axios';
 
 enum Api {
   Users = '/usr/searchUser',
+  Add = 'usr/addUser',
+  Update = '/usr/updateUser',
+  LoginLog = '/usr/listUserRecord',
 }
 
 export function usersApi(params: any) {
@@ -45,6 +48,49 @@ function mergeUser(data) {
     };
     const isOnline = online[item.tid] ? '在线' : '不在线';
     return { ...item, ...balance, isOnline };
+  });
+  return result;
+}
+
+export function addUsersApi(params: any) {
+  return otherHttp.request({
+    method: 'POST',
+    url: Api.Add,
+    params,
+  });
+}
+
+export function updateUsersApi(params: any) {
+  return otherHttp.request({
+    method: 'POST',
+    url: Api.Update,
+    params,
+  });
+}
+
+export function loginLogApi(params: any) {
+  return otherHttp
+    .request({
+      method: 'GET',
+      url: Api.LoginLog,
+      params,
+    })
+    .then((res) => {
+      const r = mergeLog(res);
+      const data = {
+        items: r,
+        total: res.total,
+      };
+      return data;
+    });
+}
+
+function mergeLog(data) {
+  const users = data.users;
+  const list = data.records;
+  const result = list.map((item) => {
+    const item1 = users[item.user_id];
+    return { ...item, ...item1 };
   });
   return result;
 }

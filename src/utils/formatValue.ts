@@ -25,3 +25,18 @@ export function string_to_timestamp(dateString) {
   }
   return null;
 }
+
+export function orderStatus(s) {
+  switch (s) {
+    case 100:
+      return '未处理';
+    case 200:
+      return '已审核';
+    case 300:
+      return '已完成';
+    case 320:
+      return '拒绝';
+    default:
+      return '未知';
+  }
+}

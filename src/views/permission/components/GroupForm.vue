@@ -26,13 +26,7 @@
           <a-input v-model:value="formState.username" />
         </FormItem>
         <FormItem label="权限分配">
-          <Tree
-            v-model:expandedKeys="expandedKeys"
-            v-model:selectedKeys="selectedKeys"
-            v-model:checkedKeys="checkedKeys"
-            checkable
-            :tree-data="treeData"
-          >
+          <Tree v-model:checkedKeys="checkedKeys" checkable :tree-data="treeData">
             <template #title="{ title, key }">
               <span v-if="key === '0-0-1-0'" style="color: #1890ff">{{ title }}</span>
               <template v-else>{{ title }}</template>
@@ -41,7 +35,7 @@
         </FormItem>
 
         <FormItem :wrapper-col="{ offset: 8, span: 16 }">
-          <a-button type="primary" html-type="submit">Submit</a-button>
+          <a-button type="primary" html-type="submit">提交</a-button>
         </FormItem>
       </Form>
     </div>
@@ -70,9 +64,9 @@
       const type = ref('');
       const tid = ref(0);
 
-      const expandedKeys = ref<string[]>(['0-0-0', '0-0-1']);
-      const selectedKeys = ref<string[]>(['0-0-0', '0-0-1']);
-      const checkedKeys = ref<string[]>(['0-0-0', '0-0-1']);
+      // const expandedKeys = ref<string[]>(['0-0-0', '0-0-1']);
+      // const selectedKeys = ref<string[]>(['0-0-0', '0-0-1']);
+      const checkedKeys = ref<string[]>(['30', '40']);
 
       const formState = reactive<FormState>({
         username: '',
@@ -80,12 +74,12 @@
         remember: true,
       });
 
-      watch(expandedKeys, () => {
-        console.log('expandedKeys', expandedKeys);
-      });
-      watch(selectedKeys, () => {
-        console.log('selectedKeys', selectedKeys);
-      });
+      // watch(expandedKeys, () => {
+      //   console.log('expandedKeys', expandedKeys);
+      // });
+      // watch(selectedKeys, () => {
+      //   console.log('selectedKeys', selectedKeys);
+      // });
       watch(checkedKeys, () => {
         console.log('checkedKeys', checkedKeys);
       });
@@ -146,8 +140,8 @@
         handleVisibleChange,
         onFinish,
         treeData,
-        expandedKeys,
-        selectedKeys,
+        // expandedKeys,
+        // selectedKeys,
         checkedKeys,
 
         formState,

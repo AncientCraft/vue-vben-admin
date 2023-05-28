@@ -23,7 +23,7 @@
         <DescriptionsItem label="银行:"> {{ userInfo.phone }} </DescriptionsItem>
         <DescriptionsItem label="提币账号:"> {{ userInfo.phone }} </DescriptionsItem>
         <DescriptionsItem label="申请时间:"> {{ userInfo.create_time }} </DescriptionsItem>
-        <DescriptionsItem label="状态:"> {{ userInfo.status }} </DescriptionsItem>
+        <DescriptionsItem label="状态:"> {{ orderStatus(userInfo.status) }} </DescriptionsItem>
       </Descriptions>
       <br />
       <Row justify="center">
@@ -39,6 +39,7 @@
   import { Descriptions, DescriptionsItem, Row } from 'ant-design-vue';
   import { withdrawAuthApi } from '/@/api/wallet';
   import { okOrFail } from '/@/utils/actions';
+  import { orderStatus } from '/@/utils/formatValue';
 
   export default defineComponent({
     components: { BasicModal, Descriptions, DescriptionsItem, Row },
@@ -75,6 +76,7 @@
         handleVisibleChange,
         handleSubmit,
         userInfo,
+        orderStatus,
       };
     },
   });

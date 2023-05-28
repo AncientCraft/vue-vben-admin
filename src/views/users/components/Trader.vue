@@ -10,7 +10,7 @@
     :footer="null"
   >
     <div>
-      <BasicForm @register="registerForm" />
+      <BasicForm @register="registerForm" @submit="handleSubmit" />
     </div>
   </BasicModal>
 </template>
@@ -18,24 +18,33 @@
   import { defineComponent, nextTick } from 'vue';
   import { BasicModal, useModalInner } from '/@/components/Modal';
   import { BasicForm, FormSchema, useForm } from '/@/components/Form/index';
+  import { addUsersApi } from '/@/api/users';
+  import { okOrFail } from '/@/utils/actions';
   // import { Descriptions, DescriptionsItem, Image } from 'ant-design-vue';
 
   const schemas: FormSchema[] = [
     {
-      field: 'field1',
+      field: 'account',
       component: 'Input',
-      label: '字段1',
+      label: '账号',
       colProps: {
-        span: 24,
+        span: 13,
       },
-      defaultValue: '111',
     },
     {
-      field: 'field2',
+      field: 'password',
       component: 'Input',
-      label: '字段2',
+      label: '密码',
       colProps: {
-        span: 24,
+        span: 13,
+      },
+    },
+    {
+      field: 'name',
+      component: 'Input',
+      label: '备注',
+      colProps: {
+        span: 13,
       },
     },
   ];
@@ -53,7 +62,10 @@
       const [registerForm, { setFieldsValue }] = useForm({
         labelWidth: 120,
         schemas,
-        showActionButtonGroup: false,
+        showActionButtonGroup: true,
+        submitButtonOptions: {
+          text: '提交',
+        },
         actionColOptions: {
           span: 8,
         },
@@ -73,8 +85,10 @@
         handleVisibleChange,
         registerForm,
         handleSubmit: async (values: any) => {
+          const r = await addUsersApi(values);
+          okOrFail(r);
           // getGoodsApi(values);
-          console.log(values);
+          // console.log(values);
         },
       };
     },

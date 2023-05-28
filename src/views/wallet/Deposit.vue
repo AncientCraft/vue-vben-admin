@@ -20,7 +20,13 @@
           />
         </template>
         <template v-if="column.key === 'status'">
-          <Switch v-model:checked="record.status" @change="changeStatus(record)" />
+          <div>{{ orderStatus(record.status) }}</div>
+        </template>
+        <template v-if="column.key === 'transfer_image'">
+          <TableImg :size="60" :simpleShow="true" :imgList="getImg()" />
+        </template>
+        <template v-if="column.key === 'update_time'">
+          <div>{{ timestampToString(record.update_time) }}</div>
         </template>
       </template>
     </BasicTable>
@@ -28,16 +34,17 @@
 </template>
 <script lang="ts">
   import { defineComponent } from 'vue';
-  import { BasicTable, useTable, BasicColumn, TableAction } from '/@/components/Table';
+  import { BasicTable, useTable, BasicColumn, TableAction, TableImg } from '/@/components/Table';
   import { flowApi, depositAuthApi } from '/@/api/wallet';
   import { getDepositColumns } from './tableData';
-  import { Switch } from 'ant-design-vue';
-  import { stransformParams } from '/@/utils/formatValue';
+  // import { Switch } from 'ant-design-vue';
+  import { stransformParams, timestampToString, orderStatus } from '/@/utils/formatValue';
   import { okOrFail } from '/@/utils/actions';
+  // import { demoListApi } from '/@/api/demo/table';
 
   const columns: BasicColumn[] = getDepositColumns();
   export default defineComponent({
-    components: { BasicTable, TableAction, Switch },
+    components: { BasicTable, TableAction, TableImg },
     setup() {
       const [registerTable] = useTable({
         title: '充币申请',
@@ -80,12 +87,20 @@
         console.log(record);
       }
 
+      function getImg() {
+        return [
+          'https://gw.alipayobjects.com/zos/antfincdn/LlvErxo8H9/photo-1503185912284-5271ff81b9a8.webp',
+        ];
+      }
       return {
         registerTable,
         handleAuth,
         handleDelete,
         createGroup,
         changeStatus,
+        timestampToString,
+        orderStatus,
+        getImg,
       };
     },
   });

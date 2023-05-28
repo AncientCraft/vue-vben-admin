@@ -1,23 +1,19 @@
 <template>
   <div class="p-4">
+    <a-button type="primary" @click="createGroup">新增</a-button>
     <BasicTable @register="registerTable">
       <template #bodyCell="{ column, record }">
         <template v-if="column.key === 'action'">
           <TableAction
             :actions="[
+              // {
+              //   label: '台面分',
+              //   icon: 'mdi:account-check-outline',
+              //   onClick: handleEdit.bind(null, record),
+              // },
               {
-                label: '详情',
-                icon: 'mdi:account-details',
-                onClick: handleEdit.bind(null, record),
-              },
-              {
-                label: '冻结',
-                icon: 'game-icons:frozen-orb',
-                onClick: handleEdit.bind(null, record),
-              },
-              {
-                label: '钱包',
-                icon: 'solar:wallet-bold',
+                label: '删除',
+                icon: 'ic:outline-delete-outline',
                 onClick: handleDelete.bind(null, record),
               },
             ]"
@@ -32,7 +28,10 @@
       </template>
     </BasicTable>
     <div>
-      <UserModal @register="registerDetail" />
+      <Modal @register="registerDetail" />
+    </div>
+    <div>
+      <WalletModal @register="registerWallet" />
     </div>
   </div>
 </template>
@@ -40,15 +39,17 @@
   import { defineComponent } from 'vue';
   import { BasicTable, useTable, BasicColumn, TableAction } from '/@/components/Table';
   import { usersApi } from '/@/api/users';
+  // import { demoListApi } from '/@/api/demo/table';
   import { getUserColumns, getFormConfig } from './tableData';
   import { Switch } from 'ant-design-vue';
   import { useModal } from '/@/components/Modal';
-  import UserModal from './components/UserDetail.vue';
+  import Modal from './components/Trader.vue';
+  import WalletModal from '../wallet/components/WalletForm.vue';
   import { timestampToString, stransformParams } from '/@/utils/formatValue';
 
   const columns: BasicColumn[] = getUserColumns();
   export default defineComponent({
-    components: { BasicTable, TableAction, Switch, UserModal },
+    components: { BasicTable, TableAction, Switch, Modal, WalletModal },
     setup() {
       const [registerTable] = useTable({
         title: '交易员管理',
@@ -67,20 +68,18 @@
       });
 
       const [registerDetail, { openModal: openModal1 }] = useModal();
+      const [registerWallet, { openModal: openModal2 }] = useModal();
 
       function handleEdit(record) {
         console.log(record);
-        openModal1(true, {
-          data: 'content',
-          info: 'Info',
+        openModal2(true, {
+          record,
         });
       }
 
       function formatParams(p) {
         const extra = {
-          type: 10,
-          role: 100,
-          status: 100,
+          role: 400,
         };
         const params = { ...p, ...extra };
         return stransformParams(params);
@@ -90,7 +89,11 @@
         console.log(record);
       }
 
-      function createGroup() {}
+      function createGroup() {
+        openModal1(true, {
+          type: 'new',
+        });
+      }
 
       function changeStatus(record) {
         console.log(record);
@@ -104,6 +107,7 @@
         changeStatus,
         registerDetail,
         timestampToString,
+        registerWallet,
       };
     },
   });

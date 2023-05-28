@@ -149,8 +149,8 @@ export function getDepositColumns(): BasicColumn[] {
     },
     {
       title: '支付凭证',
-      dataIndex: 'transfoer_image',
-      width: 60,
+      dataIndex: 'transfer_image',
+      width: 100,
     },
     {
       title: '数量',

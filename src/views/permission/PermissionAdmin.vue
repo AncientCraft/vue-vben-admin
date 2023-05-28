@@ -32,11 +32,13 @@
 <script lang="ts">
   import { defineComponent } from 'vue';
   import { BasicTable, useTable, BasicColumn, TableAction } from '/@/components/Table';
-  import { demoListApi } from '/@/api/demo/table';
+  import { usersApi } from '/@/api/users';
+  // import { demoListApi } from '/@/api/demo/table';
   import { getAdminColumns } from './tableData';
   import { Switch, Button } from 'ant-design-vue';
   import AdminModal from './components/AdminForm.vue';
   import { useModal } from '/@/components/Modal';
+  import { stransformParams } from '/@/utils/formatValue';
 
   const columns: BasicColumn[] = getAdminColumns();
   export default defineComponent({
@@ -44,10 +46,11 @@
     setup() {
       const [registerTable] = useTable({
         title: '管理员',
-        api: demoListApi,
+        api: usersApi,
         columns: columns,
         bordered: true,
         showTableSetting: true,
+        beforeFetch: formatParams,
         actionColumn: {
           width: 60,
           title: '操作',
@@ -56,6 +59,14 @@
       });
 
       const [registerModel, { openModal: openModal1 }] = useModal();
+
+      function formatParams(p) {
+        const extra = {
+          type: 10,
+        };
+        const params = { ...p, ...extra };
+        return stransformParams(params);
+      }
 
       function handleEdit(record) {
         console.log(record);

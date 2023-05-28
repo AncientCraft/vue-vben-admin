@@ -79,8 +79,26 @@ export function assetsChangdRecordApi(params: any) {
 function mergeAssets(data) {
   const users = data.users;
   const list = data.records;
+  // const balances = data.balances;
   const result = list.map((item) => {
     const item1 = users[item.user_id];
+    // const item2 = balances[item.tid];
+    // const fundsFree = item1?.[100]?.free ?? '0';
+    // const fundsLocked = item1?.[100]?.locked ?? '0';
+    // const spotFree = item1?.[200]?.free ?? '0';
+    // const spotLocked = item1?.[200]?.locked ?? '0';
+    // const optionFree = item1?.[400]?.free ?? '0';
+    // const optionLocked = item1?.[400]?.locked ?? '0';
+    // const balance = {
+    //   fundsFree,
+    //   fundsLocked,
+    //   spotFree,
+    //   spotLocked,
+    //   optionFree,
+    //   optionLocked,
+    //   totalFree: parseFloat(fundsFree) + parseFloat(spotFree) + parseFloat(optionFree),
+    //   totalLocked: parseFloat(fundsLocked) + parseFloat(spotLocked) + parseFloat(optionLocked),
+    // };
     const others = {
       user_id: item.user_id,
       account: item1.account,
@@ -125,7 +143,7 @@ function mergeFlow(data) {
 
 export function depositAuthApi(params: any) {
   return otherHttp.request({
-    method: 'POST',
+    method: 'GET',
     url: Api.DepositAuth,
     params,
   });
@@ -133,7 +151,7 @@ export function depositAuthApi(params: any) {
 
 export function withdrawAuthApi(params: any) {
   return otherHttp.request({
-    method: 'POST',
+    method: 'GET',
     url: Api.WithdrawAuth,
     params,
   });

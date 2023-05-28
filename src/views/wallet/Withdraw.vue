@@ -15,7 +15,10 @@
           />
         </template>
         <template v-if="column.key === 'status'">
-          <Switch v-model:checked="record.status" @change="changeStatus(record)" />
+          <div>{{ orderStatus(record.status) }}</div>
+        </template>
+        <template v-if="column.key === 'update_time'">
+          <div>{{ timestampToString(record.update_time) }}</div>
         </template>
       </template>
     </BasicTable>
@@ -29,14 +32,14 @@
   import { BasicTable, useTable, BasicColumn, TableAction } from '/@/components/Table';
   import { flowApi } from '/@/api/wallet';
   import { getWithdrawColumns } from './tableData';
-  import { Switch } from 'ant-design-vue';
-  import { stransformParams } from '/@/utils/formatValue';
+  // import { Switch } from 'ant-design-vue';
+  import { stransformParams, timestampToString, orderStatus } from '/@/utils/formatValue';
   import { useModal } from '/@/components/Modal';
   import Modal from './components/WithdrawDetail.vue';
 
   const columns: BasicColumn[] = getWithdrawColumns();
   export default defineComponent({
-    components: { BasicTable, TableAction, Switch, Modal },
+    components: { BasicTable, TableAction, Modal },
     setup() {
       const [registerTable] = useTable({
         title: '提币申请',
@@ -56,7 +59,7 @@
 
       function formatParams(p) {
         const extra = {
-          type: 200,
+          type: 100,
         };
         const params = { ...p, ...extra };
         return stransformParams(params);
@@ -84,6 +87,8 @@
         createGroup,
         changeStatus,
         registerDetail,
+        timestampToString,
+        orderStatus,
       };
     },
   });
