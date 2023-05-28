@@ -285,3 +285,11 @@ export const otherHttp = createAxios({
     joinTime: false,
   },
 });
+
+export const uploadHttp = createAxios({
+  requestOptions: {
+    apiUrl: globSetting.uploadUrl,
+    isTransformResponse: false,
+    joinTime: false,
+  },
+});
