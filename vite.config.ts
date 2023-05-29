@@ -22,10 +22,10 @@ export default defineApplicationConfig({
           ws: true,
           rewrite: (path) => path.replace(new RegExp(`^/basic-api`), ''),
           // only https
-          // secure: false
+          // secure: false,
         },
         '/upload': {
-          target: 'https://wap.v140.excservice.rosettawe.com',
+          target: 'https://wap.v140.excservice.rosettawe.com/user/upload',
           changeOrigin: true,
           ws: true,
           rewrite: (path) => path.replace(new RegExp(`^/upload`), ''),
