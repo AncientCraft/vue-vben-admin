@@ -1,6 +1,6 @@
 <template>
   <div class="p-4">
-    <a-button type="primary" @click="createItem">新增</a-button>
+    <Button type="primary" @click="createItem">新增</Button>
     <BasicTable @register="registerTable">
       <template #bodyCell="{ column, record }">
         <template v-if="column.key === 'action'">
@@ -19,32 +19,38 @@
             ]"
           />
         </template>
+        <template v-if="column.key === 'status'">
+          <Switch v-model:checked="record.status" @change="changeStatus(record)" />
+        </template>
       </template>
     </BasicTable>
     <div>
-      <GroupModal @register="registerModel" />
+      <AdminModal @register="registerModel" />
     </div>
   </div>
 </template>
 <script lang="ts">
   import { defineComponent } from 'vue';
   import { BasicTable, useTable, BasicColumn, TableAction } from '/@/components/Table';
-  import { permissionGroupsApi } from '/@/api/permission';
+  import { usersApi } from '/@/api/users';
   // import { demoListApi } from '/@/api/demo/table';
-  import { getGroupColumns } from './tableData';
-  import GroupModal from './components/GroupForm.vue';
+  import { getAdminColumns } from './tableData';
+  import { Switch, Button } from 'ant-design-vue';
+  import AdminModal from './components/AdminForm.vue';
   import { useModal } from '/@/components/Modal';
+  import { stransformParams } from '/@/utils/formatValue';
 
-  const columns: BasicColumn[] = getGroupColumns();
+  const columns: BasicColumn[] = getAdminColumns();
   export default defineComponent({
-    components: { BasicTable, TableAction, GroupModal },
+    components: { BasicTable, TableAction, Switch, Button, AdminModal },
     setup() {
       const [registerTable] = useTable({
-        title: '管理组',
-        api: permissionGroupsApi,
+        title: '管理员',
+        api: usersApi,
         columns: columns,
         bordered: true,
         showTableSetting: true,
+        beforeFetch: formatParams,
         actionColumn: {
           width: 60,
           title: '操作',
@@ -54,12 +60,24 @@
 
       const [registerModel, { openModal: openModal1 }] = useModal();
 
+      function formatParams(p) {
+        const extra = {
+          type: 10,
+        };
+        const params = { ...p, ...extra };
+        return stransformParams(params);
+      }
+
       function handleEdit(record) {
         console.log(record);
         openModal1(true, {
           type: 'update',
           info: record,
         });
+      }
+
+      function handleDelete(record) {
+        console.log(record);
       }
 
       function createItem() {
@@ -69,7 +87,7 @@
         });
       }
 
-      function handleDelete(record) {
+      function changeStatus(record) {
         console.log(record);
       }
 
@@ -77,6 +95,7 @@
         registerTable,
         handleEdit,
         handleDelete,
+        changeStatus,
         registerModel,
         createItem,
       };

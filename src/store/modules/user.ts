@@ -1,5 +1,5 @@
 import type { UserInfo } from '/#/store';
-// import type { ErrorMessageMode } from '/#/axios';
+import type { ErrorMessageMode } from '/#/axios';
 import { defineStore } from 'pinia';
 import { store } from '/@/store';
 import { RoleEnum } from '/@/enums/roleEnum';
@@ -7,16 +7,13 @@ import { PageEnum } from '/@/enums/pageEnum';
 import { ROLES_KEY, TOKEN_KEY, USER_INFO_KEY } from '/@/enums/cacheEnum';
 import { getAuthCache, setAuthCache } from '/@/utils/auth';
 import { GetUserInfoModel, LoginParams } from '/@/api/sys/model/userModel';
-// import { getUserInfo, loginApi } from '/@/api/sys/user';
-// import { getUserInfo } from '/@/api/sys/user';
-import { loginApi, userInfoApi, logoutApi } from '/@/api/exchange/user';
-// import { UserInfoModel } from '/@/api/exchange/model/userModel';
+import { loginApi, userInfoApi, logoutApi } from '/@/api/auth';
 import { useI18n } from '/@/hooks/web/useI18n';
 import { useMessage } from '/@/hooks/web/useMessage';
 import { router } from '/@/router';
-// import { usePermissionStore } from '/@/store/modules/permission';
-// import { RouteRecordRaw } from 'vue-router';
-// import { PAGE_NOT_FOUND_ROUTE } from '/@/router/routes/basic';
+import { usePermissionStore } from '/@/store/modules/permission';
+import { RouteRecordRaw } from 'vue-router';
+import { PAGE_NOT_FOUND_ROUTE } from '/@/router/routes/basic';
 import { isArray } from '/@/utils/is';
 import { h } from 'vue';
 
@@ -85,81 +82,45 @@ export const useUserStore = defineStore({
     /**
      * @description: login
      */
-    async login(params: LoginParams): Promise<GetUserInfoModel | null> {
+    async login(
+      params: LoginParams & {
+        goHome?: boolean;
+        mode?: ErrorMessageMode;
+      },
+    ): Promise<GetUserInfoModel | null> {
       try {
-        const token = await loginApi(params);
-        // const { token } = data;
+        const { goHome = true, ...loginParams } = params;
+        // const data = await loginApi(loginParams, mode);
+        const data = await loginApi(loginParams);
+        const { token } = data;
 
         // save token
         this.setToken(token);
-        return this.afterLoginAction();
+        return this.afterLoginAction(goHome);
       } catch (error) {
         return Promise.reject(error);
       }
     },
-    // async login(params: any): Promise<UserInfo | null> {
-    //   try {
-    //     // const { goHome = true, ...loginParams } = params;
-    //     await loginApi(params);
-    //     const userInfo = {
-    //       userId: '1',
-    //       username: 'vben',
-    //       realName: 'Vben Admin',
-    //       avatar: '',
-    //       desc: 'manager',
-    //       password: '123456',
-    //       token: 'fakeToken1',
-    //       homePath: '/overview/index',
-    //       roles: [
-    //         {
-    //           roleName: 'Super Admin',
-    //           value: 'super',
-    //         },
-    //       ],
-    //     };
-    //     this.setUserInfo(userInfo);
-    //     // console.log(data);
-    //     this.setSessionTimeout(false);
-    //     // save token
-    //     this.setToken('123376444');
-    //     this.setRoleList([RoleEnum.SUPER]);
-    //     await router.replace(PageEnum.BASE_HOME);
-    //     return userInfo;
-    //     // return this.afterLoginAction(false);
-    //   } catch (error) {
-    //     return Promise.reject(error);
-    //   }
-    // },
-
-    // async afterLoginAction(goHome?: boolean): Promise<GetUserInfoModel | null> {
-    //   if (!this.getToken) return null;
-    //   // get user info
-    //   const userInfo = await this.getUserInfoAction();
-
-    //   const sessionTimeout = this.sessionTimeout;
-    //   if (sessionTimeout) {
-    //     this.setSessionTimeout(false);
-    //   } else {
-    //     const permissionStore = usePermissionStore();
-    //     if (!permissionStore.isDynamicAddedRoute) {
-    //       const routes = await permissionStore.buildRoutesAction();
-    //       routes.forEach((route) => {
-    //         router.addRoute(route as unknown as RouteRecordRaw);
-    //       });
-    //       router.addRoute(PAGE_NOT_FOUND_ROUTE as unknown as RouteRecordRaw);
-    //       permissionStore.setDynamicAddedRoute(true);
-    //     }
-    //     // goHome && (await router.replace(userInfo?.homePath || PageEnum.BASE_HOME));
-    //     goHome && (await router.replace(PageEnum.BASE_HOME));
-    //   }
-    //   return userInfo;
-    // },
-    async afterLoginAction(): Promise<GetUserInfoModel | null> {
+    async afterLoginAction(goHome?: boolean): Promise<GetUserInfoModel | null> {
       if (!this.getToken) return null;
       // get user info
       const userInfo = await this.getUserInfoAction();
 
-      await router.replace(PageEnum.BASE_HOME);
+      const sessionTimeout = this.sessionTimeout;
+      if (sessionTimeout) {
+        this.setSessionTimeout(false);
+      } else {
+        const permissionStore = usePermissionStore();
+        if (!permissionStore.isDynamicAddedRoute) {
+          const routes = await permissionStore.buildRoutesAction();
+          routes.forEach((route) => {
+            router.addRoute(route as unknown as RouteRecordRaw);
+          });
+          router.addRoute(PAGE_NOT_FOUND_ROUTE as unknown as RouteRecordRaw);
+          permissionStore.setDynamicAddedRoute(true);
+        }
+        goHome && (await router.replace(userInfo?.homePath || PageEnum.BASE_HOME));
+      }
       return userInfo;
     },
     async getUserInfoAction(): Promise<UserInfo | null> {

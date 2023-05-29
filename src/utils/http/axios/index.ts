@@ -280,12 +280,16 @@ export const defHttp = createAxios();
 // other api url
 export const otherHttp = createAxios({
   requestOptions: {
-    // apiUrl: 'https://v200.excservice.rosettawe.com/pub',
-    // apiUrl: '/ex-api',
     apiUrl: globSetting.apiUrl,
-    urlPrefix: '',
     isTransformResponse: false,
-    // isReturnNativeResponse: true,
+    joinTime: false,
+  },
+});
+
+export const uploadHttp = createAxios({
+  requestOptions: {
+    apiUrl: globSetting.uploadUrl,
+    isTransformResponse: false,
     joinTime: false,
   },
 });
