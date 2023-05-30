@@ -34,24 +34,24 @@ const dashboard: AppRouteModule = {
         title: t('routes.permission.admin'),
       },
     },
-    {
-      path: 'loginlog',
-      name: 'PermissionLoginLog',
-      component: () => import('/@/views/permission/LoginLog.vue'),
-      meta: {
-        // affix: true,
-        title: t('routes.permission.loginLog'),
-      },
-    },
-    {
-      path: 'actionlog',
-      name: 'PermissionActionLog',
-      component: () => import('/@/views/permission/ActionLog.vue'),
-      meta: {
-        // affix: true,
-        title: t('routes.permission.actionLog'),
-      },
-    },
+    // {
+    //   path: 'loginlog',
+    //   name: 'PermissionLoginLog',
+    //   component: () => import('/@/views/permission/LoginLog.vue'),
+    //   meta: {
+    //     // affix: true,
+    //     title: t('routes.permission.loginLog'),
+    //   },
+    // },
+    // {
+    //   path: 'actionlog',
+    //   name: 'PermissionActionLog',
+    //   component: () => import('/@/views/permission/ActionLog.vue'),
+    //   meta: {
+    //     // affix: true,
+    //     title: t('routes.permission.actionLog'),
+    //   },
+    // },
   ],
 };
 

@@ -25,7 +25,7 @@ export default defineApplicationConfig({
           // secure: false,
         },
         '/upload': {
-          target: 'http://localhost:3831/user/upload',
+          target: 'https://wap.v140.excservice.rosettawe.com/usr/upload',
           changeOrigin: true,
           ws: true,
           rewrite: (path) => path.replace(new RegExp(`^/upload`), ''),

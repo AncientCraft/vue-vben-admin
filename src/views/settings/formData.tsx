@@ -22,7 +22,7 @@ export const schemas: FormSchema[] = [
     },
   },
   {
-    field: 'fieldsc',
+    field: 'logo',
     component: 'Upload',
     label: '网站Logo',
     colProps: {
@@ -34,7 +34,7 @@ export const schemas: FormSchema[] = [
     },
   },
   {
-    field: 'fieldsc',
+    field: 'avtar',
     component: 'Upload',
     label: '用户默认头像',
     colProps: {
@@ -74,7 +74,7 @@ export const schemas: FormSchema[] = [
     },
   },
   {
-    field: 'fieldsc',
+    field: 'add',
     component: 'Upload',
     label: 'Bnner图',
     colProps: {
