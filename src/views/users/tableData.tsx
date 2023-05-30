@@ -31,7 +31,7 @@ export function getUserColumns(): BasicColumn[] {
     },
     {
       title: '期权控制',
-      dataIndex: 'options_controll',
+      dataIndex: 'control',
       width: 60,
     },
     {

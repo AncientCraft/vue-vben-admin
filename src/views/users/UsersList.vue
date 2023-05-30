@@ -23,11 +23,15 @@
             ]"
           />
         </template>
-        <template v-if="column.key === 'options_controll'">
-          <Switch v-model:checked="record.options_controll" @change="changeStatus(record)" />
+        <template v-if="column.key === 'control'">
+          <div>{{ controllStatus(record.control) }}</div>
+          <!-- <Switch v-model:checked="record.options_controll" @change="changeStatus(record)" /> -->
         </template>
         <template v-if="column.key === 'last_login_time'">
           <div>{{ timestampToString(record.last_login_time) }}</div>
+        </template>
+        <template v-if="column.key === 'status'">
+          <div>{{ userStatus(record.status) }}</div>
         </template>
       </template>
     </BasicTable>
@@ -41,14 +45,19 @@
   import { BasicTable, useTable, BasicColumn, TableAction } from '/@/components/Table';
   import { usersApi } from '/@/api/users';
   import { getUserColumns, getFormConfig } from './tableData';
-  import { Switch } from 'ant-design-vue';
+  // import { Switch } from 'ant-design-vue';
   import { useModal } from '/@/components/Modal';
   import UserModal from './components/UserDetail.vue';
-  import { timestampToString, stransformParams } from '/@/utils/formatValue';
+  import {
+    timestampToString,
+    stransformParams,
+    userStatus,
+    controllStatus,
+  } from '/@/utils/formatValue';
 
   const columns: BasicColumn[] = getUserColumns();
   export default defineComponent({
-    components: { BasicTable, TableAction, Switch, UserModal },
+    components: { BasicTable, TableAction, UserModal },
     setup() {
       const [registerTable] = useTable({
         title: '用户列表',
@@ -101,6 +110,8 @@
         changeStatus,
         registerDetail,
         timestampToString,
+        userStatus,
+        controllStatus,
       };
     },
   });

@@ -23,22 +23,22 @@ const dashboard: AppRouteModule = {
         title: t('routes.analysis'),
       },
     },
-    {
-      path: 'workbench',
-      name: 'Workbench',
-      component: () => import('/@/views/dashboard/workbench/index.vue'),
-      meta: {
-        title: t('routes.workbench'),
-      },
-    },
-    {
-      path: 'test',
-      name: 'Test',
-      component: () => import('/@/views/test.vue'),
-      meta: {
-        title: '测试',
-      },
-    },
+    // {
+    //   path: 'workbench',
+    //   name: 'Workbench',
+    //   component: () => import('/@/views/dashboard/workbench/index.vue'),
+    //   meta: {
+    //     title: t('routes.workbench'),
+    //   },
+    // },
+    // {
+    //   path: 'test',
+    //   name: 'Test',
+    //   component: () => import('/@/views/test.vue'),
+    //   meta: {
+    //     title: '测试',
+    //   },
+    // },
   ],
 };
 

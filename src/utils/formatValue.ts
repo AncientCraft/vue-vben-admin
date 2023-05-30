@@ -40,3 +40,27 @@ export function orderStatus(s) {
       return '未知';
   }
 }
+
+export function userStatus(s) {
+  switch (s) {
+    case 100:
+      return '正常';
+    case 200:
+      return '冻结';
+    default:
+      return '未知';
+  }
+}
+
+export function controllStatus(s) {
+  switch (s) {
+    case 100:
+      return '正常';
+    case 200:
+      return '控赢';
+    case 300:
+      return '控输';
+    default:
+      return '未知';
+  }
+}

@@ -11,7 +11,7 @@
   import { ref } from 'vue';
   import { Card, Button } from 'ant-design-vue';
   import { loginApi } from '/@/api/auth';
-  // import { usersApi, loginLogApi } from '/@/api/users';
+  import { usersApi } from '/@/api/users';
   // import { symbolsApi } from '/@/api/symbol';
   import { assetsApi } from '/@/api/assets';
   // import { flowApi, flowApi } from '/@/api/wallet';
@@ -32,14 +32,12 @@
   };
 
   const userInfo = async () => {
-    // const params = {
-    //   skip: 0,
-    //   limit: 3,
-    // };
-    // const result = await loginLogApi(params);
-    // console.log(result);
-    // const rr = timestampToString(1684576749016);
-    // console.log(rr);
+    const params = {
+      skip: 0,
+      limit: 3,
+    };
+    const result = await usersApi(params);
+    console.log(result);
   };
 
   const symbol = async () => {
