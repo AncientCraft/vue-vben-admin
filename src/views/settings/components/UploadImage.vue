@@ -10,7 +10,7 @@
       :before-upload="beforeUpload"
       @change="handleChange"
     >
-      <Image v-if="imageUrl" :src="imageUrl" alt="avatar" />
+      <Image v-if="subUrl" :src="getRealUrl(subUrl)" alt="avatar" />
       <div v-else>
         <LoadingOutlined v-if="loading" />
         <PlusOutlined v-else />
@@ -22,13 +22,13 @@
 <script setup lang="ts">
   import { PlusOutlined, LoadingOutlined } from '@ant-design/icons-vue';
   import { message, Upload, Image } from 'ant-design-vue';
-  import { ref, defineProps, onMounted } from 'vue';
+  import { ref, defineProps } from 'vue';
   import type { UploadChangeParam, UploadProps } from 'ant-design-vue';
   import { useGlobSetting } from '/@/hooks/setting';
 
   const { uploadUrl = '', urlPrefix = '' } = useGlobSetting();
 
-  const props = defineProps({
+  defineProps({
     subUrl: {
       type: String,
       required: true,
@@ -39,17 +39,9 @@
 
   const fileList = ref([]);
   const loading = ref<boolean>(false);
-  const imageUrl = ref<string>('');
-
-  onMounted(() => {
-    if (props.subUrl !== '') {
-      imageUrl.value = urlPrefix + props.subUrl;
-    }
-  });
-  // const imageSubUrl = ref<string>('');
+  // const imageUrl = ref<string>('');
 
   const handleChange = (info: UploadChangeParam) => {
-    // console.log(info);
     if (info.file.status === 'uploading') {
       loading.value = true;
       return;
@@ -57,7 +49,7 @@
     if (info.file.status === 'done') {
       const tempUrl = info.file.response.path;
       emit('image-done', tempUrl);
-      imageUrl.value = urlPrefix + tempUrl;
+      // imageUrl.value = urlPrefix + tempUrl;
       loading.value = false;
     }
     if (info.file.status === 'error') {
@@ -77,6 +69,10 @@
     }
     return isJpgOrPng && isLt2M;
   };
+
+  function getRealUrl(url) {
+    return urlPrefix + url;
+  }
 </script>
 <style scoped>
   .avatar-uploader > .ant-upload {

@@ -4,6 +4,8 @@ enum Api {
   Options = '/usr/loadCurrency',
   Currency = '/usr/searchCurrency',
   Update = '/admin/updateCurrency',
+  GetSys = '/usr/loadSysConfig',
+  UpdateSys = '/usr/updateSysConfig',
 }
 
 export function optionSettingApi(params: any) {
@@ -41,4 +43,23 @@ export function currencyApi() {
     .then((res) => {
       return res.names;
     });
+}
+
+export function getSysApi() {
+  return otherHttp
+    .request({
+      method: 'GET',
+      url: Api.GetSys,
+    })
+    .then((res) => {
+      return res.config;
+    });
+}
+
+export function updateSysApi(params: any) {
+  return otherHttp.request({
+    method: 'POST',
+    url: Api.UpdateSys,
+    params,
+  });
 }
